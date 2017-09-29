@@ -1,17 +1,10 @@
 <template>
   <div>
     <!-- navigation -->
-    <nav class="nav has-shadow">
-      <div class="container">
-        <div class="nav-left">
-          <nuxt-link to="/" class="nav-item">
-            Awesome JS SSR Blog!
-          </nuxt-link>
-          <nuxt-link active-class="is-active" to="/" class="nav-item is-tab" exact>Home</nuxt-link>
-          <nuxt-link active-class="is-active" to="/about" class="nav-item is-tab" exact>About</nuxt-link>
-        </div>
-      </div>
-    </nav>
+    <app-header
+      :menu="menu"
+      :count="count"
+    />
     <!-- /navigation -->
 
     <!-- displays the page component -->
@@ -19,3 +12,49 @@
 
   </div>
 </template>
+
+<script>
+import AppHeader from '~/components/Header1.vue'
+import { mapGetters, mapActions } from 'vuex'
+import Cart from '../helpers/Cart'
+
+export default {
+  computed: {
+    ...mapGetters(['menu', 'count'])
+  },
+  methods: {
+    ...mapActions(['fetchMenu', 'fetchBreadcrumbs', 'fetchSettings', 'fetchContentPage', 'getStone', 'fetchRedirects'])
+  },
+  mixins: [Cart],
+  components: {
+    AppHeader
+  },
+  asyncData () {
+    return Promise.all([
+      this.fetchMenu(),
+      this.fetchSettings(),
+      this.fetchContentPage(),
+      this.fetchRedirects(),
+      this.getStone()
+    ]).then(resp => console.log('>>> ', resp))
+  },
+  mounted () {
+    this.fetchMenu()
+    this.getCart()
+    this.fetchSettings()
+    this.fetchContentPage()
+    this.fetchRedirects()
+    this.getStone()
+    window.$('.materialboxed').materialbox()
+    window.$('#cartIsEmptyIndex').modal({
+      opacity: 1,
+      ready: function (el) {
+        window.$('.overlay').fadeIn(500)
+      },
+      complete: function () {
+        window.$('.overlay').fadeOut(500)
+      }
+    })
+  }
+}
+</script>

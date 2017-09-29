@@ -1,0 +1,1 @@
+export const CONTENT_LIST_URL = 'CONTENT_LIST_URL'
