@@ -10,11 +10,22 @@
     <!-- displays the page component -->
     <nuxt/>
 
+    <!-- footer -->
+    <app-footer :menu="menu"></app-footer>
+    <div id="cartIsEmptyIndex" class="modal">
+      <div class="modal-content"><span class="modal-action modal-close modal-close--top icon-cancel"></span>
+        <div class="modal-head">Ваша козина пуста.</div>
+        <div class="modal-foot clearfix">
+          <span class="waves-effect waves-light modal-close"><span class="icon-16-arrow-link"></span>Ок</span>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import AppHeader from '~/components/Header1.vue'
+import AppFooter from '~/components/Footer.vue'
 import { mapGetters, mapActions } from 'vuex'
 import Cart from '../helpers/Cart'
 
@@ -27,24 +38,23 @@ export default {
   },
   mixins: [Cart],
   components: {
-    AppHeader
+    AppHeader,
+    AppFooter
   },
-  asyncData () {
-    return Promise.all([
-      this.fetchMenu(),
-      this.fetchSettings(),
-      this.fetchContentPage(),
-      this.fetchRedirects(),
-      this.getStone()
-    ]).then(resp => console.log('>>> ', resp))
+  beforeCreate () {
+    this.$store.dispatch('fetchMenu')
+    this.$store.dispatch('fetchSettings')
+    this.$store.dispatch('fetchContentPage')
+    this.$store.dispatch('fetchRedirects')
+    this.$store.dispatch('getStone')
   },
   mounted () {
-    this.fetchMenu()
+    /* this.fetchMenu() */
     this.getCart()
-    this.fetchSettings()
-    this.fetchContentPage()
-    this.fetchRedirects()
-    this.getStone()
+    /* this.fetchSettings() */
+    /* this.fetchContentPage() */
+    /* this.fetchRedirects() */
+    /* this.getStone() */
     window.$('.materialboxed').materialbox()
     window.$('#cartIsEmptyIndex').modal({
       opacity: 1,
@@ -58,3 +68,34 @@ export default {
   }
 }
 </script>
+
+<style>
+  .overlay {
+    opacity: 0.5;
+    background: rgb(0, 0, 0);
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    z-index: 900;
+    display: none;
+  }
+
+  #cartIsEmptyIndex {
+    max-width: 400px;
+  }
+
+  #cartIsEmptyIndex .modal-head {
+    text-align: center;
+    padding-top: 25px;
+  }
+
+  #cartIsEmptyIndex .modal-foot {
+    text-align: center;
+  }
+
+  #cartIsEmptyIndex .modal-foot .modal-close {
+    padding: 0 30px;
+  }
+</style>

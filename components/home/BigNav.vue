@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import ImageHelper from '../../helpers/ImageHelper'
+import ImageHelper from '../../helpers/ImageHelper.js'
 export default {
   props: ['topCats'],
   mixins: [ImageHelper],

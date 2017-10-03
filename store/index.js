@@ -15,6 +15,7 @@ import settings from './settings'
 import articles from './articles'
 import stones from './stones'
 import redirect from './redirect'
+import meta from './meta'
 
 Vue.use(Vuex)
 
@@ -34,7 +35,8 @@ const createStore = () => {
       settings,
       articles,
       stones,
-      redirect
+      redirect,
+      meta
     }
   })
 }

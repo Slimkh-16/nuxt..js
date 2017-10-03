@@ -1,4 +1,4 @@
-import { statusOfProduct, classNameByStatus } from '../../enum'
+import { statusOfProduct, classNameByStatus } from '../enum'
 
 const combineMultyFilters = (arr) => {
   let multyFilter = {
@@ -14,7 +14,12 @@ const combineMultyFilters = (arr) => {
       if (f.filter_id === multyFilter.filter_id) {
         splitObj(f, multyFilter.obj)
       } else {
-        multyFilter.obj ? (newArr.push(multyFilter.obj), updateMultyFilter(multyFilter, f)) : updateMultyFilter(multyFilter, f)
+        if (multyFilter.obj) {
+          newArr.push(multyFilter.obj)
+          updateMultyFilter(multyFilter, f)
+        } else {
+          updateMultyFilter(multyFilter, f)
+        }
       }
     }
   })

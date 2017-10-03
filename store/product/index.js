@@ -6,13 +6,11 @@ import ConfigHelper from '../../helpers/ConfigHelper'
 import * as types from './mutationTypes'
 import qs from 'qs'
 import urlsList from '../../helpers/urlsList'
-import * as config from '../../config/index'
 
 const API_URL = ConfigHelper.get('apiUrl')
 const PRODUCT_LIST_URL = API_URL + '/products'
 const FILTERS_LIST_URL = API_URL + '/filters'
 const MENU_LIST_URL = API_URL + '/categories'
-const GET_META_URL = API_URL + `/seo?url=${config.url}`
 
 const router = createRouter()
 
@@ -94,9 +92,10 @@ const getters = {
 }
 
 const actions = {
-  fetchFilters ({commit}) {
+  fetchFilters ({commit, state}) {
     return new Promise((resolve, reject) => {
       commit(types.FILTERS_LIST_FETCH_PROCESSING)
+      console.log('fetchFilters', state.cat_id)
       axios.get(`${FILTERS_LIST_URL}/${state.cat_id}`).then((res) => {
         let filters = res.data.data.filter(f => f.feature_type)
         commit(types.FILTERS_LIST_FETCH_SUCCESS, filters)
@@ -107,7 +106,7 @@ const actions = {
       })
     })
   },
-  fetchProductList ({commit}, filters = {}) {
+  fetchProductList ({commit, state}, filters = {}) {
     return new Promise((resolve, reject) => {
       let catId = getters.cat_id(state) ? `category=${getters.cat_id(state)}` : ''
       commit(types.PRODUCT_LIST_FETCH_PROCESSING)
@@ -140,7 +139,8 @@ const actions = {
   setGrade ({commit}, grade = 'asc') {
     commit(types.GRADE_SET_SUCCESS, grade)
   },
-  setCatId ({commit}, catId = null) {
+  setCatId ({commit}, catId) {
+    console.log('catId from vuex ', catId)
     commit(types.CAT_ID_SET_SUCCESS, catId)
   },
   fetchProduct ({commit}) {
@@ -182,7 +182,7 @@ const actions = {
       })
     })
   },
-  fetchBreadcrumbs ({commit}, alias) {
+  fetchBreadcrumbs ({commit, state}, alias) {
     return new Promise((resolve, reject) => {
       let id = state.cat_id || alias
       if (id) {
@@ -192,6 +192,7 @@ const actions = {
           find.categoryName = 'Products alias'
           commit(types.BREADCRUMBS_SET, [find])
           resolve([find])
+          console.log(111111)
         } else {
           _.forEach(categories, function (obj) {
             find = _.find(obj.children, { 'alias': id })
@@ -200,6 +201,7 @@ const actions = {
               obj.categoryName = 'Products alias'
               commit(types.BREADCRUMBS_SET, [obj, find])
               resolve([obj, find])
+              console.log(222222)
             } else {
               _.forEach(obj.children, function (childObj) {
                 find = _.find(childObj.children, { 'alias': id })
@@ -209,8 +211,10 @@ const actions = {
                   find.categoryName = 'Products subCategoryChild'
                   commit(types.BREADCRUMBS_SET, [obj, childObj, find])
                   resolve([obj, childObj, find])
+                  console.log(3333)
                 } else {
                   reject(new Error(`not Breadcrumbs for == ${id} == category`))
+                  console.log(404)
                 }
               })
             }
@@ -218,6 +222,7 @@ const actions = {
         }
       } else {
         reject(new Error('not id category'))
+        console.log(404)
       }
     })
   },
@@ -232,18 +237,6 @@ const actions = {
         })
         .catch((error) => {
           reject(error)
-        })
-    })
-  },
-  getMeta ({commit}, url) {
-    return new Promise((resolve, reject) => {
-      axios.get(`${GET_META_URL}${url}`)
-        .then((res) => {
-          let response = res.data.data instanceof Array ? undefined : res.data.data
-          resolve(response)
-        })
-        .catch(() => {
-          resolve(undefined)
         })
     })
   }
@@ -268,6 +261,7 @@ const mutations = {
     state.productList = data.productList
     state.productTotal = data.productTotal
     state.productListPage = data.productListPage
+    console.log('>>>>>>>>>>>>> fetchProductList')
     return state
   },
   [types.PRODUCT_ITEM_FETCH_SUCCESS] (state, data) {
@@ -291,7 +285,7 @@ const mutations = {
   },
   [types.FILTER_LIST_SET_SUCCESS] (state, data) {
     state.productFilters = data
-    Object.keys(data).filter((k) => k !== 'page' && k !== 'limit' && k !== 'grade').length ? window.$('.mobile-filter__butt.js_open_filter').addClass('check-flt') : window.$('.mobile-filter__butt.js_open_filter').removeClass('check-flt')
+    /* Object.keys(data).filter((k) => k !== 'page' && k !== 'limit' && k !== 'grade').length ? window.$('.mobile-filter__butt.js_open_filter').addClass('check-flt') : window.$('.mobile-filter__butt.js_open_filter').removeClass('check-flt') */
     return state.productFilters
   },
   [types.SET_PRICE_RANGE] (state, data) {
@@ -311,6 +305,7 @@ const mutations = {
   },
   [types.CAT_ID_SET_SUCCESS] (state, data) {
     state.cat_id = data
+    console.log('types.CAT_ID_SET_SUCCESS', state.cat_id)
     return state.cat_id
   },
   [types.MENU_FETCH_PROCESSING] (state) {

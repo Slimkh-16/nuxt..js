@@ -1,5 +1,5 @@
 <template>
-  <section v-if="slider" class="general-slider">
+  <section v-if="isSlider" class="general-slider">
     <div class="swiper-container">
       <div class="swiper-wrapper">
         <div v-for="slide in sortedSlider" :key="slide.id" :style="`background:${getStylesByKey('background_colour', slide)} url(${getStylesByKey('background_image', slide, true)}) no-repeat 50% 50%; background-size: cover`" class="swiper-slide">
@@ -34,6 +34,9 @@ export default {
   computed: {
     sortedSlider () {
       return this.slider.sort((c, n) => c.sort - n.sort)
+    },
+    isSlider () {
+      return this.slider && this.slider.length
     }
   },
   methods: {

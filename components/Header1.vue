@@ -58,12 +58,12 @@
           <div class="navigation-catalog">
             <ul>
               <li v-for="link in menu">
-                <nuxt-link :to="{ name: 'Products alias', params: { 'alias' : link.alias } }" :data-activates="`drop-catalog-${link.id}`" class="dropdown-head-nav">
+                <nuxt-link :to="{ name: 'category_alias', params: { 'category_alias' : link.alias } }" :data-activates="`drop-catalog-${link.id}`" class="dropdown-head-nav">
                   <i>{{link.locale.name}}</i>
                 </nuxt-link>
                 <ul :id="`drop-catalog-${link.id}`" class="dropdown-content">
                   <li v-for="subLink in link.children">
-                    <nuxt-link :to="{ name: 'Products subCategory', params: { 'subCategory' : subLink.alias, 'alias': link.alias } }" :data-activates="`drop-catalog-sublevel-${subLink.id}`" class="dropdown-head-nav">{{subLink.locale.name}}</nuxt-link>
+                    <nuxt-link :to="{ name: 'category_alias-subcategory_alias', params: { 'category_alias' : subLink.alias, 'subcategory_alias': link.alias } }" :data-activates="`drop-catalog-sublevel-${subLink.id}`" class="dropdown-head-nav">{{subLink.locale.name}}</nuxt-link>
                     <ul v-if="subLink.children.length" :id="`drop-catalog-sublevel-${subLink.id}`" class="dropdown-content dropdown-content--sublevel">
                       <li v-for="subLinkChild in subLink.children">
                         <nuxt-link :to="{ name: 'Products subCategoryChild', params: { 'subCategory' : subLink.alias, 'alias': link.alias, 'subCategoryChild': subLinkChild.alias } }">
@@ -235,7 +235,6 @@ export default {
   },
   watch: {
     menu: function () {
-      console.log(this.menu)
       this.$nextTick(() => {
         this.dropdown()
         this.fetchBreadcrumbs()

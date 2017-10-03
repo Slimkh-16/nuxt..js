@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html {{ HTML_ATTRS }}>
   <head>
+    <base href="/" target="_blank">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -53,12 +54,14 @@
   <!-- PRELOADER-->
   <div class="page-wrap">
     <div class="overlay-cart"></div>
-    {{ APP }}
+    <div class="wrapper">
+      {{ APP }}
+    </div>
     <div class="overlay"></div>
-    <script type="text/javascript" src="js/all-plugins.min.js"></script>
+    <script type="text/javascript" src="/js/all-plugins.min.js"></script>
     <script type="text/javascript" src="https://ppcalc.privatbank.ua/pp_calculator/resources/js/calculator.js"></script>
     <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAuu-TeMzXX-X7rBtKjmmVPt12Y_9LtHbY&amp;language=ru"></script>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
   </div>
   </body>
 </html>

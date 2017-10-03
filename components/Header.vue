@@ -56,7 +56,7 @@
           <div class="navigation-catalog">
             <ul>
               <li v-for="link in menu">
-                <nuxt-link :to="{ name: 'Products alias', params: { 'alias' : link.alias } }" :data-activates="`drop-catalog-${link.id}`" class="dropdown-head-nav">
+                <nuxt-link :to="{ name: 'category_alias', params: { 'category_alias' : link.alias } }" :data-activates="`drop-catalog-${link.id}`" class="dropdown-head-nav">
                   <i>{{link.locale.name}}</i>
                 </nuxt-link>
                 <ul :id="`drop-catalog-${link.id}`" class="dropdown-content">
@@ -104,7 +104,7 @@
         <div class="left-fixed-nav__over">
           <ul>
             <li v-for="link in menu" :class="{ 'with-menu': link.children }">
-              <nuxt-link :to="{ name: 'Products alias', params: { 'alias' : link.alias } }" :class="{ 'with-menu-lnk': link.children.length }">
+              <nuxt-link :to="{ name: 'category_alias', params: { 'category_alias' : link.alias } }" :class="{ 'with-menu-lnk': link.children.length }">
                 {{link.locale.name}}
               </nuxt-link>
               <span v-if="link.children.length" class="drop-nav icon-bottom"></span>
