@@ -1,6 +1,5 @@
 import axios from 'axios'
 import _ from 'lodash'
-import {createRouter} from '../../.nuxt/router'
 
 import ConfigHelper from '../../helpers/ConfigHelper'
 import * as types from './mutationTypes'
@@ -11,8 +10,6 @@ const API_URL = ConfigHelper.get('apiUrl')
 const PRODUCT_LIST_URL = API_URL + '/products'
 const FILTERS_LIST_URL = API_URL + '/filters'
 const MENU_LIST_URL = API_URL + '/categories'
-
-const router = createRouter()
 
 const state = {
   isProcessing: false,
@@ -130,23 +127,23 @@ const actions = {
         })
     })
   },
-  setFilters ({commit}, filters = {}) {
+  setFilters ({commit, state}, filters = {}) {
     commit(types.FILTER_LIST_SET_SUCCESS, filters)
   },
-  setLimit ({commit}, limit = 12) {
+  setLimit ({commit, state}, limit = 12) {
     commit(types.LIMIT_SET_SUCCESS, limit)
   },
-  setGrade ({commit}, grade = 'asc') {
+  setGrade ({commit, state}, grade = 'asc') {
     commit(types.GRADE_SET_SUCCESS, grade)
   },
-  setCatId ({commit}, catId) {
+  setCatId ({commit, state}, catId) {
     console.log('catId from vuex ', catId)
     commit(types.CAT_ID_SET_SUCCESS, catId)
   },
-  fetchProduct ({commit}) {
+  fetchProduct ({commit, state}, productAlias) {
     return new Promise((resolve, reject) => {
       commit(types.PRODUCT_ITEM_FETCH_PROCESSING)
-      let url = `${PRODUCT_LIST_URL}/${router.currentRoute.params.alias}`
+      let url = `${PRODUCT_LIST_URL}${productAlias}`
       axios.get(url).then((res) => {
         commit(types.PRODUCT_ITEM_FETCH_SUCCESS, {
           product: res.data.data
@@ -157,7 +154,7 @@ const actions = {
       })
     })
   },
-  emptyProduct ({commit}, emptyProdObj = {
+  emptyProduct ({commit, state}, emptyProdObj = {
     ru_product: {},
     stock: {},
     main_gem: {},
@@ -167,7 +164,7 @@ const actions = {
   }) {
     commit(types.PRODUCT_ITEM_EMPTY, emptyProdObj)
   },
-  fetchMenu ({commit}) {
+  fetchMenu ({commit, state}) {
     return new Promise((resolve, reject) => {
       commit(types.MENU_FETCH_PROCESSING)
       let url = `${MENU_LIST_URL}`
@@ -189,7 +186,7 @@ const actions = {
         var categories = state.menu
         var find = _.find(categories, { 'alias': id })
         if (find) {
-          find.categoryName = 'Products alias'
+          find.categoryName = 'category_alias'
           commit(types.BREADCRUMBS_SET, [find])
           resolve([find])
           console.log(111111)
@@ -197,8 +194,8 @@ const actions = {
           _.forEach(categories, function (obj) {
             find = _.find(obj.children, { 'alias': id })
             if (find) {
-              find.categoryName = 'Products subCategory'
-              obj.categoryName = 'Products alias'
+              find.categoryName = 'category_alias-subcategory_alias'
+              obj.categoryName = 'category_alias'
               commit(types.BREADCRUMBS_SET, [obj, find])
               resolve([obj, find])
               console.log(222222)
@@ -206,9 +203,9 @@ const actions = {
               _.forEach(obj.children, function (childObj) {
                 find = _.find(childObj.children, { 'alias': id })
                 if (find) {
-                  obj.categoryName = 'Products alias'
-                  childObj.categoryName = 'Products subCategory'
-                  find.categoryName = 'Products subCategoryChild'
+                  obj.categoryName = 'category_alias'
+                  childObj.categoryName = 'category_alias-subcategory_alias'
+                  find.categoryName = 'category_alias-subCategoryChild'
                   commit(types.BREADCRUMBS_SET, [obj, childObj, find])
                   resolve([obj, childObj, find])
                   console.log(3333)
@@ -226,10 +223,10 @@ const actions = {
       }
     })
   },
-  sendReviewForProduct ({commit}, data) {
+  sendReviewForProduct ({commit, state}, [data, productAlias]) {
     return new Promise((resolve, reject) => {
       commit(types.SEND_REVIEW_PROCESSING)
-      let url = `${PRODUCT_LIST_URL}/${router.currentRoute.params.alias}/comment`
+      let url = `${PRODUCT_LIST_URL}${productAlias}/comment`
       axios
         .post(url, data)
         .then((res) => {

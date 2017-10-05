@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 import GeneralSlider from '../components/home/GeneralSlider.vue'
 import BigNav from '../components/home/BigNav.vue'
 import CatalogTab from '../components/home/CatalogTab.vue'
@@ -101,9 +101,9 @@ export default {
     'seo-section': SeoSection
   },
   mixins: [SeoHelper],
-  computed: {
+  /* computed: {
     ...mapGetters(['top_products', 'new_products', 'latest_news', 'seo', 'last_reviews', 'slider', 'top_cats', 'silver_cats', 'gold_cats'])
-  },
+  }, */
   methods: {
     ...mapActions(['getHome']),
     masonry () {
@@ -118,6 +118,20 @@ export default {
   },
   beforeCreate () {
     this.$store.dispatch('getHome')
+  },
+  async asyncData ({store}) {
+    let data = await store.dispatch('getHome')
+    return {
+      top_products: data.top_products,
+      new_products: data.new_products,
+      latest_news: data.latest_news,
+      seo: data.seo,
+      last_reviews: data.last_reviews,
+      slider: data.slider,
+      top_cats: data.top_cats,
+      silver_cats: data.silver_cats,
+      gold_cats: data.gold_cats
+    }
   },
   head () {
     return {

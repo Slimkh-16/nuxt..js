@@ -101,7 +101,7 @@ export default {
       return moment(d).locale(this.lang).format('DD MMMM YYYY')
     },
     sendProductReview (data) {
-      this.sendReviewForProduct(data)
+      this.sendReviewForProduct([data, this.$route.path])
         .then((res) => {
           if (res.status === 200) {
             window.$('#modal-review-error').modal('close')

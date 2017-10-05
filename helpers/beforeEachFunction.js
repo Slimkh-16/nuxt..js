@@ -1,4 +1,12 @@
 import urlsList from './urlsList'
+let fetchContentPage = async (to, next, router, store) => {
+  await store.dispatch('fetchContentPage')
+  isContentPage(to, next, router)
+}
+let fetchMenu = async (to, next, router, store) => {
+  await store.dispatch('fetchMenu')
+  isUrlsList(to, next, router)
+}
 
 /**
  * functions for content pages
@@ -6,6 +14,19 @@ import urlsList from './urlsList'
  * if urlsList.contentPagesList not contains content page with url === to.path
  * router redirect to category_alias page
 */
+const checkContentPagesList = (to, next, router, store) => {
+  console.log('***********************')
+  console.log('urlsList.contentPagesList', urlsList.contentPagesList)
+  if (Object.keys(urlsList.contentPagesList).length) {
+    isContentPage(to, next, router)
+  } else {
+    fetchContentPage(to, next, router, store)
+    /* store.dispatch('fetchContentPage').then(() => {
+      checkContentPagesList(to, next, router, store)
+    }) */
+  }
+}
+
 const isContentPage = (to, next, router) => {
   let url = to.path.slice(-1) === '/' ? to.path.slice(0, to.path.length - 1) : to.path
   let redirect = to.path.slice(-1) === '/' ? to.path.slice(0, to.path.length - 1) : false
@@ -15,21 +36,6 @@ const isContentPage = (to, next, router) => {
   } else {
     router.push({name: 'category_alias', params: {'category_alias': to.path.slice(1, to.path.length)}})
   }
-}
-
-const checkContentPagesList = (to, next, router, store) => {
-  console.log('***********************')
-  console.log('urlsList.contentPagesList', urlsList.contentPagesList)
-  if (Object.keys(urlsList.contentPagesList).length) {
-    isContentPage(to, next, router)
-  } else {
-    store.dispatch('fetchContentPage')
-    setTimeout(() => {
-      checkContentPagesList(to, next, router, store)
-    }, 1000)
-  }
-  /* Object.keys(urlsList.contentPagesList).length && isContentPage(to, next, router)
-  next() */
 }
 
 /**
@@ -45,23 +51,23 @@ const checkUrl = (to, next, router, store) => {
   if (Object.keys(urlsList.urlList).length) {
     isUrlsList(to, next, router)
   } else {
-    store.dispatch('fetchMenu')
-    setTimeout(() => { checkUrl(to, next, router, store) }, 1000)
+    fetchMenu(to, next, router, store)
+    /* store.dispatch('fetchMenu').then(() => {
+      checkUrl(to, next, router, store)
+    }) */
   }
-  /* Object.keys(urlsList.urlList).length && isUrlsList(to, next, router) */
 }
 
 const isUrlsList = (to, next, router) => {
   let url = to.path.indexOf('/f/') > -1 ? to.path.slice(0, to.path.indexOf('/f/')) : to.path
   let redirect = to.path.slice(-1) === '/' ? to.path.slice(0, to.path.length - 1) : false
-  console.log(urlsList.urlList[url], redirect)
   /**
    * for single product
    * if this url not belown category - redirect to 'Product page'
    */
   if (!urlsList.urlList[url] && !redirect) {
     router.push({name: 'Product page', params: {'alias': url.slice(1, url.length)}})
-    return
+    return false
   }
   /**
    * for category page
@@ -75,14 +81,23 @@ const isUrlsList = (to, next, router) => {
 }
 
 export default function (to, from, next, router, store) {
-  console.log('===================================')
-  console.log(to.name)
-  console.log('===================================')
-  if (to.name === 'Content page') {
-    checkContentPagesList(to, next, router, store)
-  } else if (to.name === 'category_alias') {
-    checkUrl(to, next, router, store)
-  } else {
-    next()
-  }
+  Promise.all([
+    store.dispatch('fetchContentPage'),
+    store.dispatch('fetchMenu')
+  ]).then(() => {
+    console.log('===================================')
+    console.log(to.name)
+    console.log('===================================')
+    if (to.name === 'Content page') {
+      checkContentPagesList(to, next, router, store)
+      return true
+    } else if (to.name === 'category_alias') {
+      checkUrl(to, next, router, store)
+      return true
+    } else {
+      console.log('====== other page =========')
+      next()
+      return true
+    }
+  })
 }

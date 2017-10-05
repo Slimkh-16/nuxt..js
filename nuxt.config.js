@@ -1,6 +1,7 @@
 let ProductListPage = 'components/_category_alias/index.vue'
 let ContentPage = 'components/ContentPage/ContentPage.vue'
 let ProductPage = 'components/ProductItemPage/ProductItemPage.vue'
+let ContactsPage = 'components/Contacts/ContactsPage.vue'
 
 module.exports = {
   /*
@@ -24,6 +25,62 @@ module.exports = {
     middleware: ['redirectUrls', 'checkUrlOnSlash'],
     extendRoutes (routes, resolve) {
       routes.push(
+        /**
+         * pages with static url
+        */
+        {
+          path: '/contacts',
+          name: 'ContactsPage',
+          component: ContactsPage
+        },
+        /* {
+          path: '/stores',
+          name: 'Stores',
+          component: Stores,
+          beforeEnter (to, from, next) {
+            checkUrlOnSlash(to, next)
+          }
+        },
+        {
+          path: '/stones/:alias',
+          name: 'StonePage',
+          component: StonePage,
+          beforeEnter (to, from, next) {
+            checkUrlOnSlash(to, next)
+          }
+        },
+        {
+          path: '/stores/:id',
+          name: 'StoreOne',
+          component: StoreOne,
+          beforeEnter (to, from, next) {
+            checkUrlOnSlash(to, next)
+          }
+        },
+        {
+          path: '/reviews',
+          name: 'Reviews',
+          component: Reviews,
+          beforeEnter (to, from, next) {
+            checkUrlOnSlash(to, next)
+          }
+        },
+        {
+          path: '/checkout',
+          name: 'Checkout',
+          component: Checkout,
+          beforeEnter (to, from, next) {
+            checkUrlOnSlash(to, next)
+          }
+        },
+        {
+          path: '/search_result',
+          name: 'SearchPage',
+          component: SearchPage,
+          beforeEnter (to, from, next) {
+            checkUrlOnSlash(to, next)
+          }
+        }, */
         /**
          * category with filters
         */

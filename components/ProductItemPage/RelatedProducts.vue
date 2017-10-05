@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import Swiper from 'swiper'
+  /* import Swiper from 'swiper' */
   import ImageHelper from '../../helpers/ImageHelper'
   export default {
     props: {
@@ -49,7 +49,7 @@
         return this.url() + `/assets/images/products/${productId}/${imgName}`
       },
       swiperSliders () {
-        let isLoop = this.product.relateds && this.product.relateds.length > 4
+        /* let isLoop = this.product.relateds && this.product.relateds.length > 4
         isLoop ? this.alignCenter = '' : this.alignCenter = 'justify-content: center;'
         this.swiperNewNew = new Swiper('.related-product .swiper-container', {
           loop: isLoop,
@@ -70,7 +70,7 @@
             }
           }
         })
-        return [this.swiperNewNew]
+        return [this.swiperNewNew] */
       }
     },
     computed: {
@@ -82,7 +82,7 @@
       product () {
         setTimeout(() => {
           this.swiperNewNew && this.swiperNewNew.classNames.length && this.swiperNewNew.destroy(true, true)
-          this.swiperSliders()
+          /* this.swiperSliders() */
         }, 500)
       }
     }

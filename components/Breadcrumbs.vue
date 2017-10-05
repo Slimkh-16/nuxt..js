@@ -42,17 +42,17 @@ export default {
     categoryParams (breadcrumb, index) {
       if (index < this.wayLength && index === 0) {
         return {
-          'alias': `${breadcrumb.alias}`
+          'category_alias': `${breadcrumb.alias}`
         }
       } else if (index < this.wayLength && index === 1) {
         return {
-          'alias': this.breadcrumbs.way[0].alias,
-          'subCategory': `${breadcrumb.alias}`
+          'category_alias': this.breadcrumbs.way[0].alias,
+          'subcategory_alias': `${breadcrumb.alias}`
         }
       } else if (index < this.wayLength && index === 2) {
         return {
-          'alias': this.breadcrumbs.way[0].alias,
-          'subCategory': this.breadcrumbs.way[1].alias,
+          'category_alias': this.breadcrumbs.way[0].alias,
+          'subcategory_alias': this.breadcrumbs.way[1].alias,
           'subCategoryChild': `${breadcrumb.alias}`
         }
       }

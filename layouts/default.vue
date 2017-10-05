@@ -41,6 +41,11 @@ export default {
     AppHeader,
     AppFooter
   },
+  async asyncData ({store}) {
+    return {
+      menu: await store.dispatch('fetchMenu')
+    }
+  },
   beforeCreate () {
     this.$store.dispatch('fetchMenu')
     this.$store.dispatch('fetchSettings')

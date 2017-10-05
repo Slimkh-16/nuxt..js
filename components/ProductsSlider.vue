@@ -1,5 +1,5 @@
 <template>
-  <section v-if="isProducts" class="popular-product" :id="id">
+  <section v-show="products.length" class="popular-product" :id="id">
     <div class="heading-section align-center"><span>{{title}}</span></div>
     <div class="container">
       <div class="popular-product-slider">
@@ -44,6 +44,9 @@
         afterLength: '...',
         fullText: false
       })
+      if (this.products && this.products.length) {
+        this.swiperSliders()
+      }
     },
     data () {
       return {
@@ -85,17 +88,14 @@
       imgUrl (productId, imgName) {
         return this.url() + `/assets/images/products/${productId}/${imgName}`
       }
-    },
-    watch: {
+    }
+    /* watch: {
       products () {
         if (this.products && this.products.length) {
-          this.isProducts = true
           this.swiperSliders()
-        } else {
-          this.isProducts = false
         }
       }
-    }
+    } */
   }
 </script>
 

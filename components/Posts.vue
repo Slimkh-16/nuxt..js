@@ -23,10 +23,10 @@
             </div>
           </div>
           <footer class="card-footer">
-            <nuxt-link :to="`/post/${post.id}`" 
+            <router-link :to="`/post/${post.id}`" 
               class="card-footer-item">
               Read More
-            </nuxt-link>
+            </router-link>
           </footer>
         </div>
       </div>

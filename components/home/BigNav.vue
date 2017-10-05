@@ -5,14 +5,14 @@
         <div v-for="cat in topCats" :key="cat.id" class="col l6 s12">
           <div class="big-nav-item">
             <div class="big-nav__txt">
-              <nuxt-link :to="cat.alias">
+              <router-link :to="cat.alias">
                 <span>{{cat.locale.name.slice(0, 25) + (cat.locale.name.length > 25 ? '...' : '')}}</span>
-                </nuxt-link>
+                </router-link>
                 <br>
               <div class="big-nav__det">{{cat.locale.formatted_description.slice(0, 25) + '...'}}</div>
             </div>
             <div class="big-nav__img">
-              <nuxt-link :to="cat.alias"><img :src="getImgSrc(cat)" :alt="cat.locale.name"></nuxt-link>
+              <router-link :to="cat.alias"><img :src="getImgSrc(cat)" :alt="cat.locale.name"></router-link>
             </div>
           </div>
         </div>

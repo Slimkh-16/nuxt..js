@@ -1,7 +1,6 @@
 <template>
   <div>
-    product
-    <!-- <product :product="this.product"></product> -->
+    <product :product="this.product"></product>
 
     <!-- <how-buy></how-buy>
 
@@ -20,28 +19,31 @@
 </template>
 
 <script>
-  /* import { HowBuy, YouSeen, Product, RelatedProducts } from '../ProductItemPage'
-  import SeoSection from '../../components/SeoSection.vue' */
+  import SeoSection from '../../components/SeoSection.vue'
   import { mapActions, mapGetters } from 'vuex'
   import ProductHelper from '../../helpers/ProductHelper.js'
   import SeoHelper from '../../helpers/SeoHelper.js'
+  import HowBuy from './HowBuy.vue'
+  /* import YouSeen from './YouSeen.vue' */
+  import Product from './Product.vue'
+  import RelatedProducts from './RelatedProducts.vue'
 
   export default {
-    /* components: {
+    components: {
       'product': Product,
       'how-buy': HowBuy,
       'related-products': RelatedProducts,
-      'you-seen': YouSeen,
+      /* 'you-seen': YouSeen, */
       'seo-section': SeoSection
-    }, */
+    },
     mixins: [ProductHelper, SeoHelper],
     methods: {
-      ...mapActions(['fetchProduct', 'emptyProduct'])
-      /* fetchFromSession (res) {
+      ...mapActions(['fetchProduct', 'emptyProduct']),
+      fetchFromSession (res) {
         !this.isInSession(res) && this.setProductIdInSession(res)
         this.viewedProductsFromSession = this.$ls.get('viewedProductsObj') || []
         this.viewedProducts = this.viewedProductsFromSession ? this.viewedProductsFromSession.filter(p => p.id !== this.product.id) : []
-      } */
+      }
     },
     data () {
       return {
@@ -51,6 +53,37 @@
     computed: {
       ...mapGetters(['product'])
     },
+    async asyncData ({store, route}) {
+      let res = await store.dispatch('fetchProduct', route.path)
+      console.log(res)
+      return {res}
+    },
+    head () {
+      this.fetchFromSession(this.product)
+      return {
+        title: this.product && this.product.locale.seo_title,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: this.product && this.product.locale.seo_description
+          },
+          {
+            hid: 'keywords',
+            name: 'keywords',
+            content: this.product && this.product.locale.seo_keywords
+          },
+          {
+            hid: 'robots',
+            name: 'robots',
+            content: this.product && this.product.locale.seo_robots
+          }
+        ],
+        link: [
+          { rel: 'canonical', href: this.product && this.product.locale.seo_canonical }
+        ]
+      }
+    },
     mounted () {
       /* this.fetchProduct()
         .then(res => {
@@ -59,8 +92,8 @@
         .catch((error) => {
           console.log(error)
           this.$router.push('/notFound')
-        })
-      window.$('ul.tabs').tabs() */
+        }) */
+      window.$('ul.tabs').tabs()
     }
     /* beforeDestroy () {
       this.emptyProduct()

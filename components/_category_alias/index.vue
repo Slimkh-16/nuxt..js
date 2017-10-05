@@ -456,6 +456,7 @@
       let key = route.name.replace('filter', '').split('-')
       key = key[1] ? key[1] : key[0]
       let parseQuery = route.params[key]
+      console.log('parseQuery', parseQuery)
       store.dispatch('setCatId', parseQuery)
       store.dispatch('fetchFilters')
       let parseParams = route.params['0']
@@ -546,7 +547,6 @@
     },
     head () {
       this.filtersDeep = Object.keys(this.productFilters).length
-      console.log(this.$route.path)
       return {
         title: this.seo_title,
         meta: [

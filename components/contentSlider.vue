@@ -56,15 +56,6 @@ export default {
   },
   mounted () {
     this.initSlider()
-  },
-  watch: {
-    object () {
-      this.galleryTop.destroy(true, true)
-      this.galleryThumbs.destroy(true, true)
-      this.$nextTick(() => {
-        this.initSlider()
-      })
-    }
   }
 }
 </script>
