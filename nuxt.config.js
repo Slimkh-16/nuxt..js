@@ -2,6 +2,7 @@ let ProductListPage = 'components/_category_alias/index.vue'
 let ContentPage = 'components/ContentPage/ContentPage.vue'
 let ProductPage = 'components/ProductItemPage/ProductItemPage.vue'
 let ContactsPage = 'components/Contacts/ContactsPage.vue'
+let Component = 'components/Component.vue'
 
 module.exports = {
   /*
@@ -22,6 +23,7 @@ module.exports = {
     ]
   },
   router: {
+    cache: false,
     middleware: ['redirectUrls', 'checkUrlOnSlash'],
     extendRoutes (routes, resolve) {
       routes.push(
@@ -102,6 +104,11 @@ module.exports = {
         /**
          * contentPages
         */
+        {
+          path: '/:dinamicSlag',
+          name: 'component',
+          component: Component
+        },
         {
           path: '/:alias',
           name: 'Content page',

@@ -36,7 +36,7 @@
                   </div>
                 </div>
                 <div class="clearfix">
-                  <div class="catalog-body-filter__left"><span class="flt-label">Сортировать</span>
+                  <!-- <div class="catalog-body-filter__left"><span class="flt-label">Сортировать</span>
                     <app-select name="grade" v-model="grade" :onChange="handleGrade">
                       <option value="asc">недорогие вначале</option>
                       <option value="desc">недорогие вконце</option>
@@ -49,7 +49,7 @@
                       </app-select>
                       <span class="flt-label">на странице</span>
                     </div>
-                  </div>
+                  </div> -->
                   <div class="catalog-body-filter__right">
                     <pagination :current-page="productListPage"
                                 :total-items="productTotal"
@@ -450,6 +450,9 @@
         }
       }
     },
+    beforeCreate () {
+      this.$store.dispatch('fetchProductList')
+    },
     async asyncData ({store, route}) {
       let productFilters = {}
       store.dispatch('setFilters')
@@ -546,6 +549,7 @@
       }
     },
     head () {
+      console.log('>>>>>>>>>>>>>>>>>>>')
       this.filtersDeep = Object.keys(this.productFilters).length
       return {
         title: this.seo_title,
