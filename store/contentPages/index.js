@@ -15,7 +15,7 @@ const getters = {
 }
 
 const actions = {
-  fetchContentPage ({commit}) {
+  fetchContentPage ({commit, state}) {
     return new Promise((resolve, reject) => {
       /* Возвращает значение или ошибку */
       axios

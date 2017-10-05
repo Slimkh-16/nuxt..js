@@ -6,7 +6,7 @@
           <div class="header-top__left">
             <ul>
               <li v-for="page in contentPages"  v-if="page.is_header">
-                <nuxt-link :to="{ name: 'Content page' , params : {alias : page.alias}}">{{page.title}}</nuxt-link>
+                <nuxt-link :to="{ name: 'Content page' , params : {alias : page.alias}}">{{page.title || 'title'}}</nuxt-link>
               </li>
             </ul>
           </div>
@@ -66,7 +66,7 @@
                     <nuxt-link :to="{ name: 'category_alias-subcategory_alias', params: { 'category_alias' : subLink.alias, 'subcategory_alias': link.alias } }" :data-activates="`drop-catalog-sublevel-${subLink.id}`" class="dropdown-head-nav">{{subLink.locale.name}}</nuxt-link>
                     <ul v-if="subLink.children.length" :id="`drop-catalog-sublevel-${subLink.id}`" class="dropdown-content dropdown-content--sublevel">
                       <li v-for="subLinkChild in subLink.children">
-                        <nuxt-link :to="{ name: 'Products subCategoryChild', params: { 'subCategory' : subLink.alias, 'alias': link.alias, 'subCategoryChild': subLinkChild.alias } }">
+                        <nuxt-link :to="{ name: 'category_alias-subCategoryChild', params: { 'subcategory_alias' : subLink.alias, 'category_alias': link.alias, 'subCategoryChild': subLinkChild.alias } }">
                           {{subLinkChild.locale.name}}
                         </nuxt-link>
                       </li>
@@ -79,6 +79,57 @@
         </div>
       </div>
     </header>
+    <header class="header-mobile">
+      <div data-activates="slide-out" class="menu-button-general"><span></span><span></span><span></span></div>
+      <div class="header-mobile-logo">
+        <nuxt-link :to="{ name: 'Home'}">
+          <img src="../assets/images/Euro-Gold-Logo-WH.svg" alt="">
+        </nuxt-link>
+      </div>
+    </header>
+    <!-- menu for mobile -->
+    <div id="slide-out" class="left-fixed-nav side-nav">
+      <div class="left-fixed-nav__head"><img src="/static/images/EuroGold-Logo.svg" alt=""></div>
+      <div class="left-fixed-nav__body">
+        <div class="header-search">
+          <form action="#">
+            <button type="submit"><span class="icon-search"></span></button>
+            <input type="text" value="" placeholder="Что вы ищете?">
+          </form>
+        </div>
+        <div class="header-middle__right">
+          <a href="#" class="cart-button js_cart" @click="checkCart()">
+            <span class="icon-cart"></span> Ваш заказ
+            <span v-if="count" class="count-cart">{{count}}</span>
+          </a>
+        </div>
+        <div class="left-fixed-nav__over">
+          <ul>
+            <li v-for="link in menu" :class="{ 'with-menu': link.children }">
+              <nuxt-link :to="{ name: 'category_alias', params: { 'category_alias' : link.alias } }" :class="{ 'with-menu-lnk': link.children.length }">
+                {{link.locale.name}}
+              </nuxt-link>
+              <span v-if="link.children.length" class="drop-nav icon-bottom"></span>
+              <ul>
+                <li v-for="subLink in link.children" class="with-menu" :class="{ 'with-menu': subLink.children.length }">
+                  <nuxt-link :to="{ name: 'category_alias-subcategory_alias', params: { 'subcategory_alias' : subLink.alias, 'category_alias': link.alias } }" :class="{ 'with-menu-lnk': subLink.children.length }">
+                    {{subLink.locale.name}}
+                  </nuxt-link>
+                  <span v-if="subLink.children.length" class="drop-nav icon-bottom"></span>
+                  <ul>
+                    <li v-for="subLinkChild in subLink.children">
+                      <nuxt-link :to="{ name: 'category_alias-subCategoryChild', params: { 'subcategory_alias' : subLink.alias, 'category_alias': link.alias, 'subCategoryChild': subLinkChild.alias } }">
+                        {{subLinkChild.locale.name}}
+                      </nuxt-link>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

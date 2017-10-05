@@ -49,9 +49,9 @@
         <div class="heading-section align-center"><span>Новости и статьи</span></div>
         <news-box
           :posts="latest_news"
-          :routeName="'News one'"
+          :routeName="'news-alias'"
         />
-        <div class="align-center"><router-link :to="{ name: 'News' }" class="all-testi big-nav__det">Еще новости</router-link></div>
+        <div class="align-center"><router-link :to="{ name: 'news' }" class="all-testi big-nav__det">Еще новости</router-link></div>
       </div>
     </section>
 
@@ -59,8 +59,8 @@
     <section class="social-section">
       <div class="container">
         <div class="row">
-          <div class="col m6 s12"><img src="../../assets/images/soc1.jpg" alt=""></div>
-          <div class="col m6 s12"><img src="../../assets/images/soc2.jpg" alt=""></div>
+          <div class="col m6 s12"><img src="../assets/images/soc1.jpg" alt=""></div>
+          <div class="col m6 s12"><img src="../assets/images/soc2.jpg" alt=""></div>
         </div>
       </div>
     </section>
@@ -75,14 +75,14 @@
 
 <script>
 import {mapGetters, mapActions} from 'vuex'
-import GeneralSlider from './GeneralSlider'
-import BigNav from './BigNav'
-import CatalogTab from './CatalogTab'
-import ProductsSlider from '../../components/ProductsSlider'
-import ReviewsBox from '../../components/ReviewsBox.vue'
-import NewsBox from '../../components/NewsBox.vue'
-import SeoSection from '../../components/SeoSection.vue'
-import SeoHelper from '../../helpers/SeoHelper'
+import GeneralSlider from '../components/home/GeneralSlider.vue'
+import BigNav from '../components/home/BigNav.vue'
+import CatalogTab from '../components/home/CatalogTab.vue'
+import ProductsSlider from '../components/ProductsSlider.vue'
+import ReviewsBox from '../components/ReviewsBox.vue'
+import NewsBox from '../components/NewsBox.vue'
+import SeoSection from '../components/SeoSection.vue'
+import SeoHelper from '../helpers/SeoHelper'
 
 export default {
   data () {
@@ -116,21 +116,17 @@ export default {
       }, 500)
     }
   },
+  beforeCreate () {
+    this.$store.dispatch('getHome')
+  },
   head () {
-    if (!this.$store.getters.seo) {
-      this.getHome().then(() => {
-        if (this.seo) {
-          if (this.seo.locale.content) {
-            this.seo_content = this.seo.locale.content
-          }
-          if (this.seo.locale.title) {
-            this.seo_title = this.seo.locale.title
-          }
-        }
-      })
-    }
     return {
-      title: this.$store && this.$store.getters && this.$store.getters.seo && this.$store.getters.seo.locale.title
+      title: this.seo && this.seo.locale.title,
+      meta: [
+        { hid: 'description', name: 'description', content: this.seo && this.seo.locale.description },
+        { hid: 'keywords', name: 'keywords', content: this.seo && this.seo.locale.keywords },
+        { hid: 'robots', name: 'robots', content: (this.seo && this.seo.locale.robots) || 'noindex, nofollow' }
+      ]
     }
   },
   mounted () {

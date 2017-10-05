@@ -1,3 +1,7 @@
+let ProductListPage = 'components/_category_alias/index.vue'
+let ContentPage = 'components/ContentPage/ContentPage.vue'
+let ProductPage = 'components/ProductItemPage/ProductItemPage.vue'
+
 module.exports = {
   /*
   ** Headers of the page
@@ -13,7 +17,6 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/ico-16.png' },
-      /* { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.4.2/css/bulma.min.css' } */
       { rel: 'canonical', href: '' }
     ]
   },
@@ -27,31 +30,54 @@ module.exports = {
         {
           path: '/:category_alias/f/*',
           name: 'category_alias-filter',
-          component: 'components/_category_alias/index.vue'
+          component: ProductListPage
         },
         {
           path: '/:category_alias/:subcategory_alias/f/*',
           name: 'category_alias-subcategory_alias-filter',
-          component: 'components/_category_alias/index.vue'
+          component: ProductListPage
+        },
+        {
+          path: '/:category_alias/:subcategory_alias/:subCategoryChild/f/*',
+          name: 'category_alias-subCategoryChild-filter',
+          component: ProductListPage
         },
         /**
-         * not filters
+         * contentPages
+        */
+        {
+          path: '/:alias',
+          name: 'Content page',
+          component: ContentPage
+        },
+        /**
+         * categories without filters
         */
         {
           path: '/:category_alias',
           name: 'category_alias',
-          component: 'components/_category_alias/index.vue'
+          component: ProductListPage
         },
         {
           path: '/:category_alias/:subcategory_alias',
           name: 'category_alias-subcategory_alias',
-          component: 'components/_category_alias/index.vue'
+          component: ProductListPage
+        },
+        {
+          path: '/:category_alias/:subcategory_alias/:subCategoryChild',
+          name: 'category_alias-subCategoryChild',
+          component: ProductListPage
+        },
+        /**
+         * product page
+        */
+        {
+          path: '/:alias',
+          name: 'Product page',
+          component: ProductPage
         }
       )
     }
-    /* routes: [
-      { path: '/:category_alias/:subcategory_alias', name: 'category_alias-subcategory_alias', component: 'pages/_category_alias/index.vue' }
-    ] */
   },
   /*
   ** Customize the progress bar color
