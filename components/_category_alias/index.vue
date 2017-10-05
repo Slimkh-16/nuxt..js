@@ -451,6 +451,7 @@
       }
     },
     beforeCreate () {
+      console.log('before create')
       this.$store.dispatch('fetchProductList')
     },
     async asyncData ({store, route}) {
@@ -483,7 +484,7 @@
         store.dispatch('setFilters', productFilters)
         let res = []
         res = await Promise.all([
-          store.dispatch('fetchBreadcrumbs'),
+          store.dispatch('fetchBreadcrumbs', route.path),
           store.dispatch('getMeta', route.fullPath),
           store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc'})
         ])
@@ -516,7 +517,7 @@
       } else {
         let res = []
         res = await Promise.all([
-          store.dispatch('fetchBreadcrumbs'),
+          store.dispatch('fetchBreadcrumbs', route.path),
           store.dispatch('getMeta', route.fullPath),
           store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc', page: 1})
         ])

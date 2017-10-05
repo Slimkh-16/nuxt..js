@@ -12,12 +12,12 @@ export default {
   /* beforeCreate () {
     this.component = () => getPost('_category_alias/index.vue')
   }, */
-  beforeMount () {
+  /* beforeMount () {
     if (this.$route.name === 'component') {
       this.$router.push({name: 'Content page', params: {'alias': this.$route.path.slice(1, this.$route.path.length)}})
       console.log('push')
     }
     console.log(this.$route.path.slice(1, this.$route.path.length), this.$route.name)
-  }
+  } */
 }
 </script>
