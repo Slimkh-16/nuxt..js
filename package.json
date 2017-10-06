@@ -4,6 +4,10 @@
   "description": "Nuxt.js project",
   "author": "Devo4kaAlina <alina.devonina@gmail.com>",
   "private": true,
+  "nuxt": {
+    "host": "localhost",
+    "port": "8080"
+  },
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",

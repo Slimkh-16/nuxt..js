@@ -2,6 +2,10 @@ let ProductListPage = 'components/_category_alias/index.vue'
 let ContentPage = 'components/ContentPage/ContentPage.vue'
 let ProductPage = 'components/ProductItemPage/ProductItemPage.vue'
 let ContactsPage = 'components/Contacts/ContactsPage.vue'
+let SearchPage = 'components/SearchPage/SearchPage.vue'
+let Cart = 'components/Cart/Cart.vue'
+let Checkout = 'components/Checkout/Checkout.vue'
+let Order = 'components/Order/Checkout.vue'
 let Component = 'components/Component.vue'
 
 module.exports = {
@@ -35,6 +39,11 @@ module.exports = {
           name: 'ContactsPage',
           component: ContactsPage
         },
+        {
+          path: '/cart',
+          name: 'Cart',
+          component: Cart
+        },
         /* {
           path: '/stores',
           name: 'Stores',
@@ -66,23 +75,22 @@ module.exports = {
           beforeEnter (to, from, next) {
             checkUrlOnSlash(to, next)
           }
-        },
+        }, */
         {
           path: '/checkout',
           name: 'Checkout',
-          component: Checkout,
-          beforeEnter (to, from, next) {
-            checkUrlOnSlash(to, next)
-          }
+          component: Checkout
         },
         {
-          path: '/search_result',
+          path: '/order',
+          name: 'Order',
+          component: Order
+        },
+        {
+          path: '/search_page',
           name: 'SearchPage',
-          component: SearchPage,
-          beforeEnter (to, from, next) {
-            checkUrlOnSlash(to, next)
-          }
-        }, */
+          component: SearchPage
+        },
         /**
          * category with filters
         */
@@ -148,6 +156,10 @@ module.exports = {
   */
   loading: { color: '#3B8070' },
   /*
+  ** plugins
+  */
+  // plugins: ['~/plugins/jquery.maskedinput.min.js'],
+  /*
   ** Build configuration
   */
   build: {
@@ -155,6 +167,7 @@ module.exports = {
     ** Run ESLint on save
     */
     extend (config, ctx) {
+      config.plugins = config.plugins.filter((plugin) => plugin.constructor.name !== 'UglifyJsPlugin')
       if (ctx.dev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',

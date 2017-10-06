@@ -6,7 +6,7 @@
           <div class="header-top__left">
             <ul>
               <li v-for="page in contentPages"  v-if="page.is_header">
-                <router-link :to="{ name: 'Content page' , params : {alias : page.alias}}">{{page.title || 'title'}}</router-link>
+                <router-link :to="{ name: 'Content page' , params : {alias : page.alias}}">{{page && page.locale.title}}</router-link>
               </li>
             </ul>
           </div>

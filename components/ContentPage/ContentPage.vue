@@ -1,9 +1,9 @@
 <template>
   <div class="clearfix">
     <div class="container">
-      <breadcrumbs :breadcrumbs="{way: [{name: `${currentPage && currentPage.title}`}]}"></breadcrumbs>
+      <breadcrumbs :breadcrumbs="{way: [{name: `${currentPage && currentPage.locale.title}`}]}"></breadcrumbs>
       <div class="content">
-        <!-- <div class="big-heading">{{currentPage && currentPage.locale.title}}</div> -->
+        <div class="big-heading">{{currentPage && currentPage.locale.title}}</div>
         <div class="body-page" v-html="currentPage && currentPage.locale.body"></div>
       </div>
     </div>

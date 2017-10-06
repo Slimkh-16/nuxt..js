@@ -22,7 +22,7 @@
             <div class="foot-nav">
               <div class="foot-nav__head">Помощь клиентам</div>
               <ul>
-                <li v-for="page in contentPages" v-if="page.is_footer"><router-link :to="{ name: 'Content page' , params : {alias : page.alias}}">{{page.title}}</router-link></li>
+                <li v-for="page in contentPages" v-if="page.is_footer"><router-link :to="{ name: 'Content page' , params : {alias : page.alias}}">{{page && page.locale.title}}</router-link></li>
               </ul>
             </div>
           </div>
