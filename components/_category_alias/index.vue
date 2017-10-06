@@ -91,6 +91,41 @@
   import ImageHelper from '../../helpers/ImageHelper'
   import SeoHelper from '../../helpers/SeoHelper'
 
+  const fetchData = async (store, route, productFilters) => {
+    let res = []
+    res = await Promise.all([
+      store.dispatch('fetchBreadcrumbs', route.path),
+      store.dispatch('getMeta', route.fullPath),
+      store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc'})
+    ])
+    // seo module
+    if (res[1] && res[1].locale) {
+      let r = res[1]
+      return {
+        seo_title: r.locale.title,
+        seo_keywords: r.locale.keywords,
+        seo_description: r.locale.description,
+        seo_canonical: r.locale.canonical,
+        seo_robots: r.locale.robots,
+        seoTitle: r.locale.title,
+        seoContent: r.locale.content
+      }
+    // seo from category
+    } else {
+      let b = res[0]
+      let r = b[b.length - 1]
+      return {
+        seo_title: r.locale.seo_title,
+        seo_keywords: r.locale.seo_keywords,
+        seo_description: r.locale.seo_description,
+        seo_canonical: r.locale.seo_canonical,
+        seo_robots: r.locale.seo_robots,
+        seoTitle: r.locale.seo_title,
+        seoContent: r.locale.formatted_description
+      }
+    }
+  }
+
   export default {
     name: 'category_alias',
     components: {
@@ -450,21 +485,32 @@
         }
       }
     },
-    beforeCreate () {
+    /* beforeCreate () {
       console.log('before create')
       this.$store.dispatch('fetchProductList')
-    },
+    }, */
     async asyncData ({store, route}) {
       let productFilters = {}
       store.dispatch('setFilters')
+      /**
+       * 
+      */
       let key = route.name.replace('filter', '').split('-')
       key = key[1] ? key[1] : key[0]
       let parseQuery = route.params[key]
-      console.log('parseQuery', parseQuery)
       store.dispatch('setCatId', parseQuery)
       store.dispatch('fetchFilters')
+      /**
+       * 
+      */
       let parseParams = route.params['0']
+      /**
+       * url with filters ?
+      */
       if (parseParams && parseParams.length) {
+        /** 
+         * parse filters 
+        */
         parseParams.split('/').map((el) => el.indexOf('=') > -1 ? el.split('=') : el).forEach((el) => {
           // parse price
           if (el[0].indexOf('price') > -1) {
@@ -482,97 +528,49 @@
           }
         })
         store.dispatch('setFilters', productFilters)
-        let res = []
-        res = await Promise.all([
-          store.dispatch('fetchBreadcrumbs', route.path),
-          store.dispatch('getMeta', route.fullPath),
-          store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc'})
-        ])
-        // seo module
-        if (res[1] && res[1].locale) {
-          let r = res[1]
-          return {
-            seo_title: r.locale.title,
-            seo_keywords: r.locale.keywords,
-            seo_description: r.locale.description,
-            seo_canonical: r.locale.canonical,
-            seo_robots: r.locale.robots,
-            seoTitle: r.locale.title,
-            seoContent: r.locale.content
-          }
-        // seo from category
-        } else {
-          let b = res[0]
-          let r = b[b.length - 1]
-          return {
-            seo_title: r.locale.seo_title,
-            seo_keywords: r.locale.seo_keywords,
-            seo_description: r.locale.seo_description,
-            seo_canonical: r.locale.seo_canonical,
-            seo_robots: r.locale.seo_robots,
-            seoTitle: r.locale.seo_title,
-            seoContent: r.locale.formatted_description
-          }
-        }
+        /**
+         * fetch Breadcrumbs, Meta, ProductList
+        */
+        return fetchData(store, route, productFilters)
       } else {
-        let res = []
-        res = await Promise.all([
-          store.dispatch('fetchBreadcrumbs', route.path),
-          store.dispatch('getMeta', route.fullPath),
-          store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc', page: 1})
-        ])
-        // seo module
-        if (res[1] && res[1].locale) {
-          let r = res[1]
-          return {
-            seo_title: r.locale.title,
-            seo_keywords: r.locale.keywords,
-            seo_description: r.locale.description,
-            seo_canonical: r.locale.canonical,
-            seo_robots: r.locale.robots,
-            seoTitle: r.locale.title,
-            seoContent: r.locale.content
-          }
-        // seo from category
-        } else {
-          let b = res[0]
-          let r = b[b.length - 1]
-          return {
-            seo_title: r.locale.seo_title,
-            seo_keywords: r.locale.seo_keywords,
-            seo_description: r.locale.seo_description,
-            seo_canonical: r.locale.seo_canonical,
-            seo_robots: r.locale.seo_robots,
-            seoTitle: r.locale.seo_title,
-            seoContent: r.locale.formatted_description
-          }
-        }
+        /**
+         * fetch Breadcrumbs, Meta, ProductList
+        */
+        return fetchData(store, route, productFilters)
       }
     },
     head () {
-      console.log('>>>>>>>>>>>>>>>>>>>')
-      this.filtersDeep = Object.keys(this.productFilters).length
+      this.filtersDeep = Object.keys(this.productFilters).length - 1
+      let store = this.$store.state.categoryMeta
+      console.log('this ', this, 'store', store)
+      let path = this.$route.path
+      let title = this.seo_title || (store && store.seo_title) || 'Eurogold'
+      let description = this.seo_description || (store && store.seo_description) || ''
+      let keywords = this.seo_keywords || (store && store.seo_keywords) || ''
+      let robots = this.filtersDeep > 2 ? 'noindex, nofollow' : this.seo_robots || (store && store.seo_robots)
+      let canonicalLink = this.seo_canonical || (store && store.seo_canonical) || ''
+      let canonical = this.productFilters && this.productFilters.page > 1 ? path.slice(0, path.indexOf('/f/')) : canonicalLink
       return {
-        title: this.seo_title,
+        title: title,
         meta: [
           {
             hid: 'description',
             name: 'description',
-            content: this.seo_description
+            content: description
           },
           {
             hid: 'keywords',
             name: 'keywords',
-            content: this.seo_keywords
+            content: keywords
           },
           {
             hid: 'robots',
             name: 'robots',
-            content: this.filtersDeep > 2 ? 'noindex, nofollow' : this.seo_robots
+            content: robots
           }
         ],
         link: [
-          { rel: 'canonical', href: this.productFilters && this.productFilters.page > 1 ? this.$route.path.slice(0, this.$route.path.indexOf('/f/')) : this.seo_canonical }
+          { rel: 'canonical', href: canonical }
         ]
       }
     },
@@ -621,6 +619,7 @@
     },
     beforeDestroy () {
       this.offFilterFunctions()
+      this.$store.state.categoryMeta = {}
     }
   }
 </script>

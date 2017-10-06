@@ -30,7 +30,8 @@ export default {
   computed: {
     ...mapGetters(['contentPages']),
     currentPage () {
-      const currentPage = this.contentPages.length && this.contentPages.filter((obj) => obj.alias === this.$route.params.alias)[0]
+      const currentPage = this.contentPages.length && this.contentPages.filter((obj) => obj.alias === this.$route.path.slice(1, this.$route.path.length))[0]
+      console.log('currentPage', currentPage, this.contentPages)
       return currentPage
     }
   },

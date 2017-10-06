@@ -1,10 +1,14 @@
 import urlsList from './urlsList'
 let fetchContentPage = async (to, next, router, store) => {
   await store.dispatch('fetchContentPage')
+  console.log('***********************')
+  console.log('urlsList.contentPagesList', urlsList.contentPagesList)
   isContentPage(to, next, router)
 }
 let fetchMenu = async (to, next, router, store) => {
   await store.dispatch('fetchMenu')
+  console.log('***********************')
+  console.log('urlsList.urlList', urlsList.urlList)
   isUrlsList(to, next, router)
 }
 
@@ -31,9 +35,11 @@ const isContentPage = (to, next, router) => {
   let url = to.path.slice(-1) === '/' ? to.path.slice(0, to.path.length - 1) : to.path
   let redirect = to.path.slice(-1) === '/' ? to.path.slice(0, to.path.length - 1) : false
   if (urlsList.contentPagesList[url]) {
+    console.log('push to content page')
     redirect ? router.push(redirect) : next()
     return false
   } else {
+    console.log('push to category_alias')
     router.push({name: 'category_alias', params: {'category_alias': to.path.slice(1, to.path.length)}})
   }
 }
@@ -66,6 +72,7 @@ const isUrlsList = (to, next, router) => {
    * if this url not belown category - redirect to 'Product page'
    */
   if (!urlsList.urlList[url] && !redirect) {
+    console.log('push to product page')
     router.push({name: 'Product page', params: {'alias': url.slice(1, url.length)}})
     return false
   }
@@ -74,14 +81,30 @@ const isUrlsList = (to, next, router) => {
    * if this url belown category - check on slash in the end of url
   */
   if (urlsList.urlList[url] && !redirect) {
-    next()
+    console.log('return true')
+    // next()
+    return 'run next'
   } else {
     redirect ? router.push(redirect) : router.push('/notFound')
   }
 }
 
 export default function (to, from, next, router, store) {
-  Promise.all([
+  console.log('===================================')
+  console.log(to.name)
+  console.log('===================================')
+  if (to.name === 'Content page') {
+    checkContentPagesList(to, next, router, store)
+    return true
+  } else if (to.name === 'category_alias') {
+    checkUrl(to, next, router, store)
+    return true
+  } else {
+    console.log('====== other page =========')
+    next()
+    return true
+  }
+  /* Promise.all([
     store.dispatch('fetchContentPage'),
     store.dispatch('fetchMenu')
   ]).then(() => {
@@ -99,5 +122,5 @@ export default function (to, from, next, router, store) {
       next()
       return true
     }
-  })
+  }) */
 }

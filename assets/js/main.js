@@ -61,7 +61,7 @@ function preloader() {
             }
             //productFunction
             if (document.querySelector('.product-char-col .change-size') !== null) {
-                this.productFunction();
+                // this.productFunction();
             }
         },
         filterFunction: function(){

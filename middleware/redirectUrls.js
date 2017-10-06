@@ -5,6 +5,7 @@ const URL = ConfigHelper.get('frontUrl')
 let count = 0
 
 function redirectionFunction ({ redirect, store, route }) {
+  console.log('redirects middelware')
   if (redirectsList && Object.keys(redirectsList).length) {
     let goodUrl = redirectsList[`${URL}${route.path}`]
     if (goodUrl) {

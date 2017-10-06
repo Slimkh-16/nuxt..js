@@ -24,7 +24,7 @@ module.exports = {
   },
   router: {
     cache: false,
-    middleware: ['redirectUrls', 'checkUrlOnSlash', 'dinamicUrls'],
+    middleware: ['redirectUrls', 'checkUrlOnSlash'],
     extendRoutes (routes, resolve) {
       routes.push(
         /**
@@ -104,6 +104,11 @@ module.exports = {
         /**
          * contentPages
         */
+        {
+          path: '/:component',
+          name: 'Component',
+          component: Component
+        },
         {
           path: '/:alias',
           name: 'Content page',

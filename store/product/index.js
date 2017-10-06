@@ -210,7 +210,8 @@ const actions = {
                   resolve([obj, childObj, find])
                   console.log(3333)
                 } else {
-                  reject(new Error(`not Breadcrumbs for == ${id} == category`))
+                  resolve(undefined)
+                  // reject(new Error(`not Breadcrumbs for == ${id} == category`))
                   console.log(404)
                 }
               })
@@ -218,7 +219,8 @@ const actions = {
           })
         }
       } else {
-        reject(new Error('not id category'))
+        resolve(undefined)
+        // reject(new Error('not id category'))
         console.log(404)
       }
     })

@@ -1,6 +1,6 @@
 import urlsList from '../helpers/urlsList'
 
-const someFunction = async ({ redirect, store, route, app }) => {
+const someFunction = async ({ redirect, store, route, app, next }) => {
   if (!Object.keys(urlsList.urlList).length) {
     await store.dispatch('fetchMenu')
     console.log('route.name ==> ', route.name)
@@ -8,7 +8,8 @@ const someFunction = async ({ redirect, store, route, app }) => {
       console.log('content page')
     } else if (urlsList.urlList[route.path]) {
       console.log('category page')
-      app.router.push({name: 'category_alias', params: {'category_alias': route.path.slice(1, route.path.length)}})
+      next({name: 'category_alias', params: {'category_alias': route.path.slice(1, route.path.length)}})
+      // app.router.push({name: 'category_alias', params: {'category_alias': route.path.slice(1, route.path.length)}})
     } else {
       console.log('product page')
     }

@@ -59,10 +59,6 @@ function preloader() {
             if (document.querySelector('.filter-box') !== null) {
                 this.filterFunction();
             }
-            //productFunction
-            if (document.querySelector('.product-char-col .change-size') !== null) {
-                this.productFunction();
-            }
         },
         filterFunction: function(){
           // $('.filter-box__head ').on('click',function(){

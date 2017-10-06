@@ -84,19 +84,19 @@
             <div class="col s12">
               <div class="product-tab">
                 <div class="product-tab-nav">
-                  <ul class="tabs">
+                  <!-- <ul class="tabs">
                     <li class="tab"><a href="#tab1">Все</a></li>
                     <li class="tab"><a href="#tab2">Фото/Видео</a></li>
                     <li class="tab"><a href="#tab3">Характеристики</a></li>
                     <li class="tab"><a href="#tab4" class="active">Отзывы</a></li>
                     <li class="tab"><a href="#tab5">Упаковка</a></li>
-                  </ul>
+                  </ul> -->
                 </div>
                 <div class="product-tab-cont content">
                   <all-tab :product="product"></all-tab>
-                  <photo-video
+                  <!-- <photo-video
                     :product="product">
-                  </photo-video>
+                  </photo-video> -->
                   <characteristics
                     :product="product"
                     >
@@ -345,6 +345,15 @@ export default {
         window.$('.overlay').fadeOut(500)
       }
     })
+    if (Object.keys(this.sizes).length) {
+      this.selectedSize = this.sizes[this.sortedSizes[0]].sort((p, n) => +p.weight - +n.weight)
+    }
+    this.breadcrumbsWay()
+    window.$('.change-size.product_w').find('span').removeClass('active')
+    window.$('.change-size.product_w:nth-of-type(1)').find('span').addClass('active')
+    window.$('.change-size.product_s').find('span').removeClass('active').end().find('span:nth-of-type(1)').addClass('active')
+    window.$('.productImages .zoomImg').data('zoom-image', this.currImg())
+    this.productFunction()
   },
   beforeDestroy () {
     window.$('.zoomContainer').remove()
@@ -352,8 +361,8 @@ export default {
   },
   watch: {
     product () {
-      window.$('.zoomContainer').remove()
-      if (Object.keys(this.sizes).length) {
+      // window.$('.zoomContainer').remove()
+      /* if (Object.keys(this.sizes).length) {
         this.selectedSize = this.sizes[this.sortedSizes[0]].sort((p, n) => +p.weight - +n.weight)
       }
       this.breadcrumbsWay()
@@ -363,7 +372,7 @@ export default {
         window.$('.change-size.product_s').find('span').removeClass('active').end().find('span:nth-of-type(1)').addClass('active')
         window.$('.productImages .zoomImg').data('zoom-image', this.currImg())
         this.productFunction()
-      }, 0)
+      }, 0) */
     },
     selectedSize () {
       this.currentWeight = this.selectedSize[0]
