@@ -49,9 +49,9 @@
         return this.url() + `/assets/images/products/${productId}/${imgName}`
       },
       swiperSliders () {
-        /* let isLoop = this.product.relateds && this.product.relateds.length > 4
+        let isLoop = this.product.relateds && this.product.relateds.length > 4
         isLoop ? this.alignCenter = '' : this.alignCenter = 'justify-content: center;'
-        this.swiperNewNew = new Swiper('.related-product .swiper-container', {
+        this.swiperNewNew = new window.Swiper('.related-product .swiper-container', {
           loop: isLoop,
           speed: 1000,
           slidesPerView: 4,
@@ -70,7 +70,7 @@
             }
           }
         })
-        return [this.swiperNewNew] */
+        return [this.swiperNewNew]
       }
     },
     computed: {
@@ -82,7 +82,7 @@
       product () {
         setTimeout(() => {
           this.swiperNewNew && this.swiperNewNew.classNames.length && this.swiperNewNew.destroy(true, true)
-          /* this.swiperSliders() */
+          this.swiperSliders()
         }, 500)
       }
     }
@@ -93,5 +93,11 @@
   .related-product-slider 
   {
     position: relative;
+  }
+  .related-product-slider [class*=icon-]:before {
+    margin-right: 0px;
+  }
+  .swiper-button-disabled {
+    display: none;
   }
 </style>

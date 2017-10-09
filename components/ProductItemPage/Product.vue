@@ -84,13 +84,15 @@
             <div class="col s12">
               <div class="product-tab">
                 <div class="product-tab-nav">
-                  <!-- <ul class="tabs">
-                    <li class="tab"><a href="#tab1">Все</a></li>
-                    <li class="tab"><a href="#tab2">Фото/Видео</a></li>
-                    <li class="tab"><a href="#tab3">Характеристики</a></li>
-                    <li class="tab"><a href="#tab4" class="active">Отзывы</a></li>
-                    <li class="tab"><a href="#tab5">Упаковка</a></li>
-                  </ul> -->
+                  <no-ssr>
+                    <ul class="tabs">
+                      <li class="tab"><a href="#tab1" @click.prevent="tabFunction($event)">Все</a></li>
+                      <li class="tab"><a href="#tab2" @click.prevent="tabFunction($event)">Фото/Видео</a></li>
+                      <li class="tab"><a href="#tab3" @click.prevent="tabFunction($event)">Характеристики</a></li>
+                      <li class="tab"><a href="#tab4" @click.prevent="tabFunction($event)" class="active">Отзывы</a></li>
+                      <li class="tab"><a href="#tab5" @click.prevent="tabFunction($event)">Упаковка</a></li>
+                    </ul>
+                  </no-ssr>
                 </div>
                 <div class="product-tab-cont content">
                   <all-tab :product="product"></all-tab>
@@ -205,6 +207,12 @@ export default {
   },
   methods: {
     ...mapActions(['setCatId', 'fetchBreadcrumbs']),
+    tabFunction (e) {
+      window.$('.tabs a').removeClass('active')
+      window.$('.product-tab-cont.content > div').hide()
+      let id = window.$(e.target).addClass('active').attr('href')
+      window.$('.product-tab-cont.content' + ` ${id}`).show()
+    },
     breadcrumbsWay () {
       if (!this.cat_id && this.product.categories && this.product.categories.length) {
         let catId = this.product.categories[0].alias
@@ -247,6 +255,7 @@ export default {
       window.$('.materialboxed').materialbox()
       window.$('.tab-box .product-char .product-char-row:gt(8)').hide()
       window.$('body').on('click', '.js_all_char', this.toggleChar)
+      window.$(`.product-tab-cont.content > div:not('#tab4')`).hide()
     },
     toggleChar (e) {
       if (window.$(e.target).hasClass('active')) {

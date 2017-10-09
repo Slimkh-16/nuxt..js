@@ -1,5 +1,5 @@
 <template>
-  <section v-if="viewedProducts.length" class="you-view popular-product">
+  <section v-show="viewedProducts.length" class="you-view popular-product">
     <div class="heading-section align-center"><span>Вы смотрели</span></div>
 
     <div class="container">
@@ -27,7 +27,7 @@
 
 <script>
   import ImageHelper from '../../helpers/ImageHelper'
-  import Swiper from 'swiper'
+  /* import Swiper from 'swiper' */
 
   export default {
     props: ['viewedProducts'],
@@ -44,7 +44,7 @@
       swiperSliders () {
         let isLoop = this.viewedProducts && this.viewedProducts.length > 8
         isLoop ? this.alignCenter = '' : this.alignCenter = 'justify-content: center;'
-        this.swiperView = new Swiper('.you-view-product-slider .swiper-container', {
+        this.swiperView = new window.Swiper('.you-view-product-slider .swiper-container', {
           loop: isLoop,
           speed: 1000,
           slidesPerView: 8,
@@ -72,15 +72,17 @@
         afterLength: '...',
         fullText: false
       })
-    },
-    watch: {
+      this.swiperSliders()
+      console.log('swiperSliders')
+    }
+    /* watch: {
       viewedProducts () {
         setTimeout(() => {
           this.swiperView && this.swiperView.classNames.length && this.swiperView.destroy(true, true)
           this.swiperSliders()
         }, 500)
       }
-    }
+    } */
   }
 </script>
 
