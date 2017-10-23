@@ -22,7 +22,7 @@ const getters = {
 }
 
 const actions = {
-  fetchReviews ({commit}, f) {
+  fetchReviews ({commit, state}, f) {
     return new Promise((resolve, reject) => {
       let filter = f ? `?&${qs.stringify(f)}` : ''
       axios
@@ -38,7 +38,7 @@ const actions = {
         })
     })
   },
-  sendReviewForSite ({commit}, data) {
+  sendReviewForSite ({commit, state}, data) {
     return new Promise((resolve, reject) => {
       axios
         .post(REVIEWS_LIST_URL, data)
@@ -51,7 +51,7 @@ const actions = {
         })
     })
   },
-  sendContactForm ({commit}, data) {
+  sendContactForm ({commit, state}, data) {
     return new Promise((resolve, reject) => {
       axios
         .post(CONTACT_FORM_URL, data)

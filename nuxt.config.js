@@ -6,6 +6,7 @@ let SearchPage = 'components/SearchPage/SearchPage.vue'
 let Cart = 'components/Cart/Cart.vue'
 let Checkout = 'components/Checkout/Checkout.vue'
 let Order = 'components/Order/Checkout.vue'
+let Reviews = 'components/Reviews/Reviews.vue'
 let Component = 'components/Component.vue'
 
 module.exports = {
@@ -67,15 +68,12 @@ module.exports = {
           beforeEnter (to, from, next) {
             checkUrlOnSlash(to, next)
           }
-        },
+        }, */
         {
           path: '/reviews',
           name: 'Reviews',
-          component: Reviews,
-          beforeEnter (to, from, next) {
-            checkUrlOnSlash(to, next)
-          }
-        }, */
+          component: Reviews
+        },
         {
           path: '/checkout',
           name: 'Checkout',
