@@ -3,11 +3,11 @@
     <div v-for="post in posts" class="grid-item news-item" :key="post.id">
       <div class="news-item__img">
         <router-link :to="{ name: routeName, params: { alias: post.alias }}">
-          <img :src="getImgSrc(post)" :alt="post.title">
+          <img :src="getImgSrc(post)" :alt="post.locale.title">
         </router-link>
       </div>
-      <div class="news-item__txt"><span class="news-item__title">{{post.title}}</span>
-        <div class="over-txt" v-html="post.body"></div>
+      <div class="news-item__txt"><span class="news-item__title">{{post.locale.title}}</span>
+        <div class="over-txt" v-html="post.locale.body"></div>
         <br>
         <router-link :to="{ name: routeName, params: { alias: post.alias }}">
           читать далее <i class="icon-right"></i>
@@ -28,7 +28,7 @@ export default {
     },
     getImgSrc (post) {
       let cover = this.coverImg(post)
-      return cover ? this.imgUrl(post.id, cover.name) : ''
+      return cover
     }
   },
   watch: {

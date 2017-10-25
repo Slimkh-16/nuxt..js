@@ -15,8 +15,8 @@
         </div>
         <div class="col l6 s12"><span class="label-field">Пункт самовывоза:</span>
           <app-select class="js_change_map" name="selfDischargePoint" v-model="selfDischargePoint" :onChange="handleSelfDischargePoint">
-            <option 
-              v-for="warehous in nova_poshta_warehouses" 
+            <option
+              v-for="warehous in nova_poshta_warehouses"
               v-bind:key="warehous.id"
               :value="warehous.ref"
               :data-ltx="warehous.lat"
@@ -35,13 +35,13 @@
     <div class="delivery-place" :class="{ 'active': delWay === '2' }">
       <div class="row">
         <div class="col l6 s12">
-          <div :data-error="errorMsg" class="input-field required-field"><span class="label-field">Город</span>
-            <input type="text" v-model="town" data-name="town">
+          <div :data-error="errorMsg" class="input-field required-field"><span class="label-field">Город*</span>
+            <input type="text" required v-model="town" data-name="town">
           </div>
         </div>
         <div class="col l6 s12">
-          <div :data-error="errorMsg" class="input-field required-field"><span class="label-field">Адрес</span>
-            <input type="text" v-model="address" data-name="address">
+          <div :data-error="errorMsg" class="input-field required-field"><span class="label-field">Адрес*</span>
+            <input type="text" required v-model="address" data-name="address">
           </div>
         </div>
         <div class="col l12 s12">
@@ -62,9 +62,9 @@
         </div>
         <div class="col l6 s12"><span class="label-field">Пункт самовывоза:</span>
           <app-select name="pointStore" v-model="pointStore" :onChange="handlePointStore">
-            <option 
-              v-for="affiliate in affiliates[cityStore].affiliates" 
-              :value="replaceTags(affiliate.address)" 
+            <option
+              v-for="affiliate in affiliates[cityStore].affiliates"
+              :value="replaceTags(affiliate.address)"
               v-bind:key="affiliate.id"
             >{{replaceTags(affiliate.address)}}</option>
           </app-select>

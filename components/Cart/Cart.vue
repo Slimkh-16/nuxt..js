@@ -13,7 +13,8 @@
                 <td>
                   <ul>
                     <li><router-link :to="`/${c.alias}`">{{c.locale.name}}</router-link></li>
-                    <li>Размер: {{c.size}}</li>
+                    <li v-if="c.size">Размер: {{c.size}}</li>
+                    <li v-if="c.npp.length">Артикул: {{c.npp}}</li>
                     <li v-if="c.grave.text">Гравировка: {{c.grave.text}}</li>
                     <li v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</li>
                   </ul>
@@ -27,7 +28,7 @@
                     <span class="remove-item js_remove" @click="removeProductFromCart(c.npp)">удалить</span>
                   </div>
                 </td>
-                <td><span class="js_total_product">{{c.totalPrice || c.computedPrice}}</span> грн.</td>
+                <td><span class="js_total_product">{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</span> грн.</td>
               </tr>
             </table>
             <div v-else class="align-center empty-cart">Корзина пуста</div>
@@ -37,7 +38,7 @@
         </div>
         <div  v-if="cart.length" class="cart-total">
           Итого:
-          <b class="js_total">{{subtotal}}</b> грн.
+          <b class="js_total">{{subtotal.toFixed(2)}}</b> грн.
           <router-link :to="'/checkout'" class="btn waves-effect waves-light">Оформить заказ</router-link>
         </div>
       </div>
@@ -105,7 +106,7 @@ export default {
     },
     getImgSrc (product) {
       let cover = this.coverImg(product)
-      return cover ? this.imgUrl(product.id, cover.name) : ''
+      return cover
     },
     checkValue (c) {
       if (typeof c.qty === 'string') {

@@ -11,7 +11,7 @@
           </div>
           <div class="product-item__txt">
             <div class="prod-txt" v-if="product.locale.name">{{ product.locale.name}}</div>
-            <div class="prod-price"><b>{{product.total_price.toFixed(0)}}</b>&nbsp;грн.</div>
+            <div class="prod-price"><b>{{product.total_price.toFixed(2)}}</b>&nbsp;грн.</div>
           </div>
           <div class="product-item__hover-box">
             <table>
@@ -55,7 +55,7 @@ export default {
     },
     getImgSrc (product) {
       let cover = this.coverImg(product)
-      return cover ? this.imgUrl(product.id, cover.name) : ''
+      return cover
     },
     pageChanged (page) {
       this.$emit('pageChanged', page)

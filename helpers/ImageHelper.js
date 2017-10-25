@@ -6,9 +6,14 @@ export default {
       return config.url
     },
     coverImg (product) {
-      if (product && product.images && product.images.length) {
-        let cover = product.images.filter((i) => i.cover === 1)[0]
-        return cover || product.images[0]
+      if (product && product.cover && product.cover.image_url) {
+        return product.cover.image_url
+      } else {
+        if (product && product.images && product.images.length) {
+          return product.images[0].image_url
+        } else {
+          return product.empty_image
+        }
       }
     },
     initZoomJQuery (className, galleryClassName) {

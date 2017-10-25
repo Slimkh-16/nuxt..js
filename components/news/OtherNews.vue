@@ -4,9 +4,9 @@
     <div v-for="post in (latestPosts && latestPosts.slice(0, 3))" :key="post.id" class="other-news-item">
       <router-link :to="{ name: 'news-alias', params: { alias: post.alias }}">
         <span class="other-news__img">
-          <img :src="getImgSrc(post)" :alt="post.title">
+          <img :src="getImgSrc(post)" :alt="post.locale.title">
         </span>
-        <span class="other-news__txt">{{post.title}}</span>
+        <span class="other-news__txt">{{post.locale.title}}</span>
       </router-link>
     </div>
   </div>
@@ -28,7 +28,7 @@
       },
       getImgSrc (post) {
         let cover = this.coverImg(post)
-        return cover ? this.imgUrl(post.id, cover.name) : ''
+        return cover
       }
     },
     mounted () {

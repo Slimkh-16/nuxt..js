@@ -10,6 +10,7 @@ const accentuateAffiliatesByCity = (arr) => {
       accentuateAffiliatesByCity.data[element.city.alias] = {}
       accentuateAffiliatesByCity.data[element.city.alias].name = element.city.locale.name
       accentuateAffiliatesByCity.data[element.city.alias].id = element.city.id
+      accentuateAffiliatesByCity.data[element.city.alias].alias = element.city.alias
       accentuateAffiliatesByCity.data[element.city.alias].affiliates = [element]
     }
   })

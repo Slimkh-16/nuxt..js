@@ -1,3 +1,5 @@
+<script src="../static/js/main.js"></script>
+<script src="../../Eurogold/app/js/jquery/jquery-3.2.1.min.js"></script>
 <template>
   <div>
      <!--general-slider-->
@@ -6,7 +8,7 @@
     />
 
     <!--big nav-->
-    <big-nav 
+    <big-nav
       :topCats="top_cats"
     />
 
@@ -64,7 +66,7 @@
         </div>
       </div>
     </section>
-    
+
     <!--sec section-->
     <seo-section
       :seoContent="seo_content"

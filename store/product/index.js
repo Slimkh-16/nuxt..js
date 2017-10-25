@@ -111,13 +111,13 @@ const actions = {
         .then((res) => {
           commit(types.PRODUCT_LIST_FETCH_SUCCESS, {
             productList: res.data.data,
-            productTotal: res.data.meta.total,
+            productTotal: res.data.meta && res.data.meta.total,
             productListPage: filters.page || 1
           })
-          commit(types.LIMIT_SET_SUCCESS, res.data.meta.per_page)
+          commit(types.LIMIT_SET_SUCCESS, res.data.meta && res.data.meta.per_page)
           commit(types.SET_PRICE_RANGE, {
-            price_from: res.data.meta.price_from,
-            price_to: res.data.meta.price_to
+            price_from: res.data.meta && res.data.meta.price_from,
+            price_to: res.data.meta && res.data.meta.price_to
           })
           resolve(res)
         })

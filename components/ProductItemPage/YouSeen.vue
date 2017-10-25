@@ -8,12 +8,12 @@
           <div class="swiper-wrapper" :style="alignCenter">
             <router-link v-for="product in viewedProducts" :to="'/' + product.alias" class="new-product-item swiper-slide" key="product.id">
               <div class="new-product-item__img">
-                <img :src="imgUrl(product.id, product.cover ? product.cover.name : product.images.length ? product.images[0].name : '')" alt="">
+                <img :src="getImgSrc(product)" alt="">
                 <div class="view-prod">смотреть<span class="icon-right"></span></div>
               </div>
               <div class="new-product-item__txt">
                 <div class="prod-txt">{{product.locale.name}}</div>
-                <div class="prod-price"><b>{{product.price}}</b>&nbsp;грн.</div>
+                <div class="prod-price"><b>{{product.total_price}}</b>&nbsp;грн.</div>
               </div>
             </router-link>
           </div>
@@ -40,6 +40,10 @@
     methods: {
       imgUrl (productId, imgName) {
         return this.url() + `/assets/images/products/${productId}/${imgName}`
+      },
+      getImgSrc (product) {
+        let cover = this.coverImg(product)
+        return cover
       },
       swiperSliders () {
         let isLoop = this.viewedProducts && this.viewedProducts.length > 8

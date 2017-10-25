@@ -1,3 +1,4 @@
+<script src="../static/js/all-plugins.min.js"></script>
 <template>
   <div>
     <header class="header clearfix">
@@ -19,7 +20,7 @@
           <div class="header-search">
             <form @submit.prevent="searchFunction()">
               <button type="submit"><span class="icon-search"></span></button>
-              <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @input="inputSearch()">
+              <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @input="inputSearch()" @blur.prevent="" @focus.prevent="">
             </form>
             <div v-show="subString.length > 3" class="fast-search">
               <ul>
@@ -92,9 +93,9 @@
       <div class="left-fixed-nav__head"><img src="../assets/images/EuroGold-Logo.svg" alt=""></div>
       <div class="left-fixed-nav__body">
         <div class="header-search">
-          <form action="#">
+          <form @submit.prevent="searchFunction()">
             <button type="submit"><span class="icon-search"></span></button>
-            <input type="text" value="" placeholder="Что вы ищете?">
+            <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @input="inputSearch()">
           </form>
         </div>
         <div class="header-middle__right">
@@ -254,8 +255,12 @@ export default {
       }
     },
     searchFunction () {
-      this.$router.push({name: 'SearchPage', query: { search: this.subString }})
-      this.subString = ''
+      if (this.subString.length > 3) {
+        this.$router.push({name: 'SearchPage', query: { search: this.subString }})
+        this.subString = ''
+      } else {
+        alert('Поиск от трёх символов')
+      }
     },
     inputSearch () {
       this.subString.length > 3 && this.searchByString([this.subString, {limit: 5}])
@@ -265,7 +270,7 @@ export default {
     },
     getImgSrc (product) {
       let cover = this.coverImg(product)
-      return cover ? this.imgUrl(product.id, cover.name) : ''
+      return cover
     }
   },
   mounted () {

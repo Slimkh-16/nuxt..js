@@ -57,11 +57,10 @@
                 </div>
                 <!-- PRODUCT PRICE -->
                 <div class="product-price">
-                  <div v-if="product.type_price && dynamicOldPrice"  class="old-price"><span>{{dynamicOldPrice}}</span>грн.</div>
-                  <div v-if="!product.type_price && product.price_old" class="old-price"><span>{{product.price_old}}</span>грн.</div>
+                  <div v-if="product.price_old"  class="old-price"><span>{{product.price_old}}</span>грн.</div>
                   <div class="cur-price">
                     <span v-if="product.type_price && dynamicProductPrice" class="js_prod_price">{{dynamicProductPrice}} грн. </span>
-                    <span v-if="!product.type_price" class="js_prod_price">{{product.price}} грн.</span>
+                    <span v-if="!product.type_price" class="js_prod_price">{{product.total_price}} грн.</span>
                   </div>
                 </div>
                 <div class="product-free-delivery"><span class="icon-delivery"></span>БЕСПЛАТНАЯ ДОСТАВКА ДО ДВЕРЕЙ
@@ -70,7 +69,7 @@
                 <div class="product-buy">
                   <div class="product-buy-phone">Заказ по телефону<b>{{getObjectByKey('phone_for_order') && getObjectByKey('phone_for_order').value}}</b><span class="tt-upp">БЕСПЛАТНЫЙ НОМЕР</span>
                   </div>
-                  <a v-if="product.available && product.variations.length && (!product.type_price || dynamicProductPrice)" href="#" class="btn waves-effect waves-light" @click.prevent="addToCart()">Купить</a>
+                  <a v-if="product.total_price || dynamicProductPrice" href="#" class="btn waves-effect waves-light" @click.prevent="addToCart()">Купить</a>
                   <br>
                   <a v-if="pageCredit" href="#" class="all-butt waves-effect waves-light"  @click.prevent="addToCredit()">Купить в кредит</a>
                 </div>
@@ -131,7 +130,8 @@
         <div class="modal-head">Добавить гравировку</div>
         <div class="modal-body">
           <div class="grav-box">
-            <div data-text="Максимум 15 символов" class="grav-field"><span>Текст для гравировки</span>
+            <div data-text="Максимум 15 символов" class="grav-field">
+              <span>Текст для гравировки</span>
               <input type="text" value="Любовь навсегда" v-model="inputGravText" maxlength="15" @input="letterin()">
             </div>
             <div class="grav-change">
@@ -141,7 +141,8 @@
               <span @click="gravChangeTextStyle($event, 'gr-cus', 4)" class="gr-cus">Аб</span>
             </div>
             <div class="grav-img-box">
-              <div class="text-grav gr-tt">{{inputGravText}}</div><img src="/static/images/grav.jpg" alt="">
+              <div class="text-grav gr-tt">{{inputGravText}}</div>
+              <img src="/images/grav.jpg" alt="">
             </div>
             <p>Изделие показано для примера и может отличаться от выбранного вами. Размер надписи на вашем изделии может отличаться от показанного в зависимости от размера изделия.</p>
           </div>
@@ -279,18 +280,23 @@ export default {
       window.$(e.target).addClass('active')
       this.selectedSize = v.sort((p, n) => +p.weight - +n.weight)
       this.currentWeight = v[0]
+      console.log(this.selectedSize)
     },
     selectWeight (e, w) {
-      window.$(e.target).closest('.product-char-col').find('span').removeClass('active')
-      window.$(e.target).addClass('active')
+    //      window.$(e.target).closest('.product-char-col').find('span').removeClass('active')
+    //      window.$(e.target).addClass('active')
       this.currentWeight = w
     },
     imgUrl (productId, imgName) {
       return this.url() + `/assets/images/products/${productId}/${imgName}`
     },
+    currImg () {
+      let cover = this.coverImg(this.product)
+      return cover
+    },
     addToCart () {
       let computedPrice = this.product.type_price === 1 ? this.dynamicProductPrice : this.product.price
-      let npp = this.currentWeight.npp || this.product.variations[0].npp
+      let npp = this.product.variations[0] ? (this.currentWeight.npp || this.product.variations[0].npp) : this.product.total_price
       this.addProductIntoCart({...this.product, computedPrice, qty: 1, npp, size: this.currentWeight.size, grave: this.grave})
       window.$('#addedToCart').modal('open')
     },
@@ -300,10 +306,6 @@ export default {
     redirectToCart () {
       window.$('#addedToCart').modal('close')
       this.$router.push('/cart')
-    },
-    currImg () {
-      let cover = this.coverImg(this.product)
-      return cover ? this.imgUrl(this.product.id, cover.name) : ''
     }
   },
   data () {
@@ -334,10 +336,7 @@ export default {
       return Object.keys(this.sizes).sort((p, n) => +p - +n)
     },
     dynamicProductPrice () {
-      return this.currentWeight.weight ? (this.product.price * this.currentWeight.weight).toFixed(0) : null
-    },
-    dynamicOldPrice () {
-      return this.currentWeight.weight ? (this.product.price_old * this.currentWeight.weight).toFixed(0) : null
+      return this.selectedSize[0] ? this.selectedSize[0].price.toFixed(2) : null
     },
     pageCredit () {
       const pageCredit = this.contentPages.length && this.contentPages.filter((obj) => obj.alias === pageCreditUrl)[0]

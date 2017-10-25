@@ -12,16 +12,16 @@
           <div class="heading-big">{{categoryTitle}}</div>
           <div class="row">
             <filters  :filters="productFilters"
-                      :featureList="simpleFilters" 
-                      :radio="radioFilters" 
-                      :price_range="price_range" 
-                      :namedFilters="namedFilters" 
-                      :multiFilters="multiFilters" 
-                      :productTotal="productTotal" 
-                      @manualPrice="manualPrice" 
-                      @clearFilters="clearFilters" 
-                      @clearNamedFilters="clearNamedFilters" 
-                      @changeRadioFilterArr="changeRadioFilterArr" 
+                      :featureList="simpleFilters"
+                      :radio="radioFilters"
+                      :price_range="price_range"
+                      :namedFilters="namedFilters"
+                      :multiFilters="multiFilters"
+                      :productTotal="productTotal"
+                      @manualPrice="manualPrice"
+                      @clearFilters="clearFilters"
+                      @clearNamedFilters="clearNamedFilters"
+                      @changeRadioFilterArr="changeRadioFilterArr"
                       @changeFilterArr="changeFilterArr" >
             </filters>
             <div class="col l9 m8 s12 catalog-body">
@@ -72,7 +72,7 @@
       </div>
 
     </section>
-    <seo-section 
+    <seo-section
       v-if="!notShowSeoContent"
       :seoContent="seoContent"
       :seoTitle="seoTitle"
@@ -279,7 +279,7 @@
           } else {
             this.productFilters[key] = [id]
           }
-          this.resetPriceFilter()
+          // this.resetPriceFilter()
         }
         this.filterObserver()
       },
@@ -319,7 +319,7 @@
         if (key && id) {
           this.productFilters[key] = [id]
         }
-        this.resetPriceFilter()
+        // this.resetPriceFilter()
         this.filterObserver()
       },
       pageChanged (page) {
@@ -390,6 +390,7 @@
           this.productFilters.price_to = +window.$(this.thisInputTo).val()
           this.productFilters.page = 1
           this.filterObserver()
+          window.$('.catalog-filter').removeClass('visible')
         })
       },
       sliderRange () {
@@ -409,6 +410,7 @@
             start: [this._thisMinCur, this._thisMaxCur],
             connect: true,
             step: 1,
+            behaviour: 'drag',
             range: {
               'min': this._thisMin,
               'max': this._thisMax
@@ -493,7 +495,7 @@
       let productFilters = {}
       store.dispatch('setFilters')
       /**
-       * 
+       *
       */
       let key = route.name.replace('filter', '').split('-')
       key = key[1] ? key[1] : key[0]
@@ -501,15 +503,15 @@
       store.dispatch('setCatId', parseQuery)
       store.dispatch('fetchFilters')
       /**
-       * 
+       *
       */
       let parseParams = route.params['0']
       /**
        * url with filters ?
       */
       if (parseParams && parseParams.length) {
-        /** 
-         * parse filters 
+        /**
+         * parse filters
         */
         parseParams.split('/').map((el) => el.indexOf('=') > -1 ? el.split('=') : el).forEach((el) => {
           // parse price

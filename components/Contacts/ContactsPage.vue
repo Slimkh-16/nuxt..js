@@ -31,7 +31,11 @@
           </thead>
           <tbody>
             <tr v-for="store in stores">
-              <td><router-link :to="{ name: 'StoreOne', params: { id: store.city.alias}}"><b>{{store.city.locale.name}}, </b> магазин на {{store.address}}</router-link></td>
+              <td>
+                <router-link :to="{ name: 'stores-alias', params: { alias: store.city.alias}}">
+                  <b>{{store.city.locale.name}}, </b>
+                  магазин на {{store.address}}</router-link>
+              </td>
               <td><a :href="`tel:${phoneForHtml(store.phonenumber)}`">{{store.phonenumber}}</a></td>
             </tr>
           </tbody>
@@ -149,7 +153,7 @@ export default {
         var myLatlng = new window.google.maps.LatLng(coords[0], coords[1])
         var myCenter = new window.google.maps.LatLng(coords[0], coords[1])
         var mapOptions = {
-          zoom: 15,
+          zoom: 10,
           center: myCenter,
           scrollwheel: false,
           disableDefaultUI: false,
@@ -159,7 +163,7 @@ export default {
         var marker = new window.google.maps.Marker({
           position: myLatlng,
           map: map,
-          icon: '../static/images/map.png'
+          icon: '/images/map.png'
         })
         return marker
       } else {
@@ -187,6 +191,7 @@ export default {
   mounted () {
     this.mapFunction()
     this.fetchAffiliates().then(() => console.log(this.stores))
+    window.$('input[data-validate="phone"]').mask('+380(99)999 99 99')
     window.$('#modal-thank').modal({
       opacity: 1,
       ready: function (el) {

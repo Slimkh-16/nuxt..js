@@ -2,12 +2,12 @@
   <!--.news-page section-->
   <section class="news-page page-with-breadcrumbs">
     <div class="container">
-      <breadcrumbs :breadcrumbs="{way: [{name: 'Новости', template: 'news'}, {name: `${post.title}`}]}"></breadcrumbs>
+      <breadcrumbs :breadcrumbs="{way: [{name: 'Новости', template: 'news'}, {name: `${post.locale.title}`}]}"></breadcrumbs>
       <div class="news-one-container content">
-        <div class="big-heading">{{post.title}}</div>
+        <div class="big-heading">{{post.locale.title}}</div>
         <div class="relative-container">
-          <img :src="getImgSrc(post)" align="right" class="newImg" :alt="post.title">
-          <div v-html="post.body" class="post_body">
+          <img :src="getImgSrc(post)" align="right" class="newImg" :alt="post.locale.title">
+          <div v-html="post.locale.body" class="post_body">
           </div>
           <other-news></other-news>
         </div>
@@ -35,7 +35,7 @@ export default {
     },
     getImgSrc (post) {
       let cover = this.coverImg(post)
-      return cover ? this.imgUrl(post.id, cover.name) : ''
+      return cover
     },
     delTags (str) {
       return str.replace(/<\/?p>/g, '')

@@ -1,15 +1,16 @@
 <template>
-  <div>
-    <!-- navigation -->
-    <app-header
-      :menu="menu"
-      :count="count"
-    />
-    <!-- /navigation -->
+  <div class="page-wr">
+    <div class="wrapper">
+      <!-- navigation -->
+      <app-header
+        :menu="menu"
+        :count="count"
+      />
+      <!-- /navigation -->
 
-    <!-- displays the page component -->
-    <nuxt/>
-
+      <!-- displays the page component -->
+      <nuxt/>
+    </div>
     <!-- footer -->
     <app-footer :menu="menu"></app-footer>
     <div id="cartIsEmptyIndex" class="modal">

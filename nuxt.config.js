@@ -46,14 +46,6 @@ module.exports = {
           component: Cart
         },
         /* {
-          path: '/stores',
-          name: 'Stores',
-          component: Stores,
-          beforeEnter (to, from, next) {
-            checkUrlOnSlash(to, next)
-          }
-        },
-        {
           path: '/stones/:alias',
           name: 'StonePage',
           component: StonePage,
@@ -80,7 +72,7 @@ module.exports = {
           component: Checkout
         },
         {
-          path: '/order',
+          path: '/order/:hash',
           name: 'Order',
           component: Order
         },
