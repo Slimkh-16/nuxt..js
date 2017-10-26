@@ -2,31 +2,36 @@
   <div class="col l4 m6 s12 right">
     <div class="you-order">
       <div class="you-order__head">Ваш заказ</div>
-      <table>
-        <tr v-for="product in orderObj.products" :key="product.id">
-          <!-- <td class="img_holder align-center">
-            <img :src="getImgSrc(c)" :alt="c.locale.name">
-          </td> -->
-          <td>
-            <!-- <router-link :to="`/${c.alias}`">
-              {{c.locale.name}}<span class="price-order"><b>{{c.totalPrice || c.computedPrice}}</b>грн.</span>
-            </router-link> -->
-            <p>
-              {{product.product.locale.name}}
-              <br>
-              Размер: {{product.size}}
-              <br>
-              <span v-if="JSON.parse(product.grave).text">Гравировка: {{JSON.parse(product.grave).text}}</span>
-              <br>
-              <span v-if="JSON.parse(product.grave).style_id">Стиль гравировки: {{graveStyleList[+JSON.parse(product.grave).style_id - 1]}}</span>
-              <span class="price-order"><b>{{product.price}}</b> грн.</span>
-            </p>
-          </td>
-        </tr>
-        <tr class="order-total-price">
-          <td colspan="2"><span class="price-order">Итого:<b> {{ orderObj.total }} </b> грн. </span></td>
-        </tr>
-      </table>
+      <no-ssr>
+        <table>
+          <tbody>
+            <tr v-for="product in orderObj.products" :key="product.id">
+              <!-- <td class="img_holder align-center">
+                <img :src="getImgSrc(c)" :alt="c.locale.name">
+              </td> -->
+              <td>
+                <!-- <router-link :to="`/${c.alias}`">
+                  {{c.locale.name}}<span class="price-order"><b>{{c.totalPrice || c.computedPrice}}</b>грн.</span>
+                </router-link> -->
+                <p>
+                  {{product.product.locale.name}}
+                  <br>
+                  Размер: {{product.size}}
+                  <br>
+                  Кол-во: {{product.qty}}
+                  <span v-if="JSON.parse(product.grave).text">Гравировка: {{JSON.parse(product.grave).text}}</span>
+                  <br>
+                  <span v-if="JSON.parse(product.grave).style_id">Стиль гравировки: {{graveStyleList[+JSON.parse(product.grave).style_id - 1]}}</span>
+                  <span class="price-order"><b>{{product.price}}</b> грн.</span>
+                </p>
+              </td>
+            </tr>
+            <tr class="order-total-price">
+              <td colspan="2"><span class="price-order">Итого:<b> {{ orderObj.total }} </b> грн. </span></td>
+            </tr>
+          </tbody>
+        </table>
+      </no-ssr>
     </div>
     <div class="form_liqpay" v-html="form"></div>
     <div v-if="privatPaymentWay" class="container privat">
@@ -53,7 +58,7 @@
             <span class="legend bold">Срок кредитования</span>
             <div class="row">
               <div class="col-xs-12 col-md-2 text-center">
-                <input 
+                <input
                   type="text"
                   class="form-control text-center numeric-input"
                   id="termInput"
@@ -89,7 +94,7 @@
       </div>
       <a href="#" class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
     </div>
-    
+
   </div>
 </template>
 <script>

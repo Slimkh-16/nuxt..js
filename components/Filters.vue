@@ -30,7 +30,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- multi -->
     <div v-for="filter in multiFilters" class="filter-box visible" v-if="filter.feature.length">
       <div class="filter-box__head" @click="toggleFilterBox($event)">{{filter.locale.name}}<span class="refresh-filter" @click.stop="clearFilters(filter.alias)">сбросить</span></div>
@@ -41,31 +41,31 @@
         </div>
       </div>
     </div>
-    
+
     <!-- price range -->
     <div class="filter-box visible price">
       <div class="filter-box__head" @click="toggleFilterBox($event)">Цена<span class="refresh-filter" @click.stop="clearFilters([{key: 'price_from', val: price_range.price_from}, {key: 'price_to', val: price_range.price_to}], true)">сбросить</span></div>
       <div class="filter-bix__body" style="display: block;">
         <div class="range-slider">
-          <div 
-            id="range1" 
-            :data-min="price_range.price_from" 
-            :data-max="price_range.price_to" 
-            data-slider-min="" 
+          <div
+            id="range1"
+            :data-min="price_range.price_from"
+            :data-max="price_range.price_to"
+            data-slider-min=""
             data-slider-max=""></div>
           <div class="price-slider-input"><span>от</span>
-            <input 
-              type="text" 
-              class="js_from" 
-              v-model="filters.price_from" 
-              @keyup="checkValue('from', filters.price_from)" 
+            <input
+              type="text"
+              class="js_from"
+              v-model="filters.price_from"
+              @keyup="checkValue('from', filters.price_from)"
               @change="setInputPrice('from', filters.price_from)"
             ><span>до</span>
-            <input 
-              type="text" 
-              class="js_to" 
-              v-model="filters.price_to" 
-              @keyup="checkValue('to', filters.price_to)" 
+            <input
+              type="text"
+              class="js_to"
+              v-model="filters.price_to"
+              @keyup="checkValue('to', filters.price_to)"
               @change="setInputPrice('to', filters.price_to)"
             ><span><b>грн</b></span>
           </div>
@@ -81,9 +81,13 @@
     methods: {
       changeFilterArr (key, id, isPrice) {
         this.$emit('changeFilterArr', [key, id, isPrice])
+        window.$('.catalog-filter').removeClass('visible')
+        console.log(123)
       },
       changeRadioFilterArr (key, id) {
         this.$emit('changeRadioFilterArr', [key, id])
+        window.$('.catalog-filter').removeClass('visible')
+        console.log(123)
       },
       clearNamedFilters () {
         this.$emit('clearNamedFilters')

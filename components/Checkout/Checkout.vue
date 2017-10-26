@@ -26,7 +26,7 @@
               <pay-way
                 :validePurchase="validePurchase"
               ></pay-way>
-              
+
             </div>
           </div>
         </div>
@@ -67,6 +67,7 @@ export default {
   methods: {
     ...mapActions(['confirmOrder']),
     validePurchase () {
+      console.log(1235453499)
       if (this.userInfoForm) {
         /**
          * verify all fields (customer and recipient)
@@ -110,8 +111,9 @@ export default {
       */
       !this.isBlockButton && this.confirmOrder(checkoutObj)
         .then(res => {
-          this.$router.push('/order/' + res)
-          this.resetCart()
+          console.log(res)
+        //          this.$router.push('/order/' + res)
+        //          this.resetCart()
         })
         .catch(error => console.log(error))
       this.isBlockButton = true

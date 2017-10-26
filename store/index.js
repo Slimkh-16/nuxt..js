@@ -26,7 +26,6 @@ const createStore = () => {
       cart,
       contentPages,
       product,
-      stores,
       checkout,
       order,
       search,
@@ -35,6 +34,7 @@ const createStore = () => {
       settings,
       articles,
       stones,
+      stores,
       redirect,
       meta
     }

@@ -26,7 +26,7 @@ const getters = {
 }
 
 const actions = {
-  fetchPosts ({commit}, f) {
+  fetchPosts ({commit, state}, f) {
     return new Promise((resolve, reject) => {
       let filter = f ? `?&${qs.stringify(f)}` : ''
       axios
@@ -41,7 +41,7 @@ const actions = {
         })
     })
   },
-  fetchOnePost ({commit}, id) {
+  fetchOnePost ({commit, state}, id) {
     return new Promise((resolve, reject) => {
       axios
         .get(POSTS_LIST_URL + `/${id}`)
@@ -55,7 +55,7 @@ const actions = {
         })
     })
   },
-  fetchLatestPosts ({commit}) {
+  fetchLatestPosts ({commit, state}) {
     return new Promise((resolve, reject) => {
       axios
         .get(LATEST_POSTS_LIST_URL)

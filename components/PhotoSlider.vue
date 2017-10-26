@@ -10,13 +10,13 @@
           :data-zoom-image="currImg()"
           alt="">
       </div>
-      <div :id="galleryClassName" class="product-slider-nav" v-if="object && object.images.length > 1">
+      <div :id="galleryClassName" class="product-slider-nav" v-if="object.images">
         <a
-          v-for="(img, index) in object.images"
+          v-for="img in object.images"
           v-bind:key="index"
-          href="#" :style="object && `background:url('${imgUrl(object.id, img.name)}') no-repeat`"
-          :data-image="object && imgUrl(object.id, img.name)"
-          :data-zoom-image="object && imgUrl(object.id, img.name)" class="elevatezoom-gallery"></a>
+          href="#" :style="object && `background:url('${img.image_url}') no-repeat`"
+          :data-image="object && img.image_url"
+          :data-zoom-image="object && img.image_url" class="elevatezoom-gallery"></a>
       </div>
     </div>
 </template>
@@ -31,9 +31,11 @@ export default {
     imgUrl (postId, imgName) {
       return this.url() + `/assets/images/${this.pathOfImgUrl}/${postId}/${imgName}`
     },
-    currImg () {
-      let cover = this.coverImg(this.object)
-      return cover ? this.imgUrl(this.object.id, cover.name) : ''
+    currImg (product) {
+      if (this.object) {
+        let cover = this.coverImg(this.object)
+        return cover
+      }
     }
   }
 }

@@ -17,7 +17,7 @@ const getters = {
 }
 
 const actions = {
-  fetchAffiliates ({commit}) {
+  fetchAffiliates ({commit, state}) {
     return new Promise((resolve, reject) => {
       axios
         .get(AFFILIATES_LIST_URL)

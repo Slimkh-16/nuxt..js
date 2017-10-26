@@ -2,7 +2,7 @@
   <div class="way-delivery">
     <div class="order-head">
       Способ доставки
-      <p v-if="error">Не выбран пункт самовывоза</p>
+      <p v-if="error">Выберите пункт новой почты</p>
       </div>
     <div class="radio-group">
       <div class="radio-item">

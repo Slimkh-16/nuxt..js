@@ -32,7 +32,7 @@
               <div class="foot-nav__head">О магазине</div>
               <ul>
                 <li><router-link :to="{ name: 'ContactsPage' }">Контакты</router-link></li>
-                <li><router-link :to="{ name: 'Stores' }">Наши магазины</router-link></li>
+                <li><router-link :to="{ name: 'stores' }">Наши магазины</router-link></li>
                 <li><router-link :to="{ name: 'Reviews' }">Отзывы</router-link></li>
               </ul>
             </div>
@@ -86,7 +86,7 @@ export default {
 /*.footer {*/
   /*display: block;*/
 /*}*/
-[class*='icon-']:before {
-  margin-right: 10px;
-}
+/*[class*='icon-']:before {*/
+  /*margin-right: 10px;*/
+/*}*/
 </style>

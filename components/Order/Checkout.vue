@@ -20,7 +20,6 @@
               ></delivery>
               <!-- pay-way -->
               <pay-way></pay-way>
-              
             </div>
           </div>
         </div>

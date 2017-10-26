@@ -10,7 +10,7 @@
                 <div class="new-product-item__img">
                   <div v-if="product.video" class="product-with-video span icon-video"></div>
                   <!-- <img :src="imgUrl(product.id, product.cover ? product.cover.name : product.images && product.images.length ? product.images[0].name : '')" :alt="product.locale.name"> -->
-                  <img :src="product.cover && product.cover.image_url" :alt="product.locale.name">
+                  <img :src="getImgSrc(product)" :alt="product.locale.name">
                   <div class="view-prod">смотреть<span class="icon-right"></span></div>
                 </div>
                 <div class="new-product-item__txt">
@@ -87,6 +87,10 @@
       },
       imgUrl (productId, imgName) {
         return this.url() + `/assets/images/products/${productId}/${imgName}`
+      },
+      getImgSrc (product) {
+        let cover = this.coverImg(product)
+        return cover
       }
     }
     /* watch: {

@@ -303,7 +303,6 @@ function preloader() {
             }
         },
         materialPlagins: function () {
-
             $('.menu-button-general').sideNav({
                     menuWidth: 280,
                     edge: 'left',
@@ -360,7 +359,7 @@ function preloader() {
         if (document.querySelector('.cart-section'))
         {
             document.querySelector('.cart-section').style.maxHeight = window.innerHeight - document.querySelector('.cart-section').offsetTop + coof + 'px';
-        } 
+        }
     }
     function heightBlock(ell) {
         var elem = document.querySelectorAll(ell);
