@@ -22,7 +22,7 @@
               <button type="submit"><span class="icon-search"></span></button>
               <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @input="inputSearch()" @blur.prevent="" @focus.prevent="">
             </form>
-            <div v-show="subString.length > 3" class="fast-search">
+            <div v-show="subString.length > 2" class="fast-search">
               <ul>
                 <li v-for="fastSearch in searchProductList">
                   <router-link :to="{ name: 'Product page', params: { alias: fastSearch.alias }}">

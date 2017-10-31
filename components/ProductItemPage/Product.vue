@@ -27,9 +27,9 @@
                 <div v-if="product.available" class="product-one-status green-stat">Есть в наличии</div>
                 <div v-else class="product-one-status red-stat">Нет в наличии</div>
                 <div class="product-char">
-                  <div v-if="product.type_price" class="product-char-warning">ВЫГОДНАЯ
+                  <div v-if="product.price_gr" class="product-char-warning">ВЫГОДНАЯ
                     <br>ЦЕНА ЗОЛОТА
-                    <br><span>{{product.price}} ГРН.</span>ЗА ГРАММ!
+                    <br><span>{{product.price_gr}} ГРН.</span>ЗА ГРАММ!
                   </div>
                   <!-- SIZE -->
                   <div v-if="Object.keys(sizes).length" class="product-char-row">
@@ -59,8 +59,8 @@
                 <div class="product-price">
                   <div v-if="product.price_old"  class="old-price"><span>{{product.price_old}}</span>грн.</div>
                   <div class="cur-price">
-                    <span v-if="product.type_price && dynamicProductPrice" class="js_prod_price">{{dynamicProductPrice}} грн. </span>
-                    <span v-if="!product.type_price" class="js_prod_price">{{product.total_price}} грн.</span>
+                    <span v-if="product.variations.length && dynamicProductPrice" class="js_prod_price">{{dynamicProductPrice}} грн. </span>
+                    <span v-if="!product.variations.length" class="js_prod_price">{{product.total_price}} грн.</span>
                   </div>
                 </div>
                 <div class="product-free-delivery"><span class="icon-delivery"></span>БЕСПЛАТНАЯ ДОСТАВКА ДО ДВЕРЕЙ
@@ -280,11 +280,11 @@ export default {
       window.$(e.target).addClass('active')
       this.selectedSize = v.sort((p, n) => +p.weight - +n.weight)
       this.currentWeight = v[0]
-      console.log(this.selectedSize)
+      console.log(this.selectedSize[0].price)
     },
     selectWeight (e, w) {
-    //      window.$(e.target).closest('.product-char-col').find('span').removeClass('active')
-    //      window.$(e.target).addClass('active')
+      window.$(e.target).closest('.product-char-col').find('span').removeClass('active')
+      window.$(e.target).addClass('active')
       this.currentWeight = w
     },
     imgUrl (productId, imgName) {
