@@ -5764,6 +5764,11 @@ textarea.materialize-textarea {
 }
 
 @media only screen and (max-width: 599px) {
+  .small-heading {
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 3px;
+  }
   .pagination-section {
     padding:15px 0;
   }
