@@ -28,7 +28,7 @@
                     <span class="remove-item js_remove" @click="removeProductFromCart(c.npp)">удалить</span>
                   </div>
                 </td>
-                <td><span class="js_total_product">{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</span> грн.</td>
+                <td><span v-if="c.totalPrice" class="js_total_product">{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</span> грн.</td>
               </tr>
             </table>
             <div v-else class="align-center empty-cart">Корзина пуста</div>
@@ -38,7 +38,7 @@
         </div>
         <div  v-if="cart.length" class="cart-total">
           Итого:
-          <b class="js_total">{{subtotal.toFixed(2)}}</b> грн.
+          <b v-if="subtotal" class="js_total">{{subtotal.toFixed(2)}}</b> грн.
           <router-link :to="'/checkout'" class="btn waves-effect waves-light">Оформить заказ</router-link>
         </div>
       </div>
