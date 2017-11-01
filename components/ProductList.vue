@@ -20,6 +20,18 @@
                   <td>{{f.filter && f.filter.locale.name}}:</td>
                   <td>{{filterName(f)}}</td>
                 </tr>
+                <tr v-if="product.locale.metal_color">
+                  <td><span>Цвет металла:</span></td>
+                  <td>{{product.locale.metal_color}}</td>
+                </tr>
+                <tr v-if="product.locale.stone_bracing">
+                  <td><span>Фиксация камня:</span></td>
+                  <td>{{product.locale.stone_bracing}}</td>
+                </tr>
+                <tr v-if="product.locale.stone_color">
+                  <td><span>Цвет камня:</span></td>
+                  <td>{{product.locale.stone_color}}</td>
+                </tr>
               </tbody>
             </table>
           </div>

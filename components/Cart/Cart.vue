@@ -19,7 +19,7 @@
                     <li v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</li>
                   </ul>
                 </td>
-                <td data-price="4890"><span>{{c.computedPrice}}</span> грн.</td>
+                <td><span>{{c.computedPrice}}</span> грн.</td>
                 <td>
                   <div class="quantity-wrap">
                     <span class="minus-icon" @click="c.qty > 1 && (c.qty--, checkValue(c))">&#8722;</span>
@@ -28,7 +28,9 @@
                     <span class="remove-item js_remove" @click="removeProductFromCart(c.npp)">удалить</span>
                   </div>
                 </td>
-                <td><span v-if="c.totalPrice" class="js_total_product">{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</span> грн.</td>
+                <td>
+                  <span  v-if="c.qty" class="js_total_product">{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</span> грн.
+                </td>
               </tr>
             </table>
             <div v-else class="align-center empty-cart">Корзина пуста</div>

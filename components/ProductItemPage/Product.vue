@@ -54,6 +54,18 @@
                     <div class="product-char-col"><span>{{f.filter.locale.name}}:</span></div>
                     <div class="product-char-col">{{filterName(f)}}</div>
                   </div>
+                  <div class="product-char-row" v-if="product.locale.metal_color">
+                    <div class="product-char-col"><span>Цвет металла:</span></div>
+                    <div class="product-char-col">{{product.locale.metal_color}}</div>
+                  </div>
+                  <div class="product-char-row" v-if="product.locale.stone_bracing">
+                    <div class="product-char-col"><span>Фиксация камня:</span></div>
+                    <div class="product-char-col">{{product.locale.stone_bracing}}</div>
+                  </div>
+                  <div class="product-char-row" v-if="product.locale.stone_color">
+                    <div class="product-char-col"><span>Цвет камня:</span></div>
+                    <div class="product-char-col">{{product.locale.stone_color}}</div>
+                  </div>
                 </div>
                 <!-- PRODUCT PRICE -->
                 <div class="product-price">
@@ -69,7 +81,7 @@
                 <div class="product-buy">
                   <div class="product-buy-phone">Заказ по телефону<b>{{getObjectByKey('phone_for_order') && getObjectByKey('phone_for_order').value}}</b><span class="tt-upp">БЕСПЛАТНЫЙ НОМЕР</span>
                   </div>
-                  <a v-if="product.total_price || dynamicProductPrice" href="#" class="btn waves-effect waves-light" @click.prevent="addToCart()">Купить</a>
+                  <a v-if="product.available && product.total_price || dynamicProductPrice" href="#" class="btn waves-effect waves-light" @click.prevent="addToCart()">Купить</a>
                   <br>
                   <a v-if="pageCredit" href="#" class="all-butt waves-effect waves-light"  @click.prevent="addToCredit()">Купить в кредит</a>
                 </div>

@@ -162,16 +162,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  body:not(.inner-page) .grid {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-  }
-  body:not(.inner-page) .grid-item.news-item {
-    display: inline-block;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 1%;
-  }
+
 </style>

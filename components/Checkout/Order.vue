@@ -12,16 +12,12 @@
               <td>
                 <router-link :to="`/${c.alias}`">
                   {{c.locale.name}}
-                  <br>
                   <span v-if="c.size">Размер: {{c.size}}</span>
-                  <br>
                   <span v-if="c.npp.length">Артикул: {{c.npp}}</span>
-                  <br>
-                  Кол-во: {{c.qty}}
+                  <span>Кол-во: {{c.qty}}</span>
                   <span v-if="c.grave.text">Гравировка: {{c.grave.text}}</span>
-                  <br>
                   <span v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</span>
-                  <span class="price-order"><b>{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</b> грн.</span>
+                  <span v-if="c.qty" class="price-order"><b>{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</b> грн.</span>
                 </router-link>
               </td>
             </tr>
@@ -30,7 +26,7 @@
               <td>Подарочная упаковка<span class="price-order"><b>0</b> грн.</span></td>
             </tr>
             <tr class="order-total-price">
-              <td colspan="2"><span class="price-order">Итого:<b> {{ subtotal.toFixed(2) }} </b> грн. </span></td>
+              <td v-if="subtotal" colspan="2"><span class="price-order">Итого:<b> {{ subtotal.toFixed(2) }} </b> грн. </span></td>
             </tr>
           </tbody>
         </table>

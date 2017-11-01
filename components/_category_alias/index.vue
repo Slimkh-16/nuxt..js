@@ -102,13 +102,14 @@
     if (res[1] && res[1].locale) {
       let r = res[1]
       return {
-        seo_title: r.locale.title,
-        seo_keywords: r.locale.keywords,
-        seo_description: r.locale.description,
-        seo_canonical: r.locale.canonical,
-        seo_robots: r.locale.robots,
-        seoTitle: r.locale.title,
-        seoContent: r.locale.content
+        seo_title: r.locale.seo_title,
+        seo_keywords: r.locale.seo_keywords,
+        seo_description: r.locale.seo_description,
+        seo_canonical: r.locale.seo_canonical,
+        seo_robots: r.locale.seo_robots,
+        seoTitle: r.locale.seo_title,
+        seoContent: r.locale.description,
+        seoIntrotext: r.locale.introtext
       }
     // seo from category
     } else {
@@ -121,7 +122,8 @@
         seo_canonical: r.locale.seo_canonical,
         seo_robots: r.locale.seo_robots,
         seoTitle: r.locale.seo_title,
-        seoContent: r.locale.formatted_description
+        seoContent: r.locale.description,
+        seoIntrotext: r.locale.introtext
       }
     }
   }
@@ -627,6 +629,8 @@
 </script>
 
 <style>
+  .footer-container {
+    margin-bottom: 40px;}
   .flt-label + .select-wrapper {
     width: 190px !important;
   }
@@ -644,4 +648,5 @@
       display: none;
     }
   }
+
 </style>
