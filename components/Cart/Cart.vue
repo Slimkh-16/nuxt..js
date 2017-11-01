@@ -29,7 +29,7 @@
                   </div>
                 </td>
                 <td>
-                  <span  v-if="c.qty" class="js_total_product">{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</span> грн.
+                  <span  v-if="c.qty" class="js_total_product">{{c.totalPrice || c.computedPrice}}</span> грн.
                 </td>
               </tr>
             </table>
@@ -40,7 +40,7 @@
         </div>
         <div  v-if="cart.length" class="cart-total">
           Итого:
-          <b v-if="subtotal" class="js_total">{{subtotal.toFixed(2)}}</b> грн.
+          <b v-if="subtotal" class="js_total">{{subtotal}}</b> грн.
           <router-link :to="'/checkout'" class="btn waves-effect waves-light">Оформить заказ</router-link>
         </div>
       </div>

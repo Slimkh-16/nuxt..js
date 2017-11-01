@@ -255,7 +255,7 @@ export default {
       }
     },
     searchFunction () {
-      if (this.subString.length > 3) {
+      if (this.subString.length > 2) {
         this.$router.push({name: 'SearchPage', query: { search: this.subString }})
         this.subString = ''
       } else {

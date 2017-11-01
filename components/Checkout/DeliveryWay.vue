@@ -209,7 +209,7 @@ export default {
       this.setCheckoutProps({delivery_data: this.delivery_data})
     },
     replaceTags (str) {
-      return str.replace(/<\/?p>/g, '')
+      return str ? str.replace(/<\/?p>/g, '') : ''
     }
   },
   mounted () {

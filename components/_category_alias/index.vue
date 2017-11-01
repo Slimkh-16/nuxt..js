@@ -98,6 +98,7 @@
       store.dispatch('getMeta', route.fullPath),
       store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc'})
     ])
+    console.log(res)
     // seo module
     if (res[1] && res[1].locale) {
       let r = res[1]
@@ -113,7 +114,9 @@
       }
     // seo from category
     } else {
+      console.log(res[0])
       let b = res[0]
+      if (!b) return
       let r = b[b.length - 1]
       return {
         seo_title: r.locale.seo_title,
@@ -458,6 +461,8 @@
             // seo from category
             } else {
               let b = res[0]
+              console.log(res)
+              if (!b) return
               let r = b[b.length - 1]
               this.setMetaIntoPage({
                 title: r.locale.seo_title,
