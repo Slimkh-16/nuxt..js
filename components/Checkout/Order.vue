@@ -17,7 +17,7 @@
                   <span>Кол-во: {{c.qty}}</span>
                   <span v-if="c.grave.text">Гравировка: {{c.grave.text}}</span>
                   <span v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</span>
-                  <span v-if="c.qty" class="price-order"><b>{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</b> грн.</span>
+                  <span v-if="c.qty" class="price-order"><b>{{c.totalPrice || c.computedPrice}}</b> грн.</span>
                 </router-link>
               </td>
             </tr>
