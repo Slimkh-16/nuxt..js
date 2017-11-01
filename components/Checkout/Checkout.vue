@@ -110,9 +110,7 @@ export default {
       */
       !this.isBlockButton && this.confirmOrder(checkoutObj)
         .then(res => {
-          console.log(res, this.$router)
-          // this.$router.push('/order/' + res)
-          // this.$router.push({name: 'Order', params: {hash: res}})
+          this.$router.push(`/order/${res}`)
           this.resetCart()
         })
         .catch(error => console.log(error))

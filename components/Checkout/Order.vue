@@ -11,14 +11,14 @@
               </td>
               <td>
                 <router-link :to="`/${c.alias}`">
-                  {{c.locale.name}}
+                  {{c.locale.name}} </router-link>
                   <span v-if="c.size">Размер: {{c.size}}</span>
                   <span v-if="c.npp.length">Артикул: {{c.npp}}</span>
                   <span>Кол-во: {{c.qty}}</span>
                   <span v-if="c.grave.text">Гравировка: {{c.grave.text}}</span>
                   <span v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</span>
-                  <span v-if="c.qty" class="price-order"><b>{{c.totalPrice || c.computedPrice}}</b> грн.</span>
-                </router-link>
+                  <span class="price-order"><b>{{c.totalPrice || c.computedPrice}}</b> грн.</span>
+
               </td>
             </tr>
             <tr class="box-order-row">

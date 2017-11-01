@@ -3121,6 +3121,7 @@ h5,
 
 .product-slider-nav {
   margin-top: 30px;
+  text-align: center;
 }
 
 .product-slider-nav a {
@@ -5099,7 +5100,10 @@ textarea.materialize-textarea {
 }
 
 .you-order {
-  margin: 0 0 30px;
+  margin: 0 0 15px;
+}
+.form_liqpay {
+  margin-bottom: 15px;
 }
 
 .you-order table {

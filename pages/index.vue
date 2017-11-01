@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../static/css/style.css">
 <script src="../static/js/main.js"></script>
 <script src="../../Eurogold/app/js/jquery/jquery-3.2.1.min.js"></script>
 <template>

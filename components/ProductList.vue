@@ -11,7 +11,7 @@
           </div>
           <div class="product-item__txt">
             <div class="prod-txt" v-if="product.locale.name">{{ product.locale.name}}</div>
-            <div class="prod-price"><b>{{product.total_price.toFixed(2)}}</b>&nbsp;грн.</div>
+            <div class="prod-price"><b>{{product.total_price}}</b>&nbsp;грн.</div>
           </div>
           <div class="product-item__hover-box">
             <table>
