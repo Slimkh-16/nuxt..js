@@ -159,7 +159,8 @@ export default {
     }
   },
   mounted () {
-    this.fetchOrderByHash().then(() => {
+    console.log(this.$route)
+    this.fetchOrderByHash(this.$route.params.hash).then(() => {
       this.$nextTick(() => {
         this.privatPaymentWay && this.noUiSlider()
       })

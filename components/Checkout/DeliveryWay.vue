@@ -127,7 +127,7 @@ export default {
       let marker = new window.google.maps.Marker({
         position: myLatlng,
         map: map,
-        icon: '../static/images/map.png'
+        icon: 'images/map.png'
       })
       return marker
     },

@@ -348,7 +348,7 @@ export default {
       return Object.keys(this.sizes).sort((p, n) => +p - +n)
     },
     dynamicProductPrice () {
-      return this.selectedSize[0] ? this.selectedSize[0].price.toFixed(2) : null
+      return this.selectedSize[0] ? this.selectedSize[0].price : null
     },
     pageCredit () {
       const pageCredit = this.contentPages.length && this.contentPages.filter((obj) => obj.alias === pageCreditUrl)[0]

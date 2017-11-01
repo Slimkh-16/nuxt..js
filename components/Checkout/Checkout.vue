@@ -67,7 +67,6 @@ export default {
   methods: {
     ...mapActions(['confirmOrder']),
     validePurchase () {
-      console.log(1235453499)
       if (this.userInfoForm) {
         /**
          * verify all fields (customer and recipient)
@@ -91,7 +90,7 @@ export default {
       }
     },
     verifyCheckoutObj () {
-      let checkoutObj = {...this.checkoutObj, cart: this.cart, total: this.subtotal}
+      let checkoutObj = {...this.checkoutObj, cart: this.cart, total: this.subtotal, size: this.size}
       if (checkoutObj.order_delivery_method_id === '2') {
         window.$('.delivery-place .input-field input').blur()
         if (window.$('.delivery-place .input-field .error').length) {
@@ -111,9 +110,10 @@ export default {
       */
       !this.isBlockButton && this.confirmOrder(checkoutObj)
         .then(res => {
-          console.log(res)
-        //          this.$router.push('/order/' + res)
-        //          this.resetCart()
+          console.log(res, this.$router)
+          // this.$router.push('/order/' + res)
+          // this.$router.push({name: 'Order', params: {hash: res}})
+          this.resetCart()
         })
         .catch(error => console.log(error))
       this.isBlockButton = true

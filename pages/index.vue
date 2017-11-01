@@ -137,11 +137,11 @@ export default {
   },
   head () {
     return {
-      title: this.seo && this.seo.locale.title,
+      title: this.seo ? this.seo.locale.title : 'EUROGOLD',
       meta: [
         { hid: 'description', name: 'description', content: this.seo && this.seo.locale.description },
         { hid: 'keywords', name: 'keywords', content: this.seo && this.seo.locale.keywords },
-        { hid: 'robots', name: 'robots', content: (this.seo && this.seo.locale.robots) || 'noindex, nofollow' }
+        { hid: 'robots', name: 'robots', content: (this.seo && this.seo.locale.robots) || 'index, follow' }
       ]
     }
   },

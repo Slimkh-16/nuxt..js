@@ -2805,7 +2805,9 @@ h5,
 .catalog-body-filter__right {
   float: right;
 }
-
+.dropdown-content {
+  height: auto !important;
+}
 .dropdown-content li {
   min-height: 1px;
 }

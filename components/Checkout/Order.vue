@@ -3,7 +3,7 @@
     <div class="you-order">
       <div class="you-order__head">Ваш заказ</div>
       <no-ssr>
-        <table class="ss">
+        <table>
           <tbody>
             <tr v-for="c in cart" :data-product-id="c.id" v-bind:key="c.alias">
               <td class="img_holder align-center">
@@ -26,7 +26,7 @@
               <td>Подарочная упаковка<span class="price-order"><b>0</b> грн.</span></td>
             </tr>
             <tr class="order-total-price">
-              <td v-if="subtotal" colspan="2"><span class="price-order">Итого:<b> {{ subtotal.toFixed(2) }} </b> грн. </span></td>
+              <td v-if="subtotal" colspan="2"><span class="price-order">Итого:<b> {{ subtotal }} </b> грн. </span></td>
             </tr>
           </tbody>
         </table>
