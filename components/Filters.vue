@@ -81,12 +81,12 @@
       changeFilterArr (key, id, isPrice) {
         this.$emit('changeFilterArr', [key, id, isPrice])
         window.$('.catalog-filter').removeClass('visible')
-        console.log(123)
+        window.$('body').removeClass('noscroll')
       },
       changeRadioFilterArr (key, id) {
         this.$emit('changeRadioFilterArr', [key, id])
         window.$('.catalog-filter').removeClass('visible')
-        console.log(123)
+        window.$('body').removeClass('noscroll')
       },
       clearNamedFilters () {
         this.$emit('clearNamedFilters')

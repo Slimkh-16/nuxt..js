@@ -342,6 +342,8 @@
         this.productFilters.grade = value
         this.productFilters.page = 1
         this.filterObserver()
+        window.$('.catalog-body-filter').removeClass('visible')
+        window.$('body').removeClass('noscroll')
       },
       onFilterFunctions () {
         window.$('body').on('click', '.js_open_filter', this.mobileFilter)
