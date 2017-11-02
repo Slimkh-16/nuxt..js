@@ -178,6 +178,14 @@
         <option value="$PROJECT_DIR$/pages/news/index.vue" />
         <option value="$PROJECT_DIR$/pages/articles/_alias/index.vue" />
         <option value="$PROJECT_DIR$/components/ProductItemPage/Product.vue" />
+        <option value="$PROJECT_DIR$/components/home/BigNav.vue" />
+        <option value="$PROJECT_DIR$/helpers/ImageHelper.js" />
+        <option value="$PROJECT_DIR$/components/NewsBox.vue" />
+        <option value="$PROJECT_DIR$/layouts/default.vue" />
+        <option value="$PROJECT_DIR$/static/css/style.css" />
+        <option value="$PROJECT_DIR$/static/js/main.js" />
+        <option value="$PROJECT_DIR$/components/Cart/Cart.vue" />
+        <option value="$PROJECT_DIR$/components/Filters.vue" />
       </list>
     </option>
   </component>
