@@ -1388,6 +1388,11 @@ h5,
   border: 2px solid #ffe4a5;
   font-size: 16px;
   font-family: 'PtSans-Regular', sans-serif;
+  max-width:100%;
+  white-space: nowrap;
+  overflow: hidden;
+  -ms-text-overflow: ellipsis;
+  text-overflow: ellipsis;
 }
 
 .small-heading {
@@ -5506,6 +5511,10 @@ textarea.materialize-textarea {
 }
 
 @media only screen and (max-width: 992px) {
+  .big-nav-item {
+    display: inline-block;
+    margin-bottom: 25px;
+  }
   .btn {
     padding:0 15px;}
   .news-one-container .big-heading {
