@@ -2,8 +2,8 @@
   <section class="seo-section">
     <div class="container">
       <h1 class="h1">{{seoTitle}}</h1>
-      <div v-html="seoContent"></div>
-      <div v-html="seoIntrotext"></div>
+      <div v-if="seoContent" v-html="seoContent"></div>
+      <div v-if="seoIntrotext" v-html="seoIntrotext"></div>
     </div>
   </section>
 </template>

@@ -181,6 +181,7 @@
         sliderInProgress: false,
         seoTitle: '',
         seoContent: '',
+        seoIntrotext: '',
         loaded: false,
         notShowSeoContent: false,
         filtersDeep: 0
@@ -479,9 +480,10 @@
             console.log('[error from Promice meta and breadcrumbs]: ', error)
           })
       },
-      updateSeo (seoTitle, seoContent, robots) {
+      updateSeo (seoTitle, seoContent, seoIntrotext, robots) {
         this.seoTitle = seoTitle
         this.seoContent = seoContent
+        this.seoIntrotext = seoIntrotext
         if (this.filtersDeep > 2) {
           this.robots.attr('content', 'noindex, nofollow')
         } else {

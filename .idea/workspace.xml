@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52d3898c-3075-477e-8539-8cc58e8523fc" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/SeoSection.vue" afterPath="$PROJECT_DIR$/components/SeoSection.vue" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/components/_category_alias/index.vue" afterPath="$PROJECT_DIR$/components/_category_alias/index.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -27,21 +28,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/components/_category_alias/index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="80" column="19" lean-forward="false" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+            <state relative-caret-position="192">
+              <caret line="79" column="15" lean-forward="false" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="15" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SeoSection.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SeoSection.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/components/SeoSection.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="110">
-              <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="31" />
+            <state relative-caret-position="88">
+              <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
               <folding />
             </state>
           </provider>
@@ -119,7 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tofi</find>
       <find>tof</find>
       <find>!this.cart.length &amp;&amp; this.$router.push('/')</find>
       <find>cartIsEmptyIndex</find>
@@ -149,6 +149,7 @@
       <find>catalog-body-filter__left</find>
       <find>visible</find>
       <find>handleGrade</find>
+      <find>seoTitle</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,7 +169,6 @@
         <option value="$PROJECT_DIR$/config/index.js" />
         <option value="$PROJECT_DIR$/pages/stores/_alias/index.vue" />
         <option value="$PROJECT_DIR$/components/ProductItemPage/Characteristics.vue" />
-        <option value="$PROJECT_DIR$/components/SeoSection.vue" />
         <option value="$PROJECT_DIR$/components/Header1.vue" />
         <option value="$PROJECT_DIR$/static/js/all-plugins.min.js" />
         <option value="$PROJECT_DIR$/components/PhotoSlider.vue" />
@@ -207,6 +207,7 @@
         <option value="$PROJECT_DIR$/components/Cart/Cart.vue" />
         <option value="$PROJECT_DIR$/components/Filters.vue" />
         <option value="$PROJECT_DIR$/components/Filters.vue" />
+        <option value="$PROJECT_DIR$/components/SeoSection.vue" />
         <option value="$PROJECT_DIR$/components/_category_alias/index.vue" />
       </list>
     </option>
@@ -429,7 +430,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="123812000" />
+    <option name="totallyTimeSpent" value="124553000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
@@ -559,6 +560,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="11" column="104" lean-forward="false" selection-start-line="11" selection-start-column="98" selection-end-line="11" selection-end-column="104" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -731,6 +733,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
           <caret line="33" column="31" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -899,18 +902,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/_category_alias/index.vue">
+    <entry file="file://$PROJECT_DIR$/components/SeoSection.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="80" column="19" lean-forward="false" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="19" />
+        <state relative-caret-position="88">
+          <caret line="4" column="27" lean-forward="false" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/components/SeoSection.vue">
+    <entry file="file://$PROJECT_DIR$/components/_category_alias/index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="110">
-          <caret line="5" column="31" lean-forward="false" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="31" />
+        <state relative-caret-position="192">
+          <caret line="79" column="15" lean-forward="false" selection-start-line="79" selection-start-column="7" selection-end-line="79" selection-end-column="15" />
           <folding />
         </state>
       </provider>
