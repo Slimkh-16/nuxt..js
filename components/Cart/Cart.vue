@@ -132,10 +132,16 @@ export default {
     window.$('#cartIsEmpty').modal({
       opacity: 1,
       ready: function (el) {
-        window.$('.overlay').fadeIn(500)
+        window.$('.overlay').show()
+        setTimeout(function () {
+          window.$('.overlay').addClass('visible')
+        }, 100)
       },
       complete: function () {
-        window.$('.overlay').fadeOut(500)
+        window.$('.overlay').removeClass('visible')
+        setTimeout(function () {
+          window.$('.overlay').hide()
+        }, 500)
       }
     })
   },

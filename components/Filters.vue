@@ -41,7 +41,6 @@
         </div>
       </div>
     </div>
-
     <!-- price range -->
     <div class="filter-box visible price">
       <div class="filter-box__head" @click="toggleFilterBox($event)">Цена<span class="refresh-filter" @click.stop="clearFilters([{key: 'price_from', val: price_range.price_from}, {key: 'price_to', val: price_range.price_to}], true)">сбросить</span></div>
