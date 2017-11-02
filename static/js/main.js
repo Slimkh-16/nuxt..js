@@ -316,10 +316,17 @@ function preloader() {
             $('.modal').modal({
                 opacity: 1,
                 ready: function(el){
-                    $('.overlay').fadeIn(500);
+                    $('.overlay').show();
+                    setTimeout(function(){
+                      $('.overlay').addClass('visible')
+                    },100)
+
                 },
                 complete: function(){
-                    $('.overlay').fadeOut(500);
+                    $('.overlay').removeClass('visible')
+                    setTimeout(function(){
+                      $('.overlay').hide();
+                    },500)
                 }
             });
         },

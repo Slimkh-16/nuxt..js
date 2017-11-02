@@ -7,7 +7,7 @@
         </router-link>
       </div>
       <div class="news-item__txt"><span class="news-item__title">{{post.locale.title}}</span>
-        <div class="over-txt" v-html="post.locale.body"></div>
+        <div class="over-txt" v-html="post.locale.body.replace('img')"></div>
         <br>
         <router-link :to="{ name: routeName, params: { alias: post.alias }}">
           читать далее <i class="icon-right"></i>
