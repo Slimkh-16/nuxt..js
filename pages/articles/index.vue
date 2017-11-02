@@ -1,21 +1,21 @@
 <template>
-  <!--news section-->
-  <section class="news-page">
+  <!--article section-->
+  <section class="news-page news-page--articles">
     <div class="container">
-      <div class="big-heading">Новости</div>
+      <div class="big-heading">Статьи и обзоры</div>
       <div class="clearfix">
         <div class="catalog-body-filter__right">
-          <pagination :current-page="postsCurrentPage" :total-items="postsTotal" :itemsPerPage="postsLimit" @page-changed="pageChanged"></pagination>
+          <pagination :current-page="articlesCurrentPage" :total-items="articlesTotal" :itemsPerPage="articlesLimit" @page-changed="pageChanged"></pagination>
           <br>
         </div>
       </div>
-      <news-box
-        :posts="posts"
-        :routeName="'news-alias'"
-      ></news-box>
+      <article-box
+        :posts="articles"
+        :routeName="'articles-alias'"
+      ></article-box>
       <div class="clearfix">
         <div class="catalog-body-filter__right">
-          <pagination :current-page="postsCurrentPage" :total-items="postsTotal" :itemsPerPage="postsLimit" @page-changed="pageChanged"></pagination>
+          <pagination :current-page="articlesCurrentPage" :total-items="articlesTotal" :itemsPerPage="articlesLimit" @page-changed="pageChanged"></pagination>
         </div>
       </div>
     </div>
@@ -25,19 +25,19 @@
 import { mapGetters, mapActions } from 'vuex'
 import ImageHelper from '../../helpers/ImageHelper'
 import Pagination from '../../components/Pagination.vue'
-import NewsBox from '../../components/NewsBox.vue'
+import ArticleBox from '../../components/NewsBox.vue'
 
 export default {
   mixins: [ImageHelper],
   components: {
     'pagination': Pagination,
-    'news-box': NewsBox
+    'article-box': ArticleBox
   },
   computed: {
-    ...mapGetters(['posts', 'postsCurrentPage', 'postsLimit', 'postsTotal', 'meta'])
+    ...mapGetters(['articles', 'articlesCurrentPage', 'articlesLimit', 'articlesTotal'])
   },
   methods: {
-    ...mapActions(['fetchPosts']),
+    ...mapActions(['fetchArticles']),
     masonry () {
       let $grid = window.$('.grid').masonry({
         itemSelector: '.grid-item',
@@ -55,11 +55,11 @@ export default {
     }
   },
   beforeCreate () {
-    this.$store.dispatch('fetchPosts')
+    this.$store.dispatch('fetchArticles')
     this.$store.dispatch('getMeta', this.$route.fullPath)
   },
   async asyncData ({store, route}) {
-    store.dispatch('fetchPosts')
+    store.dispatch('fetchArticles')
     return {
       postsMeta: await store.dispatch('getMeta', route.fullPath)
     }
@@ -91,9 +91,6 @@ export default {
       this.masonry()
     }, 1000)
   }
-  //  beforeDestroy () {
-  //    window.$('.grid').masonry('destroy')
-  //  }
 }
 </script>
 

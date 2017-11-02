@@ -43,7 +43,7 @@
               <div class="foot-nav__head">Новости  Eurogold</div>
               <ul>
                 <li><router-link :to="{ name: 'news'}">Новости</router-link></li>
-                <li><router-link :to="{ name: 'Articles'}">Статьи и обзоры</router-link></li>
+                <li><router-link :to="{ name: 'articles'}">Статьи и обзоры</router-link></li>
               </ul>
             </div>
             <div class="social">
