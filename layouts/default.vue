@@ -46,6 +46,7 @@ export default {
     AppFooter
   },
   async asyncData ({store}) {
+    await store.dispatch('fetchRedirects')
     return {
       menu: await store.dispatch('fetchMenu')
     }
@@ -54,16 +55,10 @@ export default {
     this.$store.dispatch('fetchMenu')
     this.$store.dispatch('fetchSettings')
     this.$store.dispatch('fetchContentPage')
-    this.$store.dispatch('fetchRedirects')
     this.$store.dispatch('getStone')
   },
   mounted () {
-    /* this.fetchMenu() */
     this.getCart()
-    /* this.fetchSettings() */
-    /* this.fetchContentPage() */
-    /* this.fetchRedirects() */
-    /* this.getStone() */
     window.$('.materialboxed').materialbox()
     window.$('#cartIsEmptyIndex').modal({
       opacity: 1,

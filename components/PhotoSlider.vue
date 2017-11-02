@@ -10,7 +10,7 @@
           :data-zoom-image="currImg()"
           alt="">
       </div>
-      <div :id="galleryClassName" class="product-slider-nav" v-if="object.images">
+      <div :id="galleryClassName" class="product-slider-nav" v-if="object && object.images">
         <a
           v-for="(img, key) in object.images"
           v-bind:key="index"

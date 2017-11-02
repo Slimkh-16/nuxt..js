@@ -12,7 +12,6 @@ const getPost = (slug) => ({
 })
 export default {
   beforeCreate () {
-    console.log('============ beforeCreate =================', this.$store.state.slug)
     this.component = () => getPost(this.$store.state.slug)
   },
   async asyncData ({store, route}) {

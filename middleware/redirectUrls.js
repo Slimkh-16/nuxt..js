@@ -4,15 +4,18 @@ import ConfigHelper from '../helpers/ConfigHelper'
 const URL = ConfigHelper.get('frontUrl')
 let count = 0
 
-function redirectionFunction ({ redirect, store, route }) {
+async function redirectionFunction ({ redirect, store, route }) {
   if (redirectsList && Object.keys(redirectsList).length) {
     let goodUrl = redirectsList[`${URL}${route.path}`]
     if (goodUrl) {
-      redirect(302, goodUrl.slice(goodUrl.indexOf('/', 8), goodUrl.length))
+      let url = goodUrl.good_url
+      let code = goodUrl.status_code
+      url = url.slice(url.indexOf('/', 8), url.length)
+      redirect(code, url)
     }
   } else if (count < 5) {
     count++
-    store.dispatch('fetchRedirects')
+    await store.dispatch('fetchRedirects')
     redirectionFunction({ redirect, store, route })
   }
 }

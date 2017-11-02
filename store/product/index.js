@@ -90,9 +90,9 @@ const getters = {
 
 const actions = {
   fetchFilters ({commit, state}) {
+    if (state.cat_id.indexOf('.png') > -1) return false
     return new Promise((resolve, reject) => {
       commit(types.FILTERS_LIST_FETCH_PROCESSING)
-      console.log('fetchFilters', state.cat_id)
       axios.get(`${FILTERS_LIST_URL}/${state.cat_id}`).then((res) => {
         let filters = res.data.data.filter(f => f.feature_type)
         commit(types.FILTERS_LIST_FETCH_SUCCESS, filters)
@@ -106,6 +106,7 @@ const actions = {
   fetchProductList ({commit, state}, filters = {}) {
     return new Promise((resolve, reject) => {
       let catId = getters.cat_id(state) ? `category=${getters.cat_id(state)}` : ''
+      if (catId.indexOf('.png') > -1) return false
       commit(types.PRODUCT_LIST_FETCH_PROCESSING)
       axios.get(`${PRODUCT_LIST_URL}?${catId}&${qs.stringify(filters)}`)
         .then((res) => {
@@ -137,7 +138,6 @@ const actions = {
     commit(types.GRADE_SET_SUCCESS, grade)
   },
   setCatId ({commit, state}, catId) {
-    console.log('catId from vuex ', catId)
     commit(types.CAT_ID_SET_SUCCESS, catId)
   },
   fetchProduct ({commit, state}, productAlias) {
@@ -189,7 +189,6 @@ const actions = {
           find.categoryName = 'category_alias'
           commit(types.BREADCRUMBS_SET, [find])
           resolve([find])
-          console.log(111111)
         } else {
           _.forEach(categories, function (obj) {
             find = _.find(obj.children, { 'alias': id })
@@ -198,7 +197,6 @@ const actions = {
               obj.categoryName = 'category_alias'
               commit(types.BREADCRUMBS_SET, [obj, find])
               resolve([obj, find])
-              console.log(222222)
             } else {
               _.forEach(obj.children, function (childObj) {
                 find = _.find(childObj.children, { 'alias': id })
@@ -208,11 +206,8 @@ const actions = {
                   find.categoryName = 'category_alias-subCategoryChild'
                   commit(types.BREADCRUMBS_SET, [obj, childObj, find])
                   resolve([obj, childObj, find])
-                  console.log(3333)
                 } else {
                   resolve(undefined)
-                  // reject(new Error(`not Breadcrumbs for == ${id} == category`))
-                  console.log(404)
                 }
               })
             }
@@ -220,8 +215,6 @@ const actions = {
         }
       } else {
         resolve(undefined)
-        // reject(new Error('not id category'))
-        console.log(404)
       }
     })
   },
@@ -260,7 +253,6 @@ const mutations = {
     state.productList = data.productList
     state.productTotal = data.productTotal
     state.productListPage = data.productListPage
-    console.log('>>>>>>>>>>>>> fetchProductList')
     return state
   },
   [types.PRODUCT_ITEM_FETCH_SUCCESS] (state, data) {
@@ -304,7 +296,6 @@ const mutations = {
   },
   [types.CAT_ID_SET_SUCCESS] (state, data) {
     state.cat_id = data
-    console.log('types.CAT_ID_SET_SUCCESS', state.cat_id)
     return state.cat_id
   },
   [types.MENU_FETCH_PROCESSING] (state) {

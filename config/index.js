@@ -40,7 +40,7 @@ module.exports = {
   // url: 'http://eurogold-backend2.myapp.com.ua',
   // apiUrl: 'http://eurogold-backend2.myapp.com.ua/api',
   url: 'http://eurogold-backend.myapp.com.ua',
-  frontUrl: 'http://eurogold-frontend.myapp.com.ua',
+  frontUrl: 'http://eurogold-frontend.myapp.com.ua:3000',
   apiUrl: 'http://eurogold-backend.myapp.com.ua/api'
   // backendUrl: 'http://eurogold-backend.dev/'
 }

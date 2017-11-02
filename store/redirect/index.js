@@ -15,7 +15,7 @@ const getters = {
 }
 
 const actions = {
-  fetchRedirects ({commit}) {
+  fetchRedirects ({commit, state}) {
     return new Promise((resolve, reject) => {
       axios
         .get(REDIRECT_LIST_URL)

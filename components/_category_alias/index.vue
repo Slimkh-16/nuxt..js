@@ -36,20 +36,22 @@
                   </div>
                 </div>
                 <div class="clearfix">
-                  <!-- <div class="catalog-body-filter__left"><span class="flt-label">Сортировать</span>
-                    <app-select name="grade" v-model="grade" :onChange="handleGrade">
-                      <option value="asc">недорогие вначале</option>
-                      <option value="desc">недорогие вконце</option>
-                    </app-select>
-                    <div v-if="productTotal > 12" class="inline">
-                      <app-select name="limit" v-model.number="limit" :onChange="handleLimitChange">
-                        <option value="12">12</option>
-                        <option value="24">24</option>
-                        <option value="48">48</option>
+                  <no-ssr>
+                    <div class="catalog-body-filter__left"><span class="flt-label">Сортировать</span>
+                      <app-select name="grade" v-model="grade" :onChange="handleGrade">
+                        <option value="asc">недорогие вначале</option>
+                        <option value="desc">недорогие вконце</option>
                       </app-select>
-                      <span class="flt-label">на странице</span>
+                      <div v-if="productTotal > 12" class="inline">
+                        <app-select name="limit" v-model.number="limit" :onChange="handleLimitChange">
+                          <option value="12">12</option>
+                          <option value="24">24</option>
+                          <option value="48">48</option>
+                        </app-select>
+                        <span class="flt-label">на странице</span>
+                      </div>
                     </div>
-                  </div> -->
+                  </no-ssr>
                   <div class="catalog-body-filter__right">
                     <pagination :current-page="productListPage"
                                 :total-items="productTotal"
@@ -98,7 +100,6 @@
       store.dispatch('getMeta', route.fullPath),
       store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc'})
     ])
-    console.log(res)
     // seo module
     if (res[1] && res[1].locale) {
       let r = res[1]
@@ -114,7 +115,6 @@
       }
     // seo from category
     } else {
-      console.log(res[0])
       let b = res[0]
       if (!b) return
       let r = b[b.length - 1]
@@ -317,7 +317,6 @@
         }
       },
       changeRadioFilterArr ([key, id]) {
-        console.log('this.radioFilters', this.radioFilters)
         this.radioFilters.forEach((f) => {
           this.productFilters[f.alias] && this.productFilters[f.alias].length && delete this.productFilters[f.alias]
         })
@@ -461,7 +460,6 @@
             // seo from category
             } else {
               let b = res[0]
-              console.log(res)
               if (!b) return
               let r = b[b.length - 1]
               this.setMetaIntoPage({
@@ -481,7 +479,6 @@
       updateSeo (seoTitle, seoContent, robots) {
         this.seoTitle = seoTitle
         this.seoContent = seoContent
-        console.log('this.filtersDeep ', this.filtersDeep)
         if (this.filtersDeep > 2) {
           this.robots.attr('content', 'noindex, nofollow')
         } else {
@@ -494,10 +491,6 @@
         }
       }
     },
-    /* beforeCreate () {
-      console.log('before create')
-      this.$store.dispatch('fetchProductList')
-    }, */
     async asyncData ({store, route}) {
       let productFilters = {}
       store.dispatch('setFilters')
@@ -551,7 +544,6 @@
     head () {
       this.filtersDeep = Object.keys(this.productFilters).length - 1
       let store = this.$store.state.categoryMeta
-      console.log('this ', this, 'store', store)
       let path = this.$route.path
       let title = this.seo_title || (store && store.seo_title) || 'Eurogold'
       let description = this.seo_description || (store && store.seo_description) || ''
@@ -584,7 +576,6 @@
       }
     },
     mounted () {
-      console.log('MOUNTED ')
       this.onFilterFunctions()
       // jquery toggleClass
       window.$('select').not('.my_select_box').material_select()
