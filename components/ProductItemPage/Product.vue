@@ -177,7 +177,7 @@
     <div v-if="pageCredit" id="addedToCredit" class="modal">
       <div class="modal-content"><span class="modal-action modal-close modal-close--top icon-cancel"></span>
         <div class="modal-head">Купить в кредит</div>
-        <div class="modal-body" v-html="pageCredit.body"></div>
+        <div class="modal-body" v-html="pageCredit.locale.body"></div>
         <div class="modal-foot text-center clearfix">
           <span class="waves-effect waves-light modal-close"><span class="icon-16-arrow-link"></span>Ок</span>
         </div>
