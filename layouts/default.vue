@@ -17,7 +17,7 @@
       <div class="modal-content"><span class="modal-action modal-close modal-close--top icon-cancel"></span>
         <div class="modal-head">Ваша козина пуста.</div>
         <div class="modal-foot clearfix">
-          <span class="waves-effect waves-light modal-close"><span class="icon-16-arrow-link"></span>Ок</span>
+          <span class="waves-effect waves-light modal-close" @click="redirectToMainPage()"><span class="icon-16-arrow-link"></span>Ок</span>
         </div>
       </div>
     </div>
@@ -35,7 +35,10 @@ export default {
     ...mapGetters(['menu', 'count'])
   },
   methods: {
-    ...mapActions(['fetchMenu', 'fetchBreadcrumbs', 'fetchSettings', 'fetchContentPage', 'getStone', 'fetchRedirects'])
+    ...mapActions(['fetchMenu', 'fetchBreadcrumbs', 'fetchSettings', 'fetchContentPage', 'getStone', 'fetchRedirects']),
+    redirectToMainPage () {
+      this.$route.fullPath === '/checkout' && this.$router.push('/')
+    }
   },
   mixins: [Cart],
   components: {

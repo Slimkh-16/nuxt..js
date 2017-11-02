@@ -307,7 +307,7 @@ export default {
       return cover
     },
     addToCart () {
-      let computedPrice = this.product.type_price === 1 ? this.dynamicProductPrice : this.product.price
+      let computedPrice = this.dynamicProductPrice ? this.dynamicProductPrice : this.product.price
       let npp = this.product.variations[0] ? (this.currentWeight.npp || this.product.variations[0].npp) : this.product.total_price
       this.addProductIntoCart({...this.product, computedPrice, qty: 1, npp, size: this.currentWeight.size, grave: this.grave})
       window.$('#addedToCart').modal('open')

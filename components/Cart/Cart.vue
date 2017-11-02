@@ -14,6 +14,7 @@
                   <ul>
                     <li><router-link :to="`/${c.alias}`">{{c.locale.name}}</router-link></li>
                     <li v-if="c.size">Размер: {{c.size}}</li>
+                    <li v-if="c.weight">Вес: {{c.weight}}</li>
                     <li v-if="c.npp.length">Артикул: {{c.npp}}</li>
                     <li v-if="c.grave.text">Гравировка: {{c.grave.text}}</li>
                     <li v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</li>
@@ -29,7 +30,7 @@
                   </div>
                 </td>
                 <td>
-                  <span  v-if="c.qty" class="js_total_product">{{c.totalPrice || c.computedPrice}}</span> грн.
+                  <span class="js_total_product">{{c.totalPrice && c.totalPrice.toFixed(2) || c.computedPrice && c.computedPrice.toFixed(2)}}</span> грн.
                 </td>
               </tr>
             </table>
@@ -40,7 +41,7 @@
         </div>
         <div  v-if="cart.length" class="cart-total">
           Итого:
-          <b v-if="subtotal" class="js_total">{{subtotal}}</b> грн.
+          <b v-if="subtotal" class="js_total">{{subtotal && subtotal.toFixed(2)}}</b> грн.
           <router-link :to="'/checkout'" class="btn waves-effect waves-light">Оформить заказ</router-link>
         </div>
       </div>

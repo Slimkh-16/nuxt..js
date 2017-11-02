@@ -58,9 +58,9 @@ export default {
       return cover
     }
   },
-  watch: {
-    cart (products) {
-      !products.length && this.$router.push('/')
+  mounted () {
+    if (!this.cart.length) {
+      window.$('#cartIsEmptyIndex').modal('open')
     }
   }
 }
