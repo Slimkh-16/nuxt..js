@@ -78,6 +78,7 @@
       v-if="!notShowSeoContent"
       :seoContent="seoContent"
       :seoTitle="seoTitle"
+      :seoIntrotext="seoIntrotext"
       ></seo-section>
   </div>
 </template>
