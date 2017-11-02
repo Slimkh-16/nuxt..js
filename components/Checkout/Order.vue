@@ -3,7 +3,7 @@
     <div class="you-order">
       <div class="you-order__head">Ваш заказ</div>
       <no-ssr>
-        <table class="ss">
+        <table>
           <tbody>
             <tr v-for="c in cart" :data-product-id="c.id" v-bind:key="c.alias">
               <td class="img_holder align-center">
@@ -11,18 +11,14 @@
               </td>
               <td>
                 <router-link :to="`/${c.alias}`">
-                  {{c.locale.name}}
-                  <br>
+                  {{c.locale.name}} </router-link>
                   <span v-if="c.size">Размер: {{c.size}}</span>
-                  <br>
                   <span v-if="c.npp.length">Артикул: {{c.npp}}</span>
-                  <br>
-                  Кол-во: {{c.qty}}
+                  <span>Кол-во: {{c.qty}}</span>
                   <span v-if="c.grave.text">Гравировка: {{c.grave.text}}</span>
-                  <br>
                   <span v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</span>
-                  <span class="price-order"><b>{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</b> грн.</span>
-                </router-link>
+                  <span class="price-order"><b>{{c.totalPrice || c.computedPrice}}</b> грн.</span>
+
               </td>
             </tr>
             <tr class="box-order-row">
@@ -30,7 +26,7 @@
               <td>Подарочная упаковка<span class="price-order"><b>0</b> грн.</span></td>
             </tr>
             <tr class="order-total-price">
-              <td colspan="2"><span class="price-order">Итого:<b> {{ subtotal.toFixed(2) }} </b> грн. </span></td>
+              <td v-if="subtotal" colspan="2"><span class="price-order">Итого:<b> {{ subtotal }} </b> грн. </span></td>
             </tr>
           </tbody>
         </table>
@@ -62,9 +58,9 @@ export default {
       return cover
     }
   },
-  watch: {
-    cart (products) {
-      !products.length && this.$router.push('/')
+  mounted () {
+    if (!this.cart.length) {
+      window.$('#cartIsEmptyIndex').modal('open')
     }
   }
 }

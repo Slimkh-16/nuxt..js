@@ -49,7 +49,7 @@ export default {
       // seo from category
       } else {
         let b = res[0]
-        let r = b[b.length - 1]
+        let r = b ? b[b.length - 1] : {locale: {}}
         store.state.categoryMeta = {
           seo_title: r.locale.seo_title,
           seo_keywords: r.locale.seo_keywords,

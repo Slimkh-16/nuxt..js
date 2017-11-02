@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {createRouter} from '../../.nuxt/router'
 import * as types from './mutationTypes'
 import ConfigHelper from '../../helpers/ConfigHelper'
 
@@ -7,8 +6,6 @@ const API_URL = ConfigHelper.get('apiUrl')
 const GET_ORDER_BY_HASH = API_URL + '/orders'
 const GET_LIQPAY_FORM = API_URL + '/payment'
 const SEND_PRIVAT_DATA = API_URL + '/payment/privat_payment'
-
-const router = createRouter()
 
 const state = {
   fetchError: null,
@@ -22,17 +19,17 @@ const getters = {
 }
 
 const actions = {
-  fetchOrderByHash ({commit}) {
+  fetchOrderByHash ({commit, state}, hash) {
     return new Promise((resolve, reject) => {
       axios
-        .get(GET_ORDER_BY_HASH + `/${router.currentRoute.params.hash}`)
+        .get(GET_ORDER_BY_HASH + `/${hash}`)
         .then(res => {
           /**
            * if order_payment_method is 1 => to a bank card
            * get liqpay form
           */
           if (res.data.data.order_payment_method.id === 1 && res.data.data.status.id === 1) {
-            actions.fetchLiqpayForm({commit})
+            actions.fetchLiqpayForm({commit}, hash)
           }
           /**
            * commit fetched data by hash
@@ -46,10 +43,10 @@ const actions = {
         })
     })
   },
-  fetchLiqpayForm ({commit}) {
+  fetchLiqpayForm ({commit}, hash) {
     return new Promise((resolve, reject) => {
       axios
-        .get(GET_LIQPAY_FORM + `/${router.currentRoute.params.hash}/get_form`)
+        .get(GET_LIQPAY_FORM + `/${hash}/get_form`)
         .then(res => {
           commit(types.FETCH_LIQPAY_FORM_SUCCESS, res.data.form)
         })

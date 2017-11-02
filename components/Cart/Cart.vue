@@ -14,12 +14,13 @@
                   <ul>
                     <li><router-link :to="`/${c.alias}`">{{c.locale.name}}</router-link></li>
                     <li v-if="c.size">Размер: {{c.size}}</li>
+                    <li v-if="c.weight">Вес: {{c.weight}}</li>
                     <li v-if="c.npp.length">Артикул: {{c.npp}}</li>
                     <li v-if="c.grave.text">Гравировка: {{c.grave.text}}</li>
                     <li v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</li>
                   </ul>
                 </td>
-                <td data-price="4890"><span>{{c.computedPrice}}</span> грн.</td>
+                <td><span>{{c.computedPrice}}</span> грн.</td>
                 <td>
                   <div class="quantity-wrap">
                     <span class="minus-icon" @click="c.qty > 1 && (c.qty--, checkValue(c))">&#8722;</span>
@@ -28,7 +29,9 @@
                     <span class="remove-item js_remove" @click="removeProductFromCart(c.npp)">удалить</span>
                   </div>
                 </td>
-                <td><span class="js_total_product">{{c.totalPrice.toFixed(2) || c.computedPrice.toFixed(2)}}</span> грн.</td>
+                <td>
+                  <span class="js_total_product">{{c.totalPrice && c.totalPrice.toFixed(2) || c.computedPrice && c.computedPrice.toFixed(2)}}</span> грн.
+                </td>
               </tr>
             </table>
             <div v-else class="align-center empty-cart">Корзина пуста</div>
@@ -38,7 +41,7 @@
         </div>
         <div  v-if="cart.length" class="cart-total">
           Итого:
-          <b class="js_total">{{subtotal.toFixed(2)}}</b> грн.
+          <b v-if="subtotal" class="js_total">{{subtotal && subtotal.toFixed(2)}}</b> грн.
           <router-link :to="'/checkout'" class="btn waves-effect waves-light">Оформить заказ</router-link>
         </div>
       </div>

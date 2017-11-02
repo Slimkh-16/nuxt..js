@@ -12,7 +12,7 @@
       </div>
       <div :id="galleryClassName" class="product-slider-nav" v-if="object.images">
         <a
-          v-for="img in object.images"
+          v-for="(img, key) in object.images"
           v-bind:key="index"
           href="#" :style="object && `background:url('${img.image_url}') no-repeat`"
           :data-image="object && img.image_url"

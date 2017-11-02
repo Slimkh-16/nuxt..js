@@ -2,7 +2,7 @@
   <!--news section-->
   <section class="news-page">
     <div class="container">
-      <!-- <div class="big-heading">Новости</div -->>
+      <div class="big-heading">Новости</div>
       <div class="clearfix">
         <div class="catalog-body-filter__right">
           <pagination :current-page="postsCurrentPage" :total-items="postsTotal" :itemsPerPage="postsLimit" @page-changed="pageChanged"></pagination>

@@ -6,7 +6,7 @@
       <div class="big-heading">Ювелирный магазин в городе {{oneStore.name}}</div>
     </div>
     <div class="store-one-map">
-      <div id="map-store" data-coords="33, 35"></div>
+      <div id="map-store"></div>
     </div>
     <!-- store -->
     <div v-for="store in oneStore.affiliates" v-bind:key="store.id" :data-store="store.id" :data-coord-x="store.lat" :data-coord-y="store.lng" class="store-one clearfix" :id="store.alias">
@@ -65,11 +65,12 @@ export default {
   methods: {
     ...mapActions(['fetchAffiliates']),
     mapFunctionStore () {
-      var coords = window.$('#map-store').data('coords').split(',')
+      if (window.$('.store-one').length < 2) {
+        var myCenter = new window.google.maps.LatLng(window.$('.store-one').data('coord-x'), window.$('.store-one').data('coord-y'))
+      }
       var bounds = new window.google.maps.LatLngBounds()
-      var myCenter = new window.google.maps.LatLng(coords[0], coords[1])
       var mapOptions = {
-        zoom: 11,
+        zoom: 10,
         center: myCenter,
         scrollwheel: false,
         disableDefaultUI: false,
@@ -98,8 +99,10 @@ export default {
           }, 1000)
         })
       })
-      map.fitBounds(bounds)
-      map.panToBounds(bounds)
+      if (window.$('.store-one').length > 1) {
+        map.fitBounds(bounds)
+        map.panToBounds(bounds)
+      }
     },
     phoneForHtml (phone) {
       return phone.replace(/[+/.\s()-]/g, '')

@@ -39,8 +39,8 @@ module.exports = {
   // apiUrl: 'http://eurogold.myapp.com.ua/api',
   // url: 'http://eurogold-backend2.myapp.com.ua',
   // apiUrl: 'http://eurogold-backend2.myapp.com.ua/api',
-  url: 'http://eurogold-backend.myapp.com.ua:8080',
-  frontUrl: 'http://eurogold-frontend2.myapp.com.ua',
-  apiUrl: 'http://eurogold-backend.myapp.com.ua:8080/api',
-  backendUrl: 'http://eurogold-backend.dev/'
+  url: 'http://eurogold-backend.myapp.com.ua',
+  frontUrl: 'http://eurogold-frontend.myapp.com.ua',
+  apiUrl: 'http://eurogold-backend.myapp.com.ua/api'
+  // backendUrl: 'http://eurogold-backend.dev/'
 }

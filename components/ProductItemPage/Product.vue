@@ -27,9 +27,9 @@
                 <div v-if="product.available" class="product-one-status green-stat">Есть в наличии</div>
                 <div v-else class="product-one-status red-stat">Нет в наличии</div>
                 <div class="product-char">
-                  <div v-if="product.type_price" class="product-char-warning">ВЫГОДНАЯ
+                  <div v-if="product.price_gr" class="product-char-warning">ВЫГОДНАЯ
                     <br>ЦЕНА ЗОЛОТА
-                    <br><span>{{product.price}} ГРН.</span>ЗА ГРАММ!
+                    <br><span>{{product.price_gr}} ГРН.</span>ЗА ГРАММ!
                   </div>
                   <!-- SIZE -->
                   <div v-if="Object.keys(sizes).length" class="product-char-row">
@@ -54,13 +54,25 @@
                     <div class="product-char-col"><span>{{f.filter.locale.name}}:</span></div>
                     <div class="product-char-col">{{filterName(f)}}</div>
                   </div>
+                  <div class="product-char-row" v-if="product.locale.metal_color">
+                    <div class="product-char-col"><span>Цвет металла:</span></div>
+                    <div class="product-char-col">{{product.locale.metal_color}}</div>
+                  </div>
+                  <div class="product-char-row" v-if="product.locale.stone_bracing">
+                    <div class="product-char-col"><span>Фиксация камня:</span></div>
+                    <div class="product-char-col">{{product.locale.stone_bracing}}</div>
+                  </div>
+                  <div class="product-char-row" v-if="product.locale.stone_color">
+                    <div class="product-char-col"><span>Цвет камня:</span></div>
+                    <div class="product-char-col">{{product.locale.stone_color}}</div>
+                  </div>
                 </div>
                 <!-- PRODUCT PRICE -->
                 <div class="product-price">
                   <div v-if="product.price_old"  class="old-price"><span>{{product.price_old}}</span>грн.</div>
                   <div class="cur-price">
-                    <span v-if="product.type_price && dynamicProductPrice" class="js_prod_price">{{dynamicProductPrice}} грн. </span>
-                    <span v-if="!product.type_price" class="js_prod_price">{{product.total_price}} грн.</span>
+                    <span v-if="product.variations.length && dynamicProductPrice" class="js_prod_price">{{dynamicProductPrice}} грн. </span>
+                    <span v-if="!product.variations.length" class="js_prod_price">{{product.total_price}} грн.</span>
                   </div>
                 </div>
                 <div class="product-free-delivery"><span class="icon-delivery"></span>БЕСПЛАТНАЯ ДОСТАВКА ДО ДВЕРЕЙ
@@ -69,7 +81,7 @@
                 <div class="product-buy">
                   <div class="product-buy-phone">Заказ по телефону<b>{{getObjectByKey('phone_for_order') && getObjectByKey('phone_for_order').value}}</b><span class="tt-upp">БЕСПЛАТНЫЙ НОМЕР</span>
                   </div>
-                  <a v-if="product.total_price || dynamicProductPrice" href="#" class="btn waves-effect waves-light" @click.prevent="addToCart()">Купить</a>
+                  <a v-if="product.available && product.total_price || dynamicProductPrice" href="#" class="btn waves-effect waves-light" @click.prevent="addToCart()">Купить</a>
                   <br>
                   <a v-if="pageCredit" href="#" class="all-butt waves-effect waves-light"  @click.prevent="addToCredit()">Купить в кредит</a>
                 </div>
@@ -280,11 +292,11 @@ export default {
       window.$(e.target).addClass('active')
       this.selectedSize = v.sort((p, n) => +p.weight - +n.weight)
       this.currentWeight = v[0]
-      console.log(this.selectedSize)
+      console.log(this.selectedSize[0].price)
     },
     selectWeight (e, w) {
-    //      window.$(e.target).closest('.product-char-col').find('span').removeClass('active')
-    //      window.$(e.target).addClass('active')
+      window.$(e.target).closest('.product-char-col').find('span').removeClass('active')
+      window.$(e.target).addClass('active')
       this.currentWeight = w
     },
     imgUrl (productId, imgName) {
@@ -295,7 +307,7 @@ export default {
       return cover
     },
     addToCart () {
-      let computedPrice = this.product.type_price === 1 ? this.dynamicProductPrice : this.product.price
+      let computedPrice = this.dynamicProductPrice ? this.dynamicProductPrice : this.product.price
       let npp = this.product.variations[0] ? (this.currentWeight.npp || this.product.variations[0].npp) : this.product.total_price
       this.addProductIntoCart({...this.product, computedPrice, qty: 1, npp, size: this.currentWeight.size, grave: this.grave})
       window.$('#addedToCart').modal('open')
@@ -336,7 +348,7 @@ export default {
       return Object.keys(this.sizes).sort((p, n) => +p - +n)
     },
     dynamicProductPrice () {
-      return this.selectedSize[0] ? this.selectedSize[0].price.toFixed(2) : null
+      return this.selectedSize[0] ? this.selectedSize[0].price : null
     },
     pageCredit () {
       const pageCredit = this.contentPages.length && this.contentPages.filter((obj) => obj.alias === pageCreditUrl)[0]

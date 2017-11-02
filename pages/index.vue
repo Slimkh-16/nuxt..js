@@ -1,5 +1,3 @@
-<script src="../static/js/main.js"></script>
-<script src="../../Eurogold/app/js/jquery/jquery-3.2.1.min.js"></script>
 <template>
   <div>
      <!--general-slider-->
@@ -137,11 +135,11 @@ export default {
   },
   head () {
     return {
-      title: this.seo && this.seo.locale.title,
+      title: this.seo ? this.seo.locale.title : 'EUROGOLD',
       meta: [
         { hid: 'description', name: 'description', content: this.seo && this.seo.locale.description },
         { hid: 'keywords', name: 'keywords', content: this.seo && this.seo.locale.keywords },
-        { hid: 'robots', name: 'robots', content: (this.seo && this.seo.locale.robots) || 'noindex, nofollow' }
+        { hid: 'robots', name: 'robots', content: (this.seo && this.seo.locale.robots) || 'index, follow' }
       ]
     }
   },
@@ -162,16 +160,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-  body:not(.inner-page) .grid {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-  }
-  body:not(.inner-page) .grid-item.news-item {
-    display: inline-block;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin: 1%;
-  }
+
 </style>

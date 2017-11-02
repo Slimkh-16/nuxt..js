@@ -1,24 +1,21 @@
 <template>
-  <div class="col l4 m6 s12 right">
+  <div class="col l4 m6 s12 right align-center">
     <div class="you-order">
       <div class="you-order__head">Ваш заказ</div>
       <no-ssr>
         <table>
           <tbody>
             <tr v-for="product in orderObj.products" :key="product.id">
-              <!-- <td class="img_holder align-center">
-                <img :src="getImgSrc(c)" :alt="c.locale.name">
-              </td> -->
+              <td class="img_holder align-center">
+                <img :src="getImgSrc(product.product)" :alt="product.product.locale.name">
+              </td>
               <td>
-                <!-- <router-link :to="`/${c.alias}`">
-                  {{c.locale.name}}<span class="price-order"><b>{{c.totalPrice || c.computedPrice}}</b>грн.</span>
-                </router-link> -->
-                <p>
+                <router-link :to="`/${product.alias}`">
                   {{product.product.locale.name}}
-                  <br>
-                  Размер: {{product.size}}
-                  <br>
-                  Кол-во: {{product.qty}}
+                </router-link>
+                <p>
+                  <span v-if="product.size">Размер: {{product.size}}</span>
+                  <span>Кол-во: {{product.count}}</span>
                   <span v-if="JSON.parse(product.grave).text">Гравировка: {{JSON.parse(product.grave).text}}</span>
                   <br>
                   <span v-if="JSON.parse(product.grave).style_id">Стиль гравировки: {{graveStyleList[+JSON.parse(product.grave).style_id - 1]}}</span>
@@ -81,13 +78,8 @@
           </div>
           <div id="price" class="control-element">
             <span class="legend bold">Стоимость товара</span>
-            <div class="row">
-              <div class="col-xs-12 col-md-2">
-                <div class="bold fz20">{{ orderObj.total }}</div>
-              </div>
-              <div class="col-xs-12 col-md-2">
-                <div class="additional-data form-element">гривен</div>
-              </div>
+                <span class="bold fz20">{{ orderObj.total }}</span>
+                <span class="additional-data form-element">гривен</span>
             </div>
           </div>
         </div>
@@ -99,6 +91,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import ImageHelper from '../../helpers/ImageHelper'
 import { graveStyleList } from '../../enum'
 
 export default {
@@ -109,6 +102,7 @@ export default {
       ipResultValue: 139.50
     }
   },
+  mixins: [ImageHelper],
   computed: {
     ...mapGetters(['orderObj', 'form']),
     privatPaymentWay () {
@@ -156,10 +150,18 @@ export default {
           alert('повторный платеж может быть создать только через 20 мин')
         }
       })
+    },
+    imgUrl (productId, imgName) {
+      return this.url() + `/assets/images/products/${productId}/${imgName}`
+    },
+    getImgSrc (product) {
+      let cover = this.coverImg(product)
+      return cover
     }
   },
   mounted () {
-    this.fetchOrderByHash().then(() => {
+    console.log(this.$route)
+    this.fetchOrderByHash(this.$route.params.hash).then(() => {
       this.$nextTick(() => {
         this.privatPaymentWay && this.noUiSlider()
       })
@@ -204,7 +206,8 @@ export default {
     -webkit-box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.08) !important;
     box-shadow: inset 0 2px 0 rgba(0, 0, 0, 0.08) !important;
   }
-  .container.privat {padding: 0;}
+  .container.privat {padding: 0;
+    text-align: center;}
   .container.privat .row {margin: 0;}
   .container.privat .bold{font-weight:bold}
   .container.privat .centered{margin:auto}
