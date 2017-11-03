@@ -30,7 +30,7 @@
         </table>
       </no-ssr>
     </div>
-    <div class="form_liqpay" v-html="form"></div>
+    <div v-if="this.orderObj && this.orderObj.order_payment_method && this.orderObj.order_payment_method.id === 1" class="form_liqpay" v-html="form"></div>
     <div v-if="privatPaymentWay" class="container privat">
       <div id="content">
         <div id="countedResults">
