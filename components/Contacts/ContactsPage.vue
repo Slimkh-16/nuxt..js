@@ -146,7 +146,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['fetchAffiliates', 'sendContactForm']),
+    ...mapActions(['fetchAffiliates', 'sendContactForm', 'getMeta']),
     mapFunction () {
       if (window.$('#map').length > 0 && this.central_shop_lat && this.central_shop_lng) {
         var coords = window.$('#map').attr('data-coords').split(',')
@@ -183,14 +183,65 @@ export default {
         })
     }
   },
-  async asyncData ({store}) {
-    let res = await store.dispatch('fetchAffiliates')
-    console.log(res)
-    return {}
+  async asyncData ({store, route}) {
+    let res = []
+    res = await Promise.all([
+      store.dispatch('getMeta', route.path),
+      store.dispatch('fetchAffiliates', route.path)
+    ])
+    // seo module
+    if (res[0] && res[0].locale) {
+      let r = res[0]
+      return {
+        seo_title: r.locale.title,
+        seo_keywords: r.locale.keywords,
+        seo_description: r.locale.description,
+        seo_canonical: r.locale.canonical,
+        seo_robots: r.locale.srobots,
+        seoTitle: r.locale.title,
+        seoContent: r.locale.content
+      }
+      // seo from category
+    } else {
+      return {
+        seo_title: 'Eurogold',
+        seo_keywords: null,
+        seo_description: null,
+        seo_canonical: null,
+        seo_robots: 'index, follow',
+        seoTitle: '',
+        seoContent: ''
+      }
+    }
+  },
+  head () {
+    return {
+      title: this.seo_title && this.seo_title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.seo_description && this.seo_description
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.seo_keywords && this.seo_keywords
+        },
+        {
+          hid: 'robots',
+          name: 'robots',
+          content: this.seo_robots && this.seo_robots
+        }
+      ],
+      link: [
+        { rel: 'canonical', href: this.seo_canonical && this.seo_canonical }
+      ]
+    }
   },
   mounted () {
     this.mapFunction()
-    this.fetchAffiliates().then(() => console.log(this.stores))
+    //    this.fetchAffiliates().then(() => console.log(this.stores))
     window.$('input[data-validate="phone"]').mask('+380(99)999 99 99')
     window.$('#modal-thank').modal({
       opacity: 1,

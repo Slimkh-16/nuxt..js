@@ -2812,6 +2812,7 @@ h5,
 }
 .dropdown-content {
   height: auto !important;
+  max-height: 300px;
 }
 .dropdown-content li {
   min-height: 1px;

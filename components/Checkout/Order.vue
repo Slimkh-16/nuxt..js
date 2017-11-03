@@ -17,7 +17,7 @@
                   <span>Кол-во: {{c.qty}}</span>
                   <span v-if="c.grave.text">Гравировка: {{c.grave.text}}</span>
                   <span v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</span>
-                  <span class="price-order"><b>{{c.totalPrice || c.computedPrice}}</b> грн.</span>
+                  <span class="price-order"><b>{{c.totalPrice && c.totalPrice.toFixed(2) || c.computedPrice && c.computedPrice.toFixed(2)}}</b> грн.</span>
 
               </td>
             </tr>
@@ -26,7 +26,7 @@
               <td>Подарочная упаковка<span class="price-order"><b>0</b> грн.</span></td>
             </tr>
             <tr class="order-total-price">
-              <td v-if="subtotal" colspan="2"><span class="price-order">Итого:<b> {{ subtotal }} </b> грн. </span></td>
+              <td v-if="subtotal" colspan="2"><span class="price-order">Итого:<b> {{subtotal && subtotal.toFixed(2) }} </b> грн. </span></td>
             </tr>
           </tbody>
         </table>

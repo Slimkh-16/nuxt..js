@@ -1,4 +1,3 @@
-<script src="../static/js/all-plugins.min.js"></script>
 <template>
   <div>
     <header class="header clearfix">

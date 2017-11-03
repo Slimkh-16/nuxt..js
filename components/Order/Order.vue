@@ -84,9 +84,8 @@
           </div>
         </div>
       </div>
-      <a href="#" class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
+    <a href="#" v-if="this.orderObj.order_payment_method.id === 3"  class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
     </div>
-
   </div>
 </template>
 <script>
@@ -160,7 +159,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$route)
     this.fetchOrderByHash(this.$route.params.hash).then(() => {
       this.$nextTick(() => {
         this.privatPaymentWay && this.noUiSlider()

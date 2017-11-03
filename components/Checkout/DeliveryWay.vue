@@ -53,7 +53,7 @@
     </div>
 
     <!-- Самовывоз из магазина сети Eurogold -->
-    <div v-if="cityStore && pointStore" class="delivery-place" :class="{ 'active': delWay === '3' }">
+    <div v-if="cityStore" class="delivery-place" :class="{ 'active': delWay === '3' }">
       <div class="row">
         <div class="col l6 s12"><span class="label-field">Город:</span>
           <app-select name="cityStore" v-model="cityStore" :onChange="handleCityStore">
@@ -64,9 +64,9 @@
           <app-select name="pointStore" v-model="pointStore" :onChange="handlePointStore">
             <option
               v-for="affiliate in affiliates[cityStore].affiliates"
-              :value="replaceTags(affiliate.address)"
-              v-bind:key="affiliate.id"
-            >{{replaceTags(affiliate.address)}}</option>
+              :value="replaceTags(affiliate.locale.address)"
+              v-bind:key="affiliate.locale.id"
+            >{{replaceTags(affiliate.locale.address)}}</option>
           </app-select>
         </div>
       </div>
@@ -158,7 +158,7 @@ export default {
       })
     },
     handleCityStore () {
-      this.pointStore = this.affiliates[this.cityStore].affiliates[0].address
+      this.pointStore = this.affiliates[this.cityStore].affiliates[0].locale.address
       this.setDelivery_data('bySelf')
     },
     handlePointStore () {
@@ -216,7 +216,7 @@ export default {
     this.fetchAffiliates()
       .then(resp => {
         this.cityStore = Object.keys(resp)[0]
-        this.pointStore = this.replaceTags(resp[this.cityStore].affiliates[0].address)
+        this.pointStore = this.replaceTags(resp[this.cityStore].affiliates[0].locale.address)
       })
     this.fetchNovaPoshta_Regions()
     this.initMap()
@@ -237,7 +237,7 @@ export default {
         this.setCheckoutProps({delivery_data: this.delivery_data})
       } else if (value === '3') {
         this.cityStore = Object.keys(this.affiliates)[0]
-        this.pointStore = this.replaceTags(this.affiliates[this.cityStore].affiliates[0].address)
+        this.pointStore = this.replaceTags(this.affiliates[this.cityStore].affiliates[0].locale.address)
         this.setDelivery_data('bySelf')
       }
     }

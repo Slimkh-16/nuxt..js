@@ -20,7 +20,7 @@
                     <li v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</li>
                   </ul>
                 </td>
-                <td><span>{{c.computedPrice}}</span> грн.</td>
+                <td><span>{{c.computedPrice && c.computedPrice.toFixed(2)}}</span> грн.</td>
                 <td>
                   <div class="quantity-wrap">
                     <span class="minus-icon" @click="c.qty > 1 && (c.qty--, checkValue(c))">&#8722;</span>
