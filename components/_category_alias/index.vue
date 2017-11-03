@@ -76,7 +76,7 @@
 
     </section>
     <seo-section
-      v-if="!notShowSeoContent"
+      v-if="seoTitle"
       :seoContent="seoContent"
       :seoTitle="seoTitle"
       :seoIntrotext="seoIntrotext"

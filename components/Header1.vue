@@ -256,13 +256,14 @@ export default {
     searchFunction () {
       if (this.subString.length > 2) {
         this.$router.push({name: 'SearchPage', query: { search: this.subString }})
+        window.$('.menu-button-general').sideNav('hide')
         this.subString = ''
       } else {
         alert('Поиск от трёх символов')
       }
     },
     inputSearch () {
-      this.subString.length > 3 && this.searchByString([this.subString, {limit: 5}])
+      this.subString.length > 2 && this.searchByString([this.subString, {limit: 5}])
     },
     imgUrl (productId, imgName) {
       return this.url() + `/assets/images/products/${productId}/${imgName}`
@@ -281,7 +282,7 @@ export default {
       draggable: true
     })
     window.$(document).on('click', (e) => {
-      if (!window.$(e.target).closest('.fast-search').length) {
+      if (!window.$(e.target).closest('.fast-search, .header-search').length) {
         window.$('.fast-search').fadeOut(500, setTimeout(() => {
           this.subString = ''
         }), 500)
