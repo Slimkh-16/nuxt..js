@@ -31,6 +31,7 @@
                     <input :id="`${filter.id}${filter.alias}`" :value="filter.alias" :checked="!!(productFilters[filter.alias] && productFilters[filter.alias].indexOf(filter.feature[0].value.alias) > -1)" @change="changeFilterArr(filter.alias, filter.feature[0].value.alias)" type="checkbox">
                     <label :for="`${filter.id}${filter.alias}`">
                       <img :src="imgUrl(filter.id, filter.image)" alt="">
+                      <img :src="filter.image" alt="">
                       <span>{{ filter.locale.name }}</span>
                     </label>
                   </div>
@@ -553,7 +554,7 @@ export default {
     let title = this.seo_title || (store && store.seo_title) || 'Eurogold'
     let description = this.seo_description || (store && store.seo_description) || ''
     let keywords = this.seo_keywords || (store && store.seo_keywords) || ''
-    let robots = this.filtersDeep > 2 ? 'noindex, nofollow' : this.seo_robots || (store && store.seo_robots)
+    let robots = this.filtersDeep > 2 ? 'noindex, nofollow' : this.seo_robots || (store && store.seo_robots) || 'index, follow'
     let canonicalLink = this.seo_canonical || (store && store.seo_canonical) || ''
     let canonical = this.productFilters && this.productFilters.page > 1 ? path.slice(0, path.indexOf('/f/')) : canonicalLink
     return {

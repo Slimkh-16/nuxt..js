@@ -19,7 +19,7 @@
           <div class="header-search">
             <form @submit.prevent="searchFunction()">
               <button type="submit"><span class="icon-search"></span></button>
-              <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @input="inputSearch()" @blur.prevent="" @focus.prevent="">
+              <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @input="inputSearch()">
             </form>
             <div v-show="subString.length > 2" class="fast-search">
               <ul>

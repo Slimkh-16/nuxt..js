@@ -84,7 +84,7 @@
           </div>
         </div>
       </div>
-    <a href="#" v-if="this.orderObj.order_payment_method.id === 3"  class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
+    <a href="#" v-if="this.orderObj && this.orderObj.order_payment_method && this.orderObj.order_payment_method.id === 3"  class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
     </div>
   </div>
 </template>
