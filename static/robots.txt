@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /search
+Disallow: /basket
+Disallow: /login
+Disallow: /api/*
+Disallow: /api
+Host: https://eurogold-frontend.myapp.com.ua:3000/
+
+Sitemap: https://eurogold-frontend.myapp.com.ua:3000/sitemap.xml
