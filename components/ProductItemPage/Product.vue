@@ -227,8 +227,10 @@ export default {
       window.$('.product-tab-cont.content' + ` ${id}`).show()
     },
     breadcrumbsWay () {
+      console.log('this.cat_id ', this.cat_id)
       if (!this.cat_id && this.product.categories && this.product.categories.length) {
         let catId = this.product.categories[0].alias
+        console.log('this.product.categories[0].alias ', this.product.categories[0].alias)
         this.setCatId(catId)
         this.fetchBreadcrumbs()
       } else {

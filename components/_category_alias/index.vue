@@ -98,7 +98,7 @@ import SeoHelper from '../../helpers/SeoHelper'
 const fetchData = async (store, route, productFilters) => {
   let res = []
   res = await Promise.all([
-    store.dispatch('fetchBreadcrumbs', route.path),
+    store.dispatch('fetchBreadcrumbs', route.path.slice(1)),
     store.dispatch('getMeta', route.fullPath),
     store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc'})
   ])

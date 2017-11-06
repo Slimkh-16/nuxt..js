@@ -11,15 +11,15 @@
                 <img :src="getImgSrc(product.product)" :alt="product.product.locale.name">
               </td>
               <td>
-                <router-link :to="`/${product.alias}`">
+                <router-link :to="`/${product.product.alias}`">
                   {{product.product.locale.name}}
                 </router-link>
                 <p>
                   <span v-if="product.size">Размер: {{product.size}}</span>
                   <span>Кол-во: {{product.count}}</span>
-                  <span v-if="JSON.parse(product.grave).text">Гравировка: {{JSON.parse(product.grave).text}}</span>
+                  <span v-if="product.grave && JSON.parse(product.grave).text">Гравировка: {{JSON.parse(product.grave).text}}</span>
                   <br>
-                  <span v-if="JSON.parse(product.grave).style_id">Стиль гравировки: {{graveStyleList[+JSON.parse(product.grave).style_id - 1]}}</span>
+                  <span v-if="product.grave && JSON.parse(product.grave).style_id">Стиль гравировки: {{graveStyleList[+JSON.parse(product.grave).style_id - 1]}}</span>
                   <span class="price-order"><b>{{product.price}}</b> грн.</span>
                 </p>
               </td>

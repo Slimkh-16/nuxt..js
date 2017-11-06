@@ -24,7 +24,6 @@ module.exports = {
       { hid: 'robots', name: 'robots', content: 'index, follow' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/ico-16.png' },
       { rel: 'canonical', href: '' }
     ]
   },
