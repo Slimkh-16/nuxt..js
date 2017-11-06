@@ -2,6 +2,7 @@
   <div class="col l4 m6 s12 right align-center">
     <div class="you-order">
       <div class="you-order__head">Ваш заказ</div>
+      <p>{{orderObj.recipient && orderObj.recipient.first_name}}</p>
       <no-ssr>
         <table>
           <tbody>
@@ -84,7 +85,7 @@
           </div>
         </div>
       </div>
-    <a href="#" v-if="this.orderObj && this.orderObj.order_payment_method && this.orderObj.order_payment_method.id === 3"  class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
+      <a href="#" v-if="this.orderObj && this.orderObj.order_payment_method && this.orderObj.order_payment_method.id === 3"  class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
     </div>
   </div>
 </template>

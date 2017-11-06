@@ -203,10 +203,10 @@ export default {
           window.$('html, body').animate({
             scrollTop: 0
           }, 500)
-          if ((this.price_range.price_from && this.price_range.price_to) && this.productFilters.price_to > this.price_range.price_to) {
-            this.$router.push('/notFound')
-            return
-          }
+          //          if ((this.price_range.price_from && this.price_range.price_to) && this.productFilters.price_to > this.price_range.price_to) {
+          //            this.$router.push('/notFound')
+          //            return
+          //          }
           if (!this.sliderIt || !(this.sliderIt && this.sliderIt.noUiSlider)) {
             // init slider
             this.sliderRange()
@@ -593,10 +593,10 @@ export default {
     window.$('html, body').animate({
       scrollTop: 0
     }, 500)
-    if ((this.price_range.price_from && this.price_range.price_to) && this.productFilters.price_to > this.price_range.price_to) {
-      this.$router.push('/notFound')
-      return
-    }
+    //    if ((this.price_range.price_from && this.price_range.price_to) && this.productFilters.price_to > this.price_range.price_to) {
+    //      this.$router.push('/notFound')
+    //      return
+    //    }
     if (!this.sliderIt || !(this.sliderIt && this.sliderIt.noUiSlider)) {
       // init slider
       this.sliderRange()

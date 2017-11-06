@@ -32,12 +32,12 @@ export default {
     ...mapGetters(['affiliates'])
   },
   methods: {
-    ...mapActions(['fetchAffiliates', 'getMeta'])
+    ...mapActions(['fetchAffiliates', 'getMeta', 'meta'])
   },
   async asyncData ({store, route}) {
     let res = []
     res = await Promise.all([
-      store.dispatch('getMeta', route.path),
+      store.dispatch('getMeta', route.fullPath),
       store.dispatch('fetchAffiliates', route.path)
     ])
     // seo module

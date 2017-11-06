@@ -8,13 +8,14 @@ let Checkout = 'components/Checkout/Checkout.vue'
 let Order = 'components/Order/Checkout.vue'
 let Reviews = 'components/Reviews/Reviews.vue'
 let Component = 'components/Component.vue'
+let NotFound = 'components/NotFound.vue'
 
 module.exports = {
   /*
   ** Headers of the page
   */
   head: {
-    title: '%s | Awesome JS SSR Blog',
+    title: 'Eurogold',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -35,6 +36,11 @@ module.exports = {
         /**
          * pages with static url
         */
+        {
+          path: '/notFound',
+          name: 'NotFound',
+          component: NotFound
+        },
         {
           path: '/contacts',
           name: 'ContactsPage',

@@ -5,7 +5,7 @@
         <div class="row">
           <br>
           <!-- order -->
-          <order></order>
+          <order :orderObj="this.orderObj"></order>
           <div class="col l8 m6 s12">
             <div class="heading-big">Заказ</div>
             <p class="orderStatus">Статус заказа:  <span class="bold">{{orderObj && orderObj.status && orderObj.status.name}}</span></p>

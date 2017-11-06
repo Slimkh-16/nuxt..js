@@ -34,7 +34,7 @@ export default {
     'article-box': ArticleBox
   },
   computed: {
-    ...mapGetters(['articles', 'articlesCurrentPage', 'articlesLimit', 'articlesTotal'])
+    ...mapGetters(['articles', 'articlesCurrentPage', 'articlesLimit', 'articlesTotal', 'meta'])
   },
   methods: {
     ...mapActions(['fetchArticles']),
@@ -59,14 +59,14 @@ export default {
     this.$store.dispatch('getMeta', this.$route.fullPath)
   },
   async asyncData ({store, route}) {
-    store.dispatch('fetchArticles')
+    await store.dispatch('fetchArticles')
     return {
       postsMeta: await store.dispatch('getMeta', route.fullPath)
     }
   },
   head () {
     return {
-      title: (this.meta && this.meta.locale.title) || (this.postsMeta && this.postsMeta.locale.title),
+      title: (this.meta && this.meta.locale.title) || (this.postsMeta && this.postsMeta.locale.title) || 'Eurogold',
       meta: [
         {
           hid: 'description',
@@ -87,9 +87,7 @@ export default {
     }
   },
   mounted () {
-    setTimeout(() => {
-      this.masonry()
-    }, 1000)
+    this.masonry()
   }
 }
 </script>

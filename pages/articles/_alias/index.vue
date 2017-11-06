@@ -34,21 +34,21 @@ export default {
     getImgSrc (post) {
       let cover = this.coverImg(post)
       return cover
-    },
-    delTags (str) {
-      return str.replace(/<\/?p>/g, '')
-    },
-    getPost () {
-      this.fetchOneArticle(this.$route.params.alias).then((res) => {
-        this.setMetaIntoPage({
-          title: this.delTags(res.seo_title),
-          keywords: this.delTags(res.seo_keywords),
-          description: this.delTags(res.seo_description),
-          canonical: this.delTags(res.seo_canonical),
-          robots: this.delTags(res.seo_robots)
-        })
-      })
     }
+    //    delTags (str) {
+    //      return str.replace(/<\/?p>/g, '')
+    //    },
+    //    getPost () {
+    //      this.fetchOneArticle(this.$route.params.alias).then((res) => {
+    //        this.setMetaIntoPage({
+    //          title: this.delTags(res.seo_title),
+    //          keywords: this.delTags(res.seo_keywords),
+    //          description: this.delTags(res.seo_description),
+    //          canonical: this.delTags(res.seo_canonical),
+    //          robots: this.delTags(res.seo_robots)
+    //        })
+    //      })
+    //    }
   },
   components: {
     'breadcrumbs': Breadcrumbs
@@ -61,26 +61,26 @@ export default {
   },
   head () {
     return {
-      title: this.post ? this.post.seo_title : this.postMeta && this.postMeta.seo_title,
+      title: this.article ? this.article.locale.seo_title : this.postMeta && this.postMeta.seo_title,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.post ? this.post.seo_title && this.post.seo_title.replace(/<\/?p>/g, '') : this.postMeta && this.postMeta.seo_description && this.postMeta.seo_description.replace(/<\/?p>/g, '')
+          content: this.article ? this.article.locale.seo_description && this.article.locale.seo_description.replace(/<\/?p>/g, '') : this.postMeta && this.postMeta.seo_description && this.postMeta.seo_description.replace(/<\/?p>/g, '')
         },
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.post ? this.post.seo_title : this.postMeta && this.postMeta.seo_keywords
+          content: this.article ? this.article.locale.seo_keywords : this.postMeta && this.postMeta.seo_keywords
         },
         {
           hid: 'robots',
           name: 'robots',
-          content: this.post ? this.post.seo_title : this.postMeta && this.postMeta.seo_robots
+          content: this.article ? this.article.locale.seo_robots : this.postMeta && this.postMeta.seo_robots
         }
       ],
       link: [
-        { rel: 'canonical', href: `${this.postMeta && this.postMeta.seo_canonical}` }
+        { rel: 'canonical', href: this.article ? this.article.locale.seo_canonical : this.postMeta && this.postMeta.seo_canonical }
       ]
     }
   },
