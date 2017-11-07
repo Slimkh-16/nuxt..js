@@ -31,7 +31,7 @@
         </table>
       </no-ssr>
     </div>
-    <div v-if="this.orderObj && this.orderObj.order_payment_method && this.orderObj.order_payment_method.id === 1" class="form_liqpay" v-html="form"></div>
+    <div v-if="orderObj && orderObj.order_payment_method && orderObj.order_payment_method.id === 1" class="form_liqpay" v-html="form"></div>
     <div v-if="privatPaymentWay" class="container privat">
       <div id="content">
         <div id="countedResults">
@@ -85,7 +85,7 @@
           </div>
         </div>
       </div>
-      <a href="#" v-if="this.orderObj && this.orderObj.order_payment_method && this.orderObj.order_payment_method.id === 3"  class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
+      <a href="#" v-if="orderObj && orderObj.order_payment_method && orderObj.order_payment_method.id === 3"  class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
     </div>
   </div>
 </template>
