@@ -29,13 +29,13 @@
                 </ul>
               </div>
               <div class="store-one-map-info-item store-one-map-info-item--with-icon"><i class="icon-ico-dostavka-page-02"></i>Перед визитом в магазин, сделайте заказ понравившегося изделия на сайте. Это гарантирует наличие нужного украшения в магазине в течении 2-5 дней.
-                <br><a href="#">Как заказать?</a></div>
-              <div class="store-one-map-info-item store-one-map-info-item--with-icon">
-                <i class="icon-shema"></i>
-                <a data-fancybox :href="store.photo">
-                  Смотреть схему помещения
-                </a>
-              </div>
+                <br><router-link to='/help'>Как заказать?</router-link></div>
+              <!--<div v-if="store.photo.length" class="store-one-map-info-item store-one-map-info-item&#45;&#45;with-icon">-->
+                <!--<i class="icon-shema"></i>-->
+                <!--<a data-fancybox :href="store.photo">-->
+                  <!--Смотреть схему помещения-->
+                <!--</a>-->
+              <!--</div>-->
             </div>
           </div>
           <div class="col l6 s12">

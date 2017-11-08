@@ -104,19 +104,6 @@ const fetchData = async (store, route, productFilters, redirect) => {
   ]).catch(() => {
     redirect(301, '/notFound')
   })
-  if (!res) {
-    return res
-    //    return {
-    //      seo_title: 'Eurogold',
-    //      seo_keywords: '',
-    //      seo_description: '',
-    //      seo_canonical: '',
-    //      seo_robots: '',
-    //      seoTitle: '',
-    //      seoContent: '',
-    //      seoIntrotext: ''
-    //    }
-  }
   // seo module
   if (res[1] && res[1].locale) {
     let r = res[1]
