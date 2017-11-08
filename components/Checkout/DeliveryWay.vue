@@ -35,25 +35,27 @@
     <div class="delivery-place" :class="{ 'active': delWay === '2' }">
       <div class="row">
         <div class="col l6 s12">
-          <div :data-error="errorMsg" class="input-field required-field"><span class="label-field">Город*</span>
-            <input type="text" required v-model="town" data-name="town">
-          </div>
+          <span class="label-field">Область:</span>
+          <app-select name="areaCarrier" v-model="areaCarrier" :onChange="handleAreaCarrier">
+            <option v-for="region in nova_poshta_regions" v-bind:key="region.id" :value="region.ref">{{region.name}}</option>
+          </app-select>
         </div>
         <div class="col l6 s12">
-          <div :data-error="errorMsg" class="input-field required-field"><span class="label-field">Адрес*</span>
-            <input type="text" required v-model="address" data-name="address">
-          </div>
+          <span class="label-field">Город:</span>
+          <app-select name="cityCarrier" v-model="cityCarrier" :onChange="handleCityCarrier">
+            <option v-for="city in nova_poshta_cities" v-bind:key="city.id" :value="city.ref">{{city.name}}</option>
+          </app-select>
         </div>
         <div class="col l12 s12">
-          <div class="input-field"><span class="label-field">Дополнительно</span>
-            <textarea class="materialize-textarea" v-model="additionally"  data-name="additionally"></textarea>
+          <div class="input-field"><span class="label-field">Адрес</span>
+            <textarea class="materialize-textarea" v-model="address"  data-name="address"></textarea>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Самовывоз из магазина сети Eurogold -->
-    <div v-if="cityStore && pointStore" class="delivery-place" :class="{ 'active': delWay === '3' }">
+    <div v-if="cityStore" class="delivery-place" :class="{ 'active': delWay === '3' }">
       <div class="row">
         <div class="col l6 s12"><span class="label-field">Город:</span>
           <app-select name="cityStore" v-model="cityStore" :onChange="handleCityStore">
@@ -64,9 +66,9 @@
           <app-select name="pointStore" v-model="pointStore" :onChange="handlePointStore">
             <option
               v-for="affiliate in affiliates[cityStore].affiliates"
-              :value="replaceTags(affiliate.address)"
-              v-bind:key="affiliate.id"
-            >{{replaceTags(affiliate.address)}}</option>
+              :value="replaceTags(affiliate.locale.address)"
+              v-bind:key="affiliate.locale.id"
+            >{{replaceTags(affiliate.locale.address)}}</option>
           </app-select>
         </div>
       </div>
@@ -158,7 +160,7 @@ export default {
       })
     },
     handleCityStore () {
-      this.pointStore = this.affiliates[this.cityStore].affiliates[0].address
+      this.pointStore = this.affiliates[this.cityStore].affiliates[0].locale.address
       this.setDelivery_data('bySelf')
     },
     handlePointStore () {
@@ -183,10 +185,9 @@ export default {
       switch (way) {
         case 'byСourier':
           this.delivery_data = {
-            area: null,
-            town: this.town,
-            address: this.address,
-            additionally: this.additionally
+            area: this.nova_poshta_regions && this.areaCarrier ? this.nova_poshta_regions.filter(region => region.ref === this.areaCarrier)[0].name : null,
+            town: this.nova_poshta_cities && this.cityCarrier ? this.nova_poshta_cities.filter(city => city.ref === this.cityCarrier)[0].name : null,
+            address: this.address
           }
           break
         case 'bySelf':
@@ -216,7 +217,7 @@ export default {
     this.fetchAffiliates()
       .then(resp => {
         this.cityStore = Object.keys(resp)[0]
-        this.pointStore = this.replaceTags(resp[this.cityStore].affiliates[0].address)
+        this.pointStore = this.replaceTags(resp[this.cityStore].affiliates[0].locale.address)
       })
     this.fetchNovaPoshta_Regions()
     this.initMap()
@@ -237,8 +238,17 @@ export default {
         this.setCheckoutProps({delivery_data: this.delivery_data})
       } else if (value === '3') {
         this.cityStore = Object.keys(this.affiliates)[0]
-        this.pointStore = this.replaceTags(this.affiliates[this.cityStore].affiliates[0].address)
+        this.pointStore = this.replaceTags(this.affiliates[this.cityStore].affiliates[0].locale.address)
         this.setDelivery_data('bySelf')
+      }
+      if (value === '2') {
+        this.delivery_data = {
+          area: null,
+          town: null,
+          address: null,
+          additionally: null
+        }
+        this.setCheckoutProps({delivery_data: this.delivery_data})
       }
     }
   }

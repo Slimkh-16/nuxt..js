@@ -41,7 +41,6 @@
         </div>
       </div>
     </div>
-
     <!-- price range -->
     <div class="filter-box visible price">
       <div class="filter-box__head" @click="toggleFilterBox($event)">Цена<span class="refresh-filter" @click.stop="clearFilters([{key: 'price_from', val: price_range.price_from}, {key: 'price_to', val: price_range.price_to}], true)">сбросить</span></div>
@@ -82,12 +81,12 @@
       changeFilterArr (key, id, isPrice) {
         this.$emit('changeFilterArr', [key, id, isPrice])
         window.$('.catalog-filter').removeClass('visible')
-        console.log(123)
+        window.$('body').removeClass('noscroll')
       },
       changeRadioFilterArr (key, id) {
         this.$emit('changeRadioFilterArr', [key, id])
         window.$('.catalog-filter').removeClass('visible')
-        console.log(123)
+        window.$('body').removeClass('noscroll')
       },
       clearNamedFilters () {
         this.$emit('clearNamedFilters')

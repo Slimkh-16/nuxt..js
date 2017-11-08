@@ -2,7 +2,8 @@
   <div class="way-delivery">
     <div class="order-head">
       Способ доставки
-      <p v-if="error">Выберите пункт новой почты</p>
+      <p v-if="error && this.delWay === '1'">Выберите пункт новой почты</p>
+      <p v-if="error && this.delWay === '2'">Введите адресс доставки</p>
       </div>
     <div class="radio-group">
       <div class="radio-item">

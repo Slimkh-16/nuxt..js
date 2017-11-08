@@ -8,17 +8,17 @@
       </li>
       <li v-for="(breadcrumb, index) in breadcrumbs.way" v-bind:key="index">
         <template v-if="breadcrumb.locale">
-          <router-link 
-            :to="{ name: `${breadcrumb.categoryName}`, params: categoryParams(breadcrumb, index) }" 
+          <router-link
+            :to="{ name: `${breadcrumb.categoryName}`, params: categoryParams(breadcrumb, index) }"
             v-if="index < wayLength">
             {{breadcrumb.locale.name}}
           </router-link>
-          
+
           <span v-else>{{breadcrumb.locale && breadcrumb.locale.name}}</span>
         </template>
         <template v-else>
-          <router-link 
-            :to="{ name: `${breadcrumb.template}` }" 
+          <router-link
+            :to="{ name: `${breadcrumb.template}` }"
             v-if="index < wayLength">
             {{breadcrumb.name}}
           </router-link>
@@ -40,6 +40,7 @@ export default {
   },
   methods: {
     categoryParams (breadcrumb, index) {
+      console.log('BREADCRUMS===========', breadcrumb)
       if (index < this.wayLength && index === 0) {
         return {
           'category_alias': `${breadcrumb.alias}`

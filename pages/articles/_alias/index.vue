@@ -2,14 +2,13 @@
   <!--.news-page section-->
   <section class="news-page page-with-breadcrumbs">
     <div class="container">
-      <breadcrumbs :breadcrumbs="{way: [{name: 'Новости', template: 'news'}, {name: `${post.locale.title}`}]}"></breadcrumbs>
+      <breadcrumbs :breadcrumbs="{way: [{name: 'Статьи и обзоры', template: 'articles'}, {name: `${article.locale.title}`}]}"></breadcrumbs>
       <div class="news-one-container content">
-        <div class="big-heading">{{post.locale.title}}</div>
+        <div class="big-heading">{{article.locale.title}}</div>
         <div class="relative-container">
-          <img :src="getImgSrc(post)" align="right" class="newImg" :alt="post.locale.title">
-          <div v-html="post.locale.body" class="post_body">
+          <img :src="getImgSrc(article)" align="right" class="newImg" :alt="article.locale.title">
+          <div v-html="article.locale.body" class="post_body">
           </div>
-          <other-news></other-news>
         </div>
       </div>
     </div>
@@ -17,7 +16,6 @@
 </template>
 
 <script>
-import OtherNews from '../../../components/news/OtherNews.vue'
 import Breadcrumbs from '../../../components/Breadcrumbs'
 import { mapGetters, mapActions } from 'vuex'
 import ImageHelper from '../../../helpers/ImageHelper'
@@ -26,10 +24,10 @@ import SeoHelper from '../../../helpers/SeoHelper'
 export default {
   mixins: [ImageHelper, SeoHelper],
   computed: {
-    ...mapGetters(['post'])
+    ...mapGetters(['article'])
   },
   methods: {
-    ...mapActions(['fetchOnePost']),
+    ...mapActions(['fetchOneArticle']),
     imgUrl (postId, imgName) {
       return this.url() + `/assets/images/posts/${postId}/${imgName}`
     },
@@ -41,7 +39,7 @@ export default {
     //      return str.replace(/<\/?p>/g, '')
     //    },
     //    getPost () {
-    //      this.fetchOnePost(this.$route.params.alias).then((res) => {
+    //      this.fetchOneArticle(this.$route.params.alias).then((res) => {
     //        this.setMetaIntoPage({
     //          title: this.delTags(res.seo_title),
     //          keywords: this.delTags(res.seo_keywords),
@@ -53,37 +51,36 @@ export default {
     //    }
   },
   components: {
-    'other-news': OtherNews,
     'breadcrumbs': Breadcrumbs
   },
   async asyncData ({store, route}) {
-    store.dispatch('fetchOnePost')
+    store.dispatch('fetchOneArticle')
     return {
-      postMeta: await store.dispatch('fetchOnePost', route.params.alias)
+      postMeta: await store.dispatch('fetchOneArticle', route.params.alias)
     }
   },
   head () {
     return {
-      title: this.post ? this.post.locale.seo_title : this.postMeta && this.postMeta.seo_title,
+      title: this.article ? this.article.locale.seo_title : this.postMeta && this.postMeta.seo_title,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.post ? this.post.locale.seo_description && this.post.locale.seo_description.replace(/<\/?p>/g, '') : this.postMeta && this.postMeta.seo_description && this.postMeta.seo_description.replace(/<\/?p>/g, '')
+          content: this.article ? this.article.locale.seo_description && this.article.locale.seo_description.replace(/<\/?p>/g, '') : this.postMeta && this.postMeta.seo_description && this.postMeta.seo_description.replace(/<\/?p>/g, '')
         },
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.post ? this.post.locale.seo_keywords : this.postMeta && this.postMeta.seo_keywords
+          content: this.article ? this.article.locale.seo_keywords : this.postMeta && this.postMeta.seo_keywords
         },
         {
           hid: 'robots',
           name: 'robots',
-          content: this.post ? this.post.locale.seo_robots : this.postMeta && this.postMeta.seo_robots
+          content: this.article ? this.article.locale.seo_robots : this.postMeta && this.postMeta.seo_robots
         }
       ],
       link: [
-        { rel: 'canonical', href: this.post ? this.post.locale.seo_canonical : this.postMeta && this.postMeta.seo_canonical }
+        { rel: 'canonical', href: this.article ? this.article.locale.seo_canonical : this.postMeta && this.postMeta.seo_canonical }
       ]
     }
   },

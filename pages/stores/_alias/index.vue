@@ -29,13 +29,13 @@
                 </ul>
               </div>
               <div class="store-one-map-info-item store-one-map-info-item--with-icon"><i class="icon-ico-dostavka-page-02"></i>Перед визитом в магазин, сделайте заказ понравившегося изделия на сайте. Это гарантирует наличие нужного украшения в магазине в течении 2-5 дней.
-                <br><a href="#">Как заказать?</a></div>
-              <div class="store-one-map-info-item store-one-map-info-item--with-icon">
-                <i class="icon-shema"></i>
-                <a data-fancybox :href="store.photo">
-                  Смотреть схему помещения
-                </a>
-              </div>
+                <br><router-link to='/help'>Как заказать?</router-link></div>
+              <!--<div v-if="store.photo.length" class="store-one-map-info-item store-one-map-info-item&#45;&#45;with-icon">-->
+                <!--<i class="icon-shema"></i>-->
+                <!--<a data-fancybox :href="store.photo">-->
+                  <!--Смотреть схему помещения-->
+                <!--</a>-->
+              <!--</div>-->
             </div>
           </div>
           <div class="col l6 s12">
@@ -63,7 +63,7 @@ export default {
     ...mapGetters(['affiliates'])
   },
   methods: {
-    ...mapActions(['fetchAffiliates']),
+    ...mapActions(['fetchAffiliates', 'getMeta']),
     mapFunctionStore () {
       if (window.$('.store-one').length < 2) {
         var myCenter = new window.google.maps.LatLng(window.$('.store-one').data('coord-x'), window.$('.store-one').data('coord-y'))
@@ -123,28 +123,59 @@ export default {
       })
     }
   },
+  async asyncData ({store, route}) {
+    let res = []
+    res = await Promise.all([
+      store.dispatch('getMeta', route.path),
+      store.dispatch('fetchAffiliates', route.path)
+    ])
+    // seo module
+    if (res[0] && res[0].locale) {
+      let r = res[0]
+      return {
+        seo_title: r.locale.title,
+        seo_keywords: r.locale.keywords,
+        seo_description: r.locale.description,
+        seo_canonical: r.locale.canonical,
+        seo_robots: r.locale.srobots,
+        seoTitle: r.locale.title,
+        seoContent: r.locale.content
+      }
+      // seo from category
+    } else {
+      return {
+        seo_title: 'Eurogold | storeone',
+        seo_keywords: null,
+        seo_description: null,
+        seo_canonical: null,
+        seo_robots: 'index, follow',
+        seoTitle: '',
+        seoContent: ''
+      }
+    }
+  },
   head () {
     return {
-      title: this.affiliates ? this.affiliates.seo_title : this.postMeta && this.postMeta.seo_title,
+      title: this.seo_title && this.seo_title,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.affiliates ? this.affiliates.seo_title && this.affiliates.seo_title.replace(/<\/?p>/g, '') : this.postMeta && this.postMeta.seo_description && this.postMeta.seo_description.replace(/<\/?p>/g, '')
+          content: this.seo_description && this.seo_description
         },
         {
           hid: 'keywords',
           name: 'keywords',
-          content: this.affiliates ? this.affiliates.seo_title : this.postMeta && this.postMeta.seo_keywords
+          content: this.seo_keywords && this.seo_keywords
         },
         {
           hid: 'robots',
           name: 'robots',
-          content: this.affiliates ? this.affiliates.seo_title : this.postMeta && this.postMeta.seo_robots
+          content: this.seo_robots && this.seo_robots
         }
       ],
       link: [
-        { rel: 'canonical', href: `${this.postMeta && this.postMeta.seo_canonical}` }
+        { rel: 'canonical', href: this.seo_canonical && this.seo_canonical }
       ]
     }
   },

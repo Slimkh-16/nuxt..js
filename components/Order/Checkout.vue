@@ -37,6 +37,7 @@ import {mapGetters} from 'vuex'
 import SeoHelper from '../../helpers/SeoHelper'
 
 export default {
+  props: ['payWay'],
   components: {
     'order': Order,
     'user-info': UserInfo,

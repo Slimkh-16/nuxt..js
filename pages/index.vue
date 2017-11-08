@@ -105,16 +105,7 @@ export default {
     ...mapGetters(['top_products', 'new_products', 'latest_news', 'seo', 'last_reviews', 'slider', 'top_cats', 'silver_cats', 'gold_cats'])
   }, */
   methods: {
-    ...mapActions(['getHome']),
-    masonry () {
-      let $grid = window.$('.grid').masonry({
-        itemSelector: '.grid-item',
-        gutter: 30
-      })
-      setTimeout(() => {
-        $grid.masonry('layout')
-      }, 500)
-    }
+    ...mapActions(['getHome'])
   },
   beforeCreate () {
     this.$store.dispatch('getHome')

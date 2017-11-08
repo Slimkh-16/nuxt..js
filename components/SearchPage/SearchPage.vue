@@ -104,5 +104,8 @@ export default {
   .search-body {
     padding-bottom: 65px;
   }
+  .product-list {
+    padding:15px 15px 0;
+  }
 </style>
 

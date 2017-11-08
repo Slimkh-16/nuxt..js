@@ -2,6 +2,7 @@
   <div class="col l4 m6 s12 right align-center">
     <div class="you-order">
       <div class="you-order__head">Ваш заказ</div>
+      <p>{{orderObj.recipient && orderObj.recipient.first_name}}</p>
       <no-ssr>
         <table>
           <tbody>
@@ -10,15 +11,15 @@
                 <img :src="getImgSrc(product.product)" :alt="product.product.locale.name">
               </td>
               <td>
-                <router-link :to="`/${product.alias}`">
+                <router-link :to="`/${product.product.alias}`">
                   {{product.product.locale.name}}
                 </router-link>
                 <p>
                   <span v-if="product.size">Размер: {{product.size}}</span>
                   <span>Кол-во: {{product.count}}</span>
-                  <span v-if="JSON.parse(product.grave).text">Гравировка: {{JSON.parse(product.grave).text}}</span>
+                  <span v-if="product.grave && JSON.parse(product.grave).text">Гравировка: {{JSON.parse(product.grave).text}}</span>
                   <br>
-                  <span v-if="JSON.parse(product.grave).style_id">Стиль гравировки: {{graveStyleList[+JSON.parse(product.grave).style_id - 1]}}</span>
+                  <span v-if="product.grave && JSON.parse(product.grave).style_id">Стиль гравировки: {{graveStyleList[+JSON.parse(product.grave).style_id - 1]}}</span>
                   <span class="price-order"><b>{{product.price}}</b> грн.</span>
                 </p>
               </td>
@@ -30,7 +31,7 @@
         </table>
       </no-ssr>
     </div>
-    <div class="form_liqpay" v-html="form"></div>
+    <div v-if="orderObj && orderObj.order_payment_method && orderObj.order_payment_method.id === 1" class="form_liqpay" v-html="form"></div>
     <div v-if="privatPaymentWay" class="container privat">
       <div id="content">
         <div id="countedResults">
@@ -84,9 +85,8 @@
           </div>
         </div>
       </div>
-      <a href="#" class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
+      <a href="#" v-if="orderObj && orderObj.order_payment_method && orderObj.order_payment_method.id === 3"  class="btn waves-effect waves-light" @click.prevent="sendPrivatRequest">Оплатить заказ</a>
     </div>
-
   </div>
 </template>
 <script>
@@ -160,7 +160,6 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$route)
     this.fetchOrderByHash(this.$route.params.hash).then(() => {
       this.$nextTick(() => {
         this.privatPaymentWay && this.noUiSlider()

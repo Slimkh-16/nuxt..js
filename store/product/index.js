@@ -124,7 +124,10 @@ const actions = {
         })
         .catch(error => {
           commit(types.PRODUCT_LIST_FETCH_ERROR, error)
-          reject(error)
+          if (error.response.status > 400) {
+            console.log(error.response.status)
+            reject(error)
+          }
         })
     })
   },
@@ -141,6 +144,7 @@ const actions = {
     commit(types.CAT_ID_SET_SUCCESS, catId)
   },
   fetchProduct ({commit, state}, productAlias) {
+    console.log('!!!!!!!!!!!!!', productAlias)
     return new Promise((resolve, reject) => {
       commit(types.PRODUCT_ITEM_FETCH_PROCESSING)
       let url = `${PRODUCT_LIST_URL}${productAlias}`

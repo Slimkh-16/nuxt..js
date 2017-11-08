@@ -8,13 +8,14 @@ let Checkout = 'components/Checkout/Checkout.vue'
 let Order = 'components/Order/Checkout.vue'
 let Reviews = 'components/Reviews/Reviews.vue'
 let Component = 'components/Component.vue'
+let notFound = 'components/notFound.vue'
 
 module.exports = {
   /*
   ** Headers of the page
   */
   head: {
-    title: '%s | Awesome JS SSR Blog',
+    title: 'Eurogold',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -23,7 +24,6 @@ module.exports = {
       { hid: 'robots', name: 'robots', content: 'index, follow' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/ico-16.png' },
       { rel: 'canonical', href: '' }
     ]
   },
@@ -35,6 +35,11 @@ module.exports = {
         /**
          * pages with static url
         */
+        {
+          path: '/notFound',
+          name: 'notFound',
+          component: notFound
+        },
         {
           path: '/contacts',
           name: 'ContactsPage',

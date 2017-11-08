@@ -23,7 +23,7 @@ const getters = {
 }
 
 const actions = {
-  fetchArticles ({commit}, f) {
+  fetchArticles ({commit, state}, f) {
     return new Promise((resolve, reject) => {
       let filter = f ? `?&${qs.stringify(f)}` : ''
       axios
@@ -38,7 +38,7 @@ const actions = {
         })
     })
   },
-  fetchOneArticle ({commit}, id) {
+  fetchOneArticle ({commit, state}, id) {
     return new Promise((resolve, reject) => {
       axios
         .get(ARTICLES_LIST_URL + `/${id}`)

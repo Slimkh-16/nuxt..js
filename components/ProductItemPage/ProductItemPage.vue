@@ -8,7 +8,7 @@
 
     <you-seen :viewedProducts="viewedProducts"></you-seen>
 
-    <seo-section v-if="product.hasOwnProperty('id')" 
+    <seo-section v-if="product.hasOwnProperty('id')"
       :seoIntrotext="product.locale.formatted_introtext"
       :seoContent="product.locale.seo_description || product.locale.formatted_description"
       :seoTitle="product.locale.seo_title"
@@ -43,7 +43,6 @@
         !this.isInSession(res) && this.setProductIdInSession(res)
         this.viewedProductsFromSession = this.$ls.get('viewedProductsObj') || []
         this.viewedProducts = this.viewedProductsFromSession ? this.viewedProductsFromSession.filter(p => p.id !== this.product.id) : []
-        console.log(this.viewedProducts)
       }
     },
     data () {
@@ -56,7 +55,6 @@
     },
     async asyncData ({store, route}) {
       let res = await store.dispatch('fetchProduct', route.path)
-      console.log(res)
       return {res}
     },
     head () {

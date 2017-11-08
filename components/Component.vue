@@ -6,13 +6,13 @@
 // See https://vuejs.org/v2/guide/components.html#Advanced-Async-Components
 import urlsList from '../helpers/urlsList'
 
-const getPost = (slug) => ({
+const getCurrentComponent = (slug) => ({
   component: import(`./${slug}`),
-  error: require('./Posts.vue')
+  error: require('./notFound.vue')
 })
 export default {
   beforeCreate () {
-    this.component = () => getPost(this.$store.state.slug)
+    this.component = () => getCurrentComponent(this.$store.state.slug)
   },
   async asyncData ({store, route}) {
     if (!Object.keys(urlsList.urlList).length) {
@@ -67,31 +67,5 @@ export default {
       await store.dispatch('fetchProduct', route.path)
     }
   }
-  /* head () {
-    console.log('head from components')
-    return {
-      title: 'this.currentPage && this.currentPage.locale.seo_title',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'this.currentPage && this.currentPage.locale.seo_description'
-        },
-        {
-          hid: 'keywords',
-          name: 'keywords',
-          content: 'this.currentPage && this.currentPage.locale.seo_keywords'
-        },
-        {
-          hid: 'robots',
-          name: 'robots',
-          content: 'this.currentPage && this.currentPage.locale.seo_robots'
-        }
-      ],
-      link: [
-        { rel: 'canonical', href: 'this.currentPage && this.currentPage.locale.seo_canonical' }
-      ]
-    }
-  } */
 }
 </script>

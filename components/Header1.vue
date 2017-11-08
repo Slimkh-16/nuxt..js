@@ -1,4 +1,3 @@
-<script src="../static/js/all-plugins.min.js"></script>
 <template>
   <div>
     <header class="header clearfix">
@@ -11,7 +10,8 @@
               </li>
             </ul>
           </div>
-          <div class="header-top__right">{{getObjectByKey('support_phone') && getObjectByKey('support_phone').value}}</div>
+          <div class="header-top__right">
+            <a :href="`tel:${getObjectByKey('support_phone') && getObjectByKey('support_phone').value}`">{{getObjectByKey('support_phone') && getObjectByKey('support_phone').value}}</a></div>
         </div>
       </div>
       <div class="header-middle clearfix">
@@ -20,7 +20,7 @@
           <div class="header-search">
             <form @submit.prevent="searchFunction()">
               <button type="submit"><span class="icon-search"></span></button>
-              <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @input="inputSearch()" @blur.prevent="" @focus.prevent="">
+              <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @input="inputSearch()">
             </form>
             <div v-show="subString.length > 2" class="fast-search">
               <ul>
@@ -257,13 +257,14 @@ export default {
     searchFunction () {
       if (this.subString.length > 2) {
         this.$router.push({name: 'SearchPage', query: { search: this.subString }})
+        window.$('.menu-button-general').sideNav('hide')
         this.subString = ''
       } else {
         alert('Поиск от трёх символов')
       }
     },
     inputSearch () {
-      this.subString.length > 3 && this.searchByString([this.subString, {limit: 5}])
+      this.subString.length > 2 && this.searchByString([this.subString, {limit: 5}])
     },
     imgUrl (productId, imgName) {
       return this.url() + `/assets/images/products/${productId}/${imgName}`
@@ -282,7 +283,7 @@ export default {
       draggable: true
     })
     window.$(document).on('click', (e) => {
-      if (!window.$(e.target).closest('.fast-search').length) {
+      if (!window.$(e.target).closest('.fast-search, .header-search').length) {
         window.$('.fast-search').fadeOut(500, setTimeout(() => {
           this.subString = ''
         }), 500)

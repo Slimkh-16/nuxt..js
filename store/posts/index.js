@@ -48,6 +48,7 @@ const actions = {
         .then((resp) => {
           commit(types.POST_FETCH_SUCCESS, resp.data.data)
           resolve(state.post)
+          console.log(state.post)
         })
         .catch((error) => {
           console.log(`ERROR FROM FETCH POST: `, error)

@@ -7,7 +7,7 @@
             <div data-swiper-parallax="-100" class="general-slider-caption">
               <div class="caption-head" :style="`color:${getStylesByKey('title_colour', slide)}`">{{slide && slide.locale && slide.locale.title}}</div>
               <span v-html="slide && slide.locale && slide.locale.description" :style="`color:${getStylesByKey('description_colour', slide)}`"></span>
-              <router-link :to="slide.alias" class="btn waves-effect waves-light">Смотреть каталог</router-link>
+              <router-link v-if="slide.alias" :to="slide.alias" class="btn waves-effect waves-light">Смотреть каталог</router-link>
             </div>
             <img :src="getStylesByKey('image', slide, true)" alt="" data-swiper-parallax="-300" class="general-slide-img">
           </div>

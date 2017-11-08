@@ -177,7 +177,7 @@
     <div v-if="pageCredit" id="addedToCredit" class="modal">
       <div class="modal-content"><span class="modal-action modal-close modal-close--top icon-cancel"></span>
         <div class="modal-head">Купить в кредит</div>
-        <div class="modal-body" v-html="pageCredit.body"></div>
+        <div class="modal-body" v-html="pageCredit.locale.body"></div>
         <div class="modal-foot text-center clearfix">
           <span class="waves-effect waves-light modal-close"><span class="icon-16-arrow-link"></span>Ок</span>
         </div>
@@ -227,8 +227,10 @@ export default {
       window.$('.product-tab-cont.content' + ` ${id}`).show()
     },
     breadcrumbsWay () {
+      console.log('this.cat_id ', this.cat_id)
       if (!this.cat_id && this.product.categories && this.product.categories.length) {
         let catId = this.product.categories[0].alias
+        console.log('this.product.categories[0].alias ', this.product.categories[0].alias)
         this.setCatId(catId)
         this.fetchBreadcrumbs()
       } else {

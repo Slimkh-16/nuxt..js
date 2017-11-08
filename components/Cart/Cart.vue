@@ -1,60 +1,62 @@
 <template>
-  <!--cart-section-->
-  <section class="cart-page">
-    <div class="container">
-      <breadcrumbs :breadcrumbs="{way: [{locale: {name: 'Корзина'}}]}"></breadcrumbs>
-      <div class="cart-page-container cart-cont-parent">
-        <div class="heading-cart">Моя корзина</div><span class="cart-close js_close_cart icon-close"></span>
-        <div class="cart-body">
-          <div class="cart-body-table">
-            <table v-if="cart.length">
-              <tr v-for="c in cart" :data-product-id="c.product" :key="c.alias">
-                <td class="img_holder"><img :src="getImgSrc(c)" :alt="c.locale.name"></td>
-                <td>
-                  <ul>
-                    <li><router-link :to="`/${c.alias}`">{{c.locale.name}}</router-link></li>
-                    <li v-if="c.size">Размер: {{c.size}}</li>
-                    <li v-if="c.weight">Вес: {{c.weight}}</li>
-                    <li v-if="c.npp.length">Артикул: {{c.npp}}</li>
-                    <li v-if="c.grave.text">Гравировка: {{c.grave.text}}</li>
-                    <li v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</li>
-                  </ul>
-                </td>
-                <td><span>{{c.computedPrice}}</span> грн.</td>
-                <td>
-                  <div class="quantity-wrap">
-                    <span class="minus-icon" @click="c.qty > 1 && (c.qty--, checkValue(c))">&#8722;</span>
-                    <input type="text" :data-price-product="c.price" v-model="c.qty" @input="checkValue(c)" class="quantity">
-                    <span class="plus-icon" @click="c.qty++, checkValue(c)">+</span>
-                    <span class="remove-item js_remove" @click="removeProductFromCart(c.npp)">удалить</span>
-                  </div>
-                </td>
-                <td>
-                  <span class="js_total_product">{{c.totalPrice && c.totalPrice.toFixed(2) || c.computedPrice && c.computedPrice.toFixed(2)}}</span> грн.
-                </td>
-              </tr>
-            </table>
-            <div v-else class="align-center empty-cart">Корзина пуста</div>
+  <transition name="fade">
+    <!--cart-section-->
+    <section class="cart-page">
+      <div class="container">
+        <breadcrumbs :breadcrumbs="{way: [{locale: {name: 'Корзина'}}]}"></breadcrumbs>
+        <div class="cart-page-container cart-cont-parent">
+          <div class="heading-cart">Моя корзина</div><span class="cart-close js_close_cart icon-close"></span>
+          <div class="cart-body">
+            <div class="cart-body-table">
+              <table v-if="cart.length">
+                <tr v-for="c in cart" :data-product-id="c.product" :key="c.alias">
+                  <td class="img_holder"><img :src="getImgSrc(c)" :alt="c.locale.name"></td>
+                  <td>
+                    <ul>
+                      <li><router-link :to="`/${c.alias}`">{{c.locale.name}}</router-link></li>
+                      <li v-if="c.size">Размер: {{c.size}}</li>
+                      <li v-if="c.weight">Вес: {{c.weight}}</li>
+                      <li v-if="c.npp.length">Артикул: {{c.npp}}</li>
+                      <li v-if="c.grave.text">Гравировка: {{c.grave.text}}</li>
+                      <li v-if="c.grave.style_id">Стиль гравировки: {{graveStyleList[+c.grave.style_id - 1]}}</li>
+                    </ul>
+                  </td>
+                  <td><span>{{c.computedPrice && c.computedPrice.toFixed(2)}}</span> грн.</td>
+                  <td>
+                    <div class="quantity-wrap">
+                      <span class="minus-icon" @click="c.qty > 1 && (c.qty--, checkValue(c))">&#8722;</span>
+                      <input type="text" :data-price-product="c.price" v-model="c.qty" @input="checkValue(c)" class="quantity">
+                      <span class="plus-icon" @click="c.qty++, checkValue(c)">+</span>
+                      <span class="remove-item js_remove" @click="removeProductFromCart(c.npp)">удалить</span>
+                    </div>
+                  </td>
+                  <td>
+                    <span class="js_total_product">{{c.totalPrice && c.totalPrice.toFixed(2) || c.computedPrice && c.computedPrice.toFixed(2)}}</span> грн.
+                  </td>
+                </tr>
+              </table>
+              <div v-else class="align-center empty-cart">Корзина пуста</div>
+            </div>
+            <a v-if="cart.length" href="#" class="btn waves-effect waves-light back" @click.prevent="goBack()">Вернуться к покупкам</a>
+            <a v-if="cart.length" href="#" class="btn waves-effect waves-light resetCart" @click.prevent="() => resetCart()">Очистить корзину</a>
           </div>
-          <a v-if="cart.length" href="#" class="btn waves-effect waves-light back" @click.prevent="goBack()">Вернуться к покупкам</a>
-          <a v-if="cart.length" href="#" class="btn waves-effect waves-light resetCart" @click.prevent="() => resetCart()">Очистить корзину</a>
-        </div>
-        <div  v-if="cart.length" class="cart-total">
-          Итого:
-          <b v-if="subtotal" class="js_total">{{subtotal && subtotal.toFixed(2)}}</b> грн.
-          <router-link :to="'/checkout'" class="btn waves-effect waves-light">Оформить заказ</router-link>
+          <div  v-if="cart.length" class="cart-total">
+            Итого:
+            <b v-if="subtotal" class="js_total">{{subtotal && subtotal.toFixed(2)}}</b> грн.
+            <router-link :to="'/checkout'" class="btn waves-effect waves-light">Оформить заказ</router-link>
+          </div>
         </div>
       </div>
-    </div>
-    <div id="cartIsEmpty" class="modal">
-      <div class="modal-content"><span class="modal-action modal-close modal-close--top icon-cancel" @click="redirectToIndex()"></span>
-        <div class="modal-head">Ваша козина пуста</div>
-        <div class="modal-foot clearfix">
-          <span class="waves-effect waves-light modal-close" @click="redirectToIndex()"><span class="icon-16-arrow-link"></span>Ок</span>
+      <div id="cartIsEmpty" class="modal">
+        <div class="modal-content"><span class="modal-action modal-close modal-close--top icon-cancel" @click="redirectToIndex()"></span>
+          <div class="modal-head">Ваша козина пуста</div>
+          <div class="modal-foot clearfix">
+            <span class="waves-effect waves-light modal-close" @click="redirectToIndex()"><span class="icon-16-arrow-link"></span>Ок</span>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </transition>
 </template>
 <script>
 import {mapGetters, mapActions} from 'vuex'
@@ -132,10 +134,16 @@ export default {
     window.$('#cartIsEmpty').modal({
       opacity: 1,
       ready: function (el) {
-        window.$('.overlay').fadeIn(500)
+        window.$('.overlay').show()
+        setTimeout(function () {
+          window.$('.overlay').addClass('visible')
+        }, 100)
       },
       complete: function () {
-        window.$('.overlay').fadeOut(500)
+        window.$('.overlay').removeClass('visible')
+        setTimeout(function () {
+          window.$('.overlay').hide()
+        }, 500)
       }
     })
   },

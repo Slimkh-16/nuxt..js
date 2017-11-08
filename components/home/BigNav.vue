@@ -32,7 +32,7 @@ export default {
     },
     getImgSrc (post) {
       let cover = this.coverImg(post)
-      return cover ? this.imgUrl(post.id, cover.name) : ''
+      return cover
     }
   }
 }

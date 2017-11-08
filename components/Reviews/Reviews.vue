@@ -72,14 +72,61 @@
         this.fetchReviews({limit: 6, page})
       }
     },
-    async asyncData ({store}) {
-      store.dispatch('fetchReviews', {limit: 6, page: 1})
-      return {
-        metaSome: 'sdfsdf'
+    async asyncData ({store, route}) {
+      let res = []
+      res = await Promise.all([
+        store.dispatch('getMeta', route.path),
+        store.dispatch('fetchReviews', {limit: 6, page: 1})
+      ])
+      // seo module
+      if (res[0] && res[0].locale) {
+        let r = res[0]
+        return {
+          seo_title: r.locale.title,
+          seo_keywords: r.locale.keywords,
+          seo_description: r.locale.description,
+          seo_canonical: r.locale.canonical,
+          seo_robots: r.locale.srobots,
+          seoTitle: r.locale.title,
+          seoContent: r.locale.content
+        }
+        // seo from category
+      } else {
+        return {
+          seo_title: 'Eurogold',
+          seo_keywords: null,
+          seo_description: null,
+          seo_canonical: null,
+          seo_robots: 'index, follow',
+          seoTitle: '',
+          seoContent: ''
+        }
       }
     },
     head () {
-      console.log(this.metaSome)
+      return {
+        title: this.seo_title && this.seo_title,
+        meta: [
+          {
+            hid: 'description',
+            name: 'description',
+            content: this.seo_description && this.seo_description
+          },
+          {
+            hid: 'keywords',
+            name: 'keywords',
+            content: this.seo_keywords && this.seo_keywords
+          },
+          {
+            hid: 'robots',
+            name: 'robots',
+            content: this.seo_robots && this.seo_robots
+          }
+        ],
+        link: [
+          { rel: 'canonical', href: this.seo_canonical && this.seo_canonical }
+        ]
+      }
     },
     mounted () {
       // this.fetchReviews({limit: 6, page: 1})

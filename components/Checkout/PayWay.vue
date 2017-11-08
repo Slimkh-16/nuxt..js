@@ -3,37 +3,37 @@
     <div class="order-head">Способ оплаты</div>
     <div class="radio-group">
       <div class="radio-item">
-        <input 
-          id="radio4" 
-          type="radio" 
-          checked 
-          name="group2" 
-          value="1" 
-          v-model="payMethod" 
+        <input
+          id="radio4"
+          type="radio"
+          checked
+          name="group2"
+          value="1"
+          v-model="payMethod"
           class="with-gap"
           @change="() => setCheckoutProps({order_payment_method_id: payMethod})"
         >
         <label for="radio4">Банковской платежной картой (предоплата)</label>
       </div>
       <div class="radio-item">
-        <input 
-          id="radio5" 
-          type="radio" 
-          name="group2" 
-          value="2" 
-          v-model="payMethod" 
+        <input
+          id="radio5"
+          type="radio"
+          name="group2"
+          value="2"
+          v-model="payMethod"
           class="with-gap"
           @change="() => setCheckoutProps({order_payment_method_id: payMethod})"
         >
         <label for="radio5">Наличными при получении</label>
       </div>
       <div class="radio-item">
-        <input 
-          id="radio6" 
-          type="radio" 
-          name="group2" 
-          value="3" 
-          v-model="payMethod" 
+        <input
+          id="radio6"
+          type="radio"
+          name="group2"
+          value="3"
+          v-model="payMethod"
           class="with-gap"
           @change="() => setCheckoutProps({order_payment_method_id: payMethod})"
         >

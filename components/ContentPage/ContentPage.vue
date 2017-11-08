@@ -8,6 +8,7 @@
       </div>
     </div>
     <content-slider
+      v-if="currentPage.images.length"
       :object="currentPage"
       :pathOfImgUrl="'posts'"
     ></content-slider>

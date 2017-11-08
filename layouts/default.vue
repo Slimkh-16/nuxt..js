@@ -74,32 +74,5 @@ export default {
 </script>
 
 <style>
-  .overlay {
-    opacity: 0.5;
-    background: rgb(0, 0, 0);
-    position: fixed;
-    top: 0px;
-    right: 0px;
-    left: 0px;
-    bottom: 0px;
-    z-index: 900;
-    display: none;
-  }
 
-  #cartIsEmptyIndex {
-    max-width: 400px;
-  }
-
-  #cartIsEmptyIndex .modal-head {
-    text-align: center;
-    padding-top: 25px;
-  }
-
-  #cartIsEmptyIndex .modal-foot {
-    text-align: center;
-  }
-
-  #cartIsEmptyIndex .modal-foot .modal-close {
-    padding: 0 30px;
-  }
 </style>
