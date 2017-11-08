@@ -10,7 +10,8 @@
               </li>
             </ul>
           </div>
-          <div class="header-top__right">{{getObjectByKey('support_phone') && getObjectByKey('support_phone').value}}</div>
+          <div class="header-top__right">
+            <a :href="`tel:${getObjectByKey('support_phone') && getObjectByKey('support_phone').value}`">{{getObjectByKey('support_phone') && getObjectByKey('support_phone').value}}</a></div>
         </div>
       </div>
       <div class="header-middle clearfix">
