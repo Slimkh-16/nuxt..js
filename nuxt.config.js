@@ -8,7 +8,7 @@ let Checkout = 'components/Checkout/Checkout.vue'
 let Order = 'components/Order/Checkout.vue'
 let Reviews = 'components/Reviews/Reviews.vue'
 let Component = 'components/Component.vue'
-let NotFound = 'components/NotFound.vue'
+let notFound = 'components/notFound.vue'
 
 module.exports = {
   /*
@@ -37,8 +37,8 @@ module.exports = {
         */
         {
           path: '/notFound',
-          name: 'NotFound',
-          component: NotFound
+          name: 'notFound',
+          component: notFound
         },
         {
           path: '/contacts',

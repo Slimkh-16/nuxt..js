@@ -28,8 +28,9 @@ const actions = {
            * if order_payment_method is 1 => to a bank card
            * get liqpay form
           */
-          if (res.data.data.order_payment_method.id === 1 && res.data.data.status.id === 1) {
-            actions.fetchLiqpayForm({commit}, hash)
+
+          if (res.data.data.order_payment_method.id === 1 && (res.data.data.status.id === 1 || res.data.data.status.id === 2)) {
+            actions.fetchLiqpayForm({commit, state}, hash)
           }
           /**
            * commit fetched data by hash
@@ -43,7 +44,7 @@ const actions = {
         })
     })
   },
-  fetchLiqpayForm ({commit}, hash) {
+  fetchLiqpayForm ({commit, state}, hash) {
     return new Promise((resolve, reject) => {
       axios
         .get(GET_LIQPAY_FORM + `/${hash}/get_form`)

@@ -124,9 +124,9 @@ const actions = {
         })
         .catch(error => {
           commit(types.PRODUCT_LIST_FETCH_ERROR, error)
-          reject(error)
           if (error.response.status > 400) {
             console.log(error.response.status)
+            reject(error)
           }
         })
     })

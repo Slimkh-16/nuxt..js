@@ -95,13 +95,28 @@ import ProductList from '../../components/ProductList.vue'
 import ImageHelper from '../../helpers/ImageHelper'
 import SeoHelper from '../../helpers/SeoHelper'
 
-const fetchData = async (store, route, productFilters) => {
+const fetchData = async (store, route, productFilters, redirect) => {
   let res = []
   res = await Promise.all([
-    store.dispatch('fetchBreadcrumbs', route.path.slice(1)),
+    store.dispatch('fetchBreadcrumbs', route.path),
     store.dispatch('getMeta', route.fullPath),
     store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc'})
-  ])
+  ]).catch(() => {
+    redirect(301, '/notFound')
+  })
+  if (!res) {
+    return res
+    //    return {
+    //      seo_title: 'Eurogold',
+    //      seo_keywords: '',
+    //      seo_description: '',
+    //      seo_canonical: '',
+    //      seo_robots: '',
+    //      seoTitle: '',
+    //      seoContent: '',
+    //      seoIntrotext: ''
+    //    }
+  }
   // seo module
   if (res[1] && res[1].locale) {
     let r = res[1]
@@ -497,7 +512,7 @@ export default {
       }
     }
   },
-  async asyncData ({store, route}) {
+  async asyncData ({store, route, redirect}) {
     let productFilters = {}
     store.dispatch('setFilters')
     /**
@@ -539,12 +554,12 @@ export default {
       /**
        * fetch Breadcrumbs, Meta, ProductList
       */
-      return fetchData(store, route, productFilters)
+      return fetchData(store, route, productFilters, redirect)
     } else {
       /**
        * fetch Breadcrumbs, Meta, ProductList
       */
-      return fetchData(store, route, productFilters)
+      return fetchData(store, route, productFilters, redirect)
     }
   },
   head () {
