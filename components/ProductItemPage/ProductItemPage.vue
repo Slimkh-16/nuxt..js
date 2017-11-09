@@ -14,7 +14,6 @@
       :seoTitle="product.locale.seo_title"
     ></seo-section>
 
-
   </div>
 </template>
 
@@ -60,7 +59,7 @@
     head () {
       // this.fetchFromSession(this.product)
       return {
-        title: this.product && this.product.locale.seo_title,
+        title: this.product && (this.product.locale.seo_title || 'Eurogold'),
         meta: [
           {
             hid: 'description',
@@ -75,7 +74,7 @@
           {
             hid: 'robots',
             name: 'robots',
-            content: this.product && this.product.locale.seo_robots
+            content: this.product && (this.product.locale.seo_robots || 'index, follow')
           }
         ],
         link: [

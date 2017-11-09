@@ -6266,6 +6266,7 @@ textarea.materialize-textarea {
     font-size: 0;
     line-height: 0;
   }
+
   .quantity-wrap input {
     border-radius: 0 !important;
   }
@@ -6312,18 +6313,26 @@ textarea.materialize-textarea {
     width: calc(100% - 100px);
     text-align: center;
   }
-  .cart-body table td:nth-of-type(4),
+  .cart-body table td:nth-of-type(3),.cart-body table td:nth-of-type(4) {
+    width: 50%;
+  }
   .cart-body table td:nth-of-type(5) {
-    width: -webkit-calc(100% - 150px);
-    width: calc(100% - 150px);
+    width:100%
   }
   .remove-item {
-    display: block;
-    margin-left: 0;
-    margin-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 20px;
+    margin-top: 0px;
     line-height: 16px !important;
   }
-
+  .cart-body .btn {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .cart-body-table {
+    margin-bottom: 10px;
+  }
   .product-with-video {
     top: 0;
   }

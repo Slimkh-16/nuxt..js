@@ -99,7 +99,7 @@
           </form>
         </div>
         <div class="header-middle__right">
-          <a href="#" class="cart-button js_cart" @click="checkCart()">
+          <a href="#" class="cart-button js_cart" @click.prevent="checkCart()">
             <span class="icon-cart"></span> Ваш заказ
             <span v-if="count" class="count-cart">{{count}}</span>
           </a>
