@@ -106,6 +106,7 @@ const fetchData = async (store, route, productFilters, redirect) => {
   // seo module
   if (res[1] && res[1].locale) {
     let r = res[1]
+    console.log(r)
     return {
       seo_title: r.locale.seo_title,
       seo_keywords: r.locale.seo_keywords,
@@ -120,6 +121,7 @@ const fetchData = async (store, route, productFilters, redirect) => {
     let b = res[0]
     if (!b) return
     let r = b[b.length - 1]
+    console.log(r)
     return {
       seo_title: r.locale.seo_title,
       seo_keywords: r.locale.seo_keywords,
@@ -201,10 +203,6 @@ export default {
           window.$('html, body').animate({
             scrollTop: 0
           }, 500)
-          //          if ((this.price_range.price_from && this.price_range.price_to) && this.productFilters.price_to > this.price_range.price_to) {
-          //            this.$router.push('/notFound')
-          //            return
-          //          }
           if (!this.sliderIt || !(this.sliderIt && this.sliderIt.noUiSlider)) {
             // init slider
             this.sliderRange()

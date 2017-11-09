@@ -32,6 +32,10 @@
                   <td><span>Цвет камня:</span></td>
                   <td>{{product.locale.stone_color}}</td>
                 </tr>
+                <tr v-if="product.locale.earing_type">
+                  <td><span>Тип серьги:</span></td>
+                  <td>{{product.locale.earing_type}}</td>
+                </tr>
               </tbody>
             </table>
           </div>

@@ -1676,6 +1676,7 @@ h5,
 
 .new-product-item__txt {
   padding: 5px 15px;
+  margin: 0 -5px;
   text-align: center;
   font-size: 12px;
   line-height: 14px;
