@@ -13,20 +13,14 @@
     </div>
     <!-- footer -->
     <app-footer :menu="menu"></app-footer>
-    <div id="cartIsEmptyIndex" class="modal">
-      <div class="modal-content"><span class="modal-action modal-close modal-close--top icon-cancel"></span>
-        <div class="modal-head">Ваша козина пуста.</div>
-        <div class="modal-foot clearfix">
-          <span class="waves-effect waves-light modal-close" @click="redirectToMainPage()"><span class="icon-16-arrow-link"></span>Ок</span>
-        </div>
-      </div>
-    </div>
+    <empty-cart></empty-cart>
   </div>
 </template>
 
 <script>
 import AppHeader from '~/components/Header1.vue'
 import AppFooter from '~/components/Footer.vue'
+import EmptyCart from '~/components/EmptyCart.vue'
 import { mapGetters, mapActions } from 'vuex'
 import Cart from '../helpers/Cart'
 
@@ -43,7 +37,8 @@ export default {
   mixins: [Cart],
   components: {
     AppHeader,
-    AppFooter
+    AppFooter,
+    'empty-cart': EmptyCart
   },
   async asyncData ({store}) {
     await store.dispatch('fetchRedirects')

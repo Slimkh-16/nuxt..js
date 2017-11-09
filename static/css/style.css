@@ -6453,7 +6453,7 @@ textarea.materialize-textarea {
 }
 .header-search {
   position: relative;
-  z-index: 55;
+  z-index: 7777;
 }
 .fast-search {
   width: 285px;
