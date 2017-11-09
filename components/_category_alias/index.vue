@@ -104,9 +104,9 @@ const fetchData = async (store, route, productFilters, redirect) => {
     redirect(301, '/notFound')
   })
   // seo module
+  console.log('########', res)
   if (res[1] && res[1].locale) {
     let r = res[1]
-    console.log(r)
     return {
       seo_title: r.locale.seo_title,
       seo_keywords: r.locale.seo_keywords,

@@ -6225,6 +6225,10 @@ textarea.materialize-textarea {
   }
 }
 @media only screen and (max-width: 470px) {
+  .big-nav__txt,.big-nav__img {
+    display: block;
+    max-width: 100%;
+  }
   .cart-body table tr td span {
     font-size: 14px;
   }

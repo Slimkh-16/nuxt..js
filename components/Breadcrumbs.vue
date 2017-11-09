@@ -40,7 +40,6 @@ export default {
   },
   methods: {
     categoryParams (breadcrumb, index) {
-      console.log('BREADCRUMS===========', breadcrumb)
       if (index < this.wayLength && index === 0) {
         return {
           'category_alias': `${breadcrumb.alias}`
