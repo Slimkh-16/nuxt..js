@@ -9,7 +9,7 @@
                 <span>{{cat.locale.name.slice(0, 25) + (cat.locale.name.length > 25 ? '...' : '')}}</span>
                 </router-link>
                 <br>
-              <div class="big-nav__det">{{cat.locale.formatted_description.slice(0, 25) + '...'}}</div>
+              <div class="big-nav__det" v-if="cat.locale.formatted_introtext.length">{{cat.locale.formatted_introtext.slice(0, 25) + '...'}}</div>
             </div>
             <div class="big-nav__img">
               <router-link :to="cat.alias"><img :src="getImgSrc(cat)" :alt="cat.locale.name"></router-link>

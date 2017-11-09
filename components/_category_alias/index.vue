@@ -30,8 +30,8 @@
                   <div v-for="filter in featureListLimit" v-bind:key="filter.alias" class="filter-catalog-item col l4 m6 s12 namedWithImg">
                     <input :id="`${filter.id}${filter.alias}`" :value="filter.alias" :checked="!!(productFilters[filter.alias] && productFilters[filter.alias].indexOf(filter.feature[0].value.alias) > -1)" @change="changeFilterArr(filter.alias, filter.feature[0].value.alias)" type="checkbox">
                     <label :for="`${filter.id}${filter.alias}`">
-                      <img :src="imgUrl(filter.id, filter.image)" alt="">
-                      <img :src="filter.image" alt="">
+                      <img :src="imgUrl(filter.id, filter.image_url)" alt="">
+                      <img :src="filter.image_url" alt="">
                       <span>{{ filter.locale.name }}</span>
                     </label>
                   </div>
@@ -633,8 +633,6 @@ export default {
 </script>
 
 <style>
-  .footer-container {
-    margin-bottom: 40px;}
   .flt-label + .select-wrapper {
     width: 190px !important;
   }
@@ -643,6 +641,11 @@ export default {
   }
   .catalog-section {
     overflow: initial;
+  }
+
+  @media only screen and (max-width:767px) {
+    .footer-container {
+      margin-bottom: 40px;}
   }
   @media only screen and (max-width: 470px) {
     .breadcrumbs {
