@@ -41,7 +41,7 @@ export default {
     'empty-cart': EmptyCart
   },
   async asyncData ({store}) {
-    await store.dispatch('fetchRedirects')
+    // await store.dispatch('fetchRedirects')
     return {
       menu: await store.dispatch('fetchMenu')
     }

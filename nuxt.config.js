@@ -158,6 +158,8 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    /* plugins */
+    vendor: ['axios', 'moment', 'selectn', 'vue-ls'],
     /*
     ** Run ESLint on save
     */
