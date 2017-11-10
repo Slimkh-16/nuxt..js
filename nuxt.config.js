@@ -41,6 +41,11 @@ module.exports = {
           component: notFound
         },
         {
+          path: '/*',
+          name: 'errorPage',
+          component: notFound
+        },
+        {
           path: '/contacts',
           name: 'ContactsPage',
           component: ContactsPage
