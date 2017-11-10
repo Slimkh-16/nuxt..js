@@ -55,7 +55,7 @@ export default {
       if (bool) {
         return slide[key] && slide[key].length ? slide[`${key}_url`] : this.defaultSliderStyle[`${key}_url`]
       } else {
-        return slide[key].length ? slide[key] : this.defaultSliderStyle[key]
+        return slide[key] && slide[key].length ? slide[key] : this.defaultSliderStyle[key]
       }
     }
   },
