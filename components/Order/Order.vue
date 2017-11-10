@@ -16,6 +16,7 @@
                 </router-link>
                 <p>
                   <span v-if="product.size">Размер: {{product.size}}</span>
+                  <span v-if="product.npp && product.npp.length">Артикул: {{product.npp.length}}</span>
                   <span>Кол-во: {{product.count}}</span>
                   <span v-if="product.grave && JSON.parse(product.grave).text">Гравировка: {{JSON.parse(product.grave).text}}</span>
                   <br>

@@ -20,7 +20,7 @@
           <div class="header-search">
             <form @submit.prevent="searchFunction()">
               <button type="submit"><span class="icon-search"></span></button>
-              <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @input="inputSearch()">
+              <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @focus="searchFocus()" @input="inputSearch()">
             </form>
             <div v-show="subString.length > 2" class="fast-search">
               <ul>
@@ -99,7 +99,7 @@
           </form>
         </div>
         <div class="header-middle__right">
-          <a href="#" class="cart-button js_cart" @click="checkCart()">
+          <a href="#" class="cart-button js_cart" @click.prevent="checkCart()">
             <span class="icon-cart"></span> Ваш заказ
             <span v-if="count" class="count-cart">{{count}}</span>
           </a>
@@ -263,6 +263,12 @@ export default {
         alert('Поиск от трёх символов')
       }
     },
+    searchFocus () {
+      this.subString.length > 2 && this.searchByString([this.subString, {limit: 5}])
+      if (this.subString.length > 2) {
+        window.$('.fast-search').fadeIn()
+      }
+    },
     inputSearch () {
       this.subString.length > 2 && this.searchByString([this.subString, {limit: 5}])
     },
@@ -284,9 +290,7 @@ export default {
     })
     window.$(document).on('click', (e) => {
       if (!window.$(e.target).closest('.fast-search, .header-search').length) {
-        window.$('.fast-search').fadeOut(500, setTimeout(() => {
-          this.subString = ''
-        }), 500)
+        window.$('.fast-search').fadeOut()
       }
     })
   },

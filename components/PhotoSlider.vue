@@ -13,7 +13,7 @@
       <div :id="galleryClassName" class="product-slider-nav" v-if="object && object.images">
         <a
           v-for="(img, key) in object.images"
-          v-bind:key="index"
+          v-bind:key="key.id"
           href="#" :style="object && `background:url('${img.image_url}') no-repeat`"
           :data-image="object && img.image_url"
           :data-zoom-image="object && img.image_url" class="elevatezoom-gallery"></a>

@@ -66,6 +66,10 @@
                     <div class="product-char-col"><span>Цвет камня:</span></div>
                     <div class="product-char-col">{{product.locale.stone_color}}</div>
                   </div>
+                  <div class="product-char-row" v-if="product.locale.earing_type">
+                    <div class="product-char-col"><span>Тип серьги:</span></div>
+                    <div class="product-char-col">{{product.locale.earing_type}}</div>
+                  </div>
                 </div>
                 <!-- PRODUCT PRICE -->
                 <div class="product-price">
@@ -227,10 +231,8 @@ export default {
       window.$('.product-tab-cont.content' + ` ${id}`).show()
     },
     breadcrumbsWay () {
-      console.log('this.cat_id ', this.cat_id)
       if (!this.cat_id && this.product.categories && this.product.categories.length) {
         let catId = this.product.categories[0].alias
-        console.log('this.product.categories[0].alias ', this.product.categories[0].alias)
         this.setCatId(catId)
         this.fetchBreadcrumbs()
       } else {

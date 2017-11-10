@@ -17,6 +17,10 @@
         <div class="product-char-col"><span>Цвет камня:</span></div>
         <div class="product-char-col">{{product.locale.stone_color}}</div>
       </div>
+      <div class="product-char-row" v-if="product.locale.earing_type">
+        <div class="product-char-col"><span>Тип серьги:</span></div>
+        <div class="product-char-col">{{product.locale.earing_type}}</div>
+      </div>
       <div v-if="prodFeature && prodFeature.length > 8" class="all-char js_all_char">Все характеристики</div>
     </div>
   </div>

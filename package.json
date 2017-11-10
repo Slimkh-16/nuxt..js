@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "HOST=159.89.6.88 PORT=3000 nuxt start",
+    "start": "HOST=159.89.6.88 PORT=80 nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
@@ -17,7 +17,6 @@
     "moment": "^2.18.1",
     "nuxt": "^1.0.0-rc11",
     "selectn": "^1.1.2",
-    "swiper": "^4.0.0-beta.4",
     "vue-ls": "^2.3.3",
     "webpack-merge": "^4.1.0"
   },

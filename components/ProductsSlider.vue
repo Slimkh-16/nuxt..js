@@ -60,7 +60,7 @@
             let container = window.$(item).find('.swiper-container')
             let slides = container.find('.swiper-slide')
             let isLoop = slides && slides.length > 4
-            isLoop ? container.find('.swiper-wrapper').attr('style', '') : container.find('.swiper-wrapper').attr('style', 'justify-content: center;')
+            //            isLoop ? container.find('.swiper-wrapper').attr('style', '') : container.find('.swiper-wrapper').attr('style', 'justify-content: center;')
             const swiperNewNew = new window.Swiper(container, {
               loop: isLoop,
               speed: 1000,

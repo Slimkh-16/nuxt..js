@@ -30,8 +30,8 @@
                   <div v-for="filter in featureListLimit" v-bind:key="filter.alias" class="filter-catalog-item col l4 m6 s12 namedWithImg">
                     <input :id="`${filter.id}${filter.alias}`" :value="filter.alias" :checked="!!(productFilters[filter.alias] && productFilters[filter.alias].indexOf(filter.feature[0].value.alias) > -1)" @change="changeFilterArr(filter.alias, filter.feature[0].value.alias)" type="checkbox">
                     <label :for="`${filter.id}${filter.alias}`">
-                      <img :src="imgUrl(filter.id, filter.image)" alt="">
-                      <img :src="filter.image" alt="">
+                      <img :src="imgUrl(filter.id, filter.image_url)" alt="">
+                      <img :src="filter.image_url" alt="">
                       <span>{{ filter.locale.name }}</span>
                     </label>
                   </div>
@@ -79,7 +79,6 @@
       v-if="seoTitle"
       :seoContent="seoContent"
       :seoTitle="seoTitle"
-      :seoIntrotext="seoIntrotext"
       ></seo-section>
   </div>
 </template>
@@ -105,6 +104,7 @@ const fetchData = async (store, route, productFilters, redirect) => {
     redirect(301, '/notFound')
   })
   // seo module
+  console.log('########', res)
   if (res[1] && res[1].locale) {
     let r = res[1]
     return {
@@ -114,14 +114,14 @@ const fetchData = async (store, route, productFilters, redirect) => {
       seo_canonical: r.locale.seo_canonical,
       seo_robots: r.locale.seo_robots,
       seoTitle: r.locale.seo_title,
-      seoContent: r.locale.description,
-      seoIntrotext: r.locale.introtext
+      seoContent: r.locale.description
     }
   // seo from category
   } else {
     let b = res[0]
     if (!b) return
     let r = b[b.length - 1]
+    console.log(r)
     return {
       seo_title: r.locale.seo_title,
       seo_keywords: r.locale.seo_keywords,
@@ -129,8 +129,7 @@ const fetchData = async (store, route, productFilters, redirect) => {
       seo_canonical: r.locale.seo_canonical,
       seo_robots: r.locale.seo_robots,
       seoTitle: r.locale.seo_title,
-      seoContent: r.locale.description,
-      seoIntrotext: r.locale.introtext
+      seoContent: r.locale.description
     }
   }
 }
@@ -184,7 +183,6 @@ export default {
       sliderInProgress: false,
       seoTitle: '',
       seoContent: '',
-      seoIntrotext: '',
       loaded: false,
       notShowSeoContent: false,
       filtersDeep: 0
@@ -205,10 +203,6 @@ export default {
           window.$('html, body').animate({
             scrollTop: 0
           }, 500)
-          //          if ((this.price_range.price_from && this.price_range.price_to) && this.productFilters.price_to > this.price_range.price_to) {
-          //            this.$router.push('/notFound')
-          //            return
-          //          }
           if (!this.sliderIt || !(this.sliderIt && this.sliderIt.noUiSlider)) {
             // init slider
             this.sliderRange()
@@ -483,10 +477,9 @@ export default {
           console.log('[error from Promice meta and breadcrumbs]: ', error)
         })
     },
-    updateSeo (seoTitle, seoContent, seoIntrotext, robots) {
+    updateSeo (seoTitle, seoContent, robots) {
       this.seoTitle = seoTitle
       this.seoContent = seoContent
-      this.seoIntrotext = seoIntrotext
       if (this.filtersDeep > 2) {
         this.robots.attr('content', 'noindex, nofollow')
       } else {
@@ -633,8 +626,6 @@ export default {
 </script>
 
 <style>
-  .footer-container {
-    margin-bottom: 40px;}
   .flt-label + .select-wrapper {
     width: 190px !important;
   }
@@ -643,6 +634,11 @@ export default {
   }
   .catalog-section {
     overflow: initial;
+  }
+
+  @media only screen and (max-width:767px) {
+    .footer-container {
+      margin-bottom: 40px;}
   }
   @media only screen and (max-width: 470px) {
     .breadcrumbs {
