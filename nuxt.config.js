@@ -41,11 +41,6 @@ module.exports = {
           component: notFound
         },
         {
-          path: '/*',
-          name: 'errorPage',
-          component: notFound
-        },
-        {
           path: '/contacts',
           name: 'ContactsPage',
           component: ContactsPage
@@ -55,22 +50,6 @@ module.exports = {
           name: 'Cart',
           component: Cart
         },
-        /* {
-          path: '/stones/:alias',
-          name: 'StonePage',
-          component: StonePage,
-          beforeEnter (to, from, next) {
-            checkUrlOnSlash(to, next)
-          }
-        },
-        {
-          path: '/stores/:id',
-          name: 'StoreOne',
-          component: StoreOne,
-          beforeEnter (to, from, next) {
-            checkUrlOnSlash(to, next)
-          }
-        }, */
         {
           path: '/reviews',
           name: 'Reviews',
