@@ -1187,6 +1187,10 @@ h5,
   background: #fae4a5;
   color: #282627;
 }
+.navigation-catalog ul:not(.dropdown-content) li:last-child .dropdown-content{
+  left: auto !important;
+  right: 0 !important;
+}
 
 .navigation-catalog .dropdown-content {
   top: 97% !important;
@@ -2581,7 +2585,16 @@ h5,
   visibility: visible;
   opacity: 1;
 }
-
+.refresh-filter {
+  display: none;
+}
+.nuxt-progress {
+  background-color: #efc14e !important;
+  height: 5px !important;
+}
+.refresh-filter.visible {
+  display: block;
+}
 .filter-box__head {
   cursor: pointer;
   position: relative;

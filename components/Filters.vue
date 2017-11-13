@@ -75,61 +75,79 @@
 </template>
 
 <script>
-  export default {
-    props: ['filters', 'featureList', 'namedFilters', 'price_range', 'productTotal', 'radio', 'multiFilters'],
-    methods: {
-      changeFilterArr (key, id, isPrice) {
-        this.$emit('changeFilterArr', [key, id, isPrice])
-        window.$('.catalog-filter').removeClass('visible')
-        window.$('body').removeClass('noscroll')
-      },
-      changeRadioFilterArr (key, id) {
-        this.$emit('changeRadioFilterArr', [key, id])
-        window.$('.catalog-filter').removeClass('visible')
-        window.$('body').removeClass('noscroll')
-      },
-      clearNamedFilters () {
-        this.$emit('clearNamedFilters')
-      },
-      clearFilters (filterName, isPrice) {
-        this.$emit('clearFilters', filterName)
-      },
-      toggleFilterBox (e) {
-        window.$(e.target).parents('.filter-box').toggleClass('visible')
-        window.$(e.target).parents('.filter-box').find('.filter-bix__body').slideToggle(500)
-      },
-      checkValue (range, value) {
-        if (typeof value === 'string') {
-          let newValue = value.replace(/^\.|[^\d.]|\.(?=.*\.)|^0+(?=\d)/g, '')
-          this.filters[`price_${range}`] = value.length ? +newValue : this.price_range[`price_${range}`]
-          this.setInInput(range)
+export default {
+  props: ['filters', 'featureList', 'namedFilters', 'price_range', 'productTotal', 'radio', 'multiFilters'],
+  methods: {
+    changeFilterArr (key, id, isPrice) {
+      this.$emit('changeFilterArr', [key, id, isPrice])
+      window.$('.catalog-filter').removeClass('visible')
+      window.$('body').removeClass('noscroll')
+      this.resetButton()
+    },
+    changeRadioFilterArr (key, id) {
+      this.$emit('changeRadioFilterArr', [key, id])
+      window.$('.catalog-filter').removeClass('visible')
+      window.$('body').removeClass('noscroll')
+      this.resetButton()
+    },
+    clearNamedFilters () {
+      this.$emit('clearNamedFilters')
+    },
+    clearFilters (filterName, isPrice) {
+      this.$emit('clearFilters', filterName)
+    },
+    toggleFilterBox (e) {
+      window.$(e.target).parents('.filter-box').toggleClass('visible')
+      window.$(e.target).parents('.filter-box').find('.filter-bix__body').toggle()
+    },
+    checkValue (range, value) {
+      if (typeof value === 'string') {
+        let newValue = value.replace(/^\.|[^\d.]|\.(?=.*\.)|^0+(?=\d)/g, '')
+        this.filters[`price_${range}`] = value.length ? +newValue : this.price_range[`price_${range}`]
+        this.setInInput(range)
+      }
+    },
+    setInInput (range) {
+      setTimeout(() => {
+        let input = window.$(`.js_${range}`)
+        if (input.val() !== this.filters[`price_${range}`] + '') {
+          input.val(this.filters[`price_${range}`])
         }
-      },
-      setInInput (range) {
-        setTimeout(() => {
-          let input = window.$(`.js_${range}`)
-          if (input.val() !== this.filters[`price_${range}`] + '') {
-            input.val(this.filters[`price_${range}`])
+      })
+    },
+    valueInLimits (range, value) {
+      switch (range) {
+        case 'from':
+          return value > this.price_range[`price_${range}`]
+        case 'to':
+          return value < this.price_range[`price_${range}`]
+      }
+    },
+    setInputPrice (range, value) {
+      if (!this.valueInLimits(range, +value)) {
+        this.filters[`price_${range}`] = this.price_range[`price_${range}`]
+      }
+      this.setInInput(range)
+      this.$emit('manualPrice')
+    },
+    resetButton () {
+      window.$(document).on('change', '.filter-item input', function () {
+        window.$('.filter-box').each(function (i, item) {
+          if (window.$(item).find('input').is(':checked')) {
+            window.$(item).find('.refresh-filter').addClass('visible')
+          } else {
+            window.$(item).find('.refresh-filter').removeClass('visible')
           }
         })
-      },
-      valueInLimits (range, value) {
-        switch (range) {
-          case 'from':
-            return value > this.price_range[`price_${range}`]
-          case 'to':
-            return value < this.price_range[`price_${range}`]
-        }
-      },
-      setInputPrice (range, value) {
-        if (!this.valueInLimits(range, +value)) {
-          this.filters[`price_${range}`] = this.price_range[`price_${range}`]
-        }
-        this.setInInput(range)
-        this.$emit('manualPrice')
-      }
+      })
+    },
+    mounted () {
+      window.$(document).on('click', '.refresh-filter', function () {
+        window.$(this).removeClass('visible')
+      })
     }
   }
+}
 </script>
 
 <style>
