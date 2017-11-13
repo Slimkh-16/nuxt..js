@@ -64,6 +64,7 @@
             const swiperNewNew = new window.Swiper(container, {
               loop: isLoop,
               speed: 1000,
+              simulateTouch: false, 
               slidesPerView: 4,
               spaceBetween: 0,
               nextButton: window.$(item).find('.swiper-button-next'),
