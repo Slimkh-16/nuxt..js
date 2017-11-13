@@ -1,7 +1,7 @@
 <template>
   <div class="product-list">
     <transition name="isProducts">
-    <div v-if="productList.length"  class="row">
+    <div v-if="productList && productList.length"  class="row">
       <div v-for="product in productList" class="col l4 m6 s6" :key="product.alias">
         <router-link :to="{ name: 'Product page', params: { alias: product.alias }}" class="product-item">
           <div class="product-item__img">

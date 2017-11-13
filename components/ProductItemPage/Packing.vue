@@ -1,6 +1,6 @@
 <template>
-  <div id="tab5" class="tab-box">
-    <photo-slider
+  <div v-if="packingPhotoPage" id="tab5" class="tab-box">
+     <photo-slider
       :className="'packingImages'"
       :object="packingPhotoPage"
       :pathOfImgUrl="'posts'"
@@ -30,8 +30,6 @@ export default {
     packingPhotoPage () {
       return this.contentPages && this.contentPages.length ? this.contentPages.filter((p) => p.alias === packingPhotoUrl)[0] : null
     }
-  },
-  methods: {
   },
   mounted () {
     this.initZoomJQuery('packingImages', 'gal-photos')
