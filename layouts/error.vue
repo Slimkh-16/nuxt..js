@@ -5,9 +5,9 @@
         <div class="txt-404"><span>404</span>ошибка</div>
         <div class="found-icon"><span class="icon-ico-dostavka-page-02"></span></div>Страница не найдена или не верно задан адрес
         <br>
-        <router-link to='/' class="btn btn--brown waves-effect waves-light">
+        <button @click.prevent="reloadPage()" class="btn btn--brown waves-effect waves-light">
           На главную
-        </router-link>
+        </button>
       </div>
     </div>
   </section>
@@ -16,11 +16,9 @@
 <script>
 
 export default {
-  name: 'nuxt-error',
-  props: ['error'],
-  head () {
-    return {
-      title: this.error.message || 'An error occured'
+  methods: {
+    reloadPage () {
+      document.location.reload(true)
     }
   }
 }
