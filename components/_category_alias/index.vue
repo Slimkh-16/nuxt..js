@@ -94,17 +94,14 @@ import ProductList from '../../components/ProductList.vue'
 import ImageHelper from '../../helpers/ImageHelper'
 import SeoHelper from '../../helpers/SeoHelper'
 
-const fetchData = async (store, route, productFilters, redirect) => {
+const fetchData = async (store, route) => {
   let res = []
   res = await Promise.all([
     store.dispatch('fetchBreadcrumbs', route.path),
-    store.dispatch('getMeta', route.fullPath),
-    store.dispatch('fetchProductList', {...productFilters, limit: 12, grade: 'asc'})
-  ]).catch(() => {
-    redirect(301, '/notFound')
-  })
+    store.dispatch('getMeta', route.fullPath)
+  ])
   // seo module
-  console.log('########', res)
+  console.log('########', res.length)
   if (res[1] && res[1].locale) {
     let r = res[1]
     return {
@@ -121,7 +118,6 @@ const fetchData = async (store, route, productFilters, redirect) => {
     let b = res[0]
     if (!b) return
     let r = b[b.length - 1]
-    console.log(r)
     return {
       seo_title: r.locale.seo_title,
       seo_keywords: r.locale.seo_keywords,
@@ -198,7 +194,7 @@ export default {
       this.setFilters({...this.productFilters})
       // get products with new filters
       Promise
-        .all([this.fetchProductList({...this.productFilters, limit: this.limit, grade: this.grade})])
+        .all([this.fetchProductList([{...this.productFilters, limit: this.limit, grade: this.grade}, () => {}])])
         .then((res) => {
           window.$('html, body').animate({
             scrollTop: 0
@@ -534,11 +530,14 @@ export default {
       /**
        * fetch Breadcrumbs, Meta, ProductList
       */
-      return fetchData(store, route, productFilters, redirect)
+      await store.dispatch('fetchProductList', [{...productFilters, limit: 12, grade: 'asc'}, redirect])
+      console.log('------------------- after List')
+      return fetchData(store, route)
     } else {
       /**
        * fetch Breadcrumbs, Meta, ProductList
       */
+      await store.dispatch('fetchProductList', [{}, redirect])
       return fetchData(store, route, productFilters, redirect)
     }
   },

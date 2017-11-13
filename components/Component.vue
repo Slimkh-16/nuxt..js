@@ -14,7 +14,7 @@ export default {
   beforeCreate () {
     this.component = () => getCurrentComponent(this.$store.state.slug)
   },
-  async asyncData ({store, route}) {
+  async asyncData ({store, route, redirect}) {
     if (!Object.keys(urlsList.urlList).length) {
       await store.dispatch('fetchMenu')
     }
@@ -25,13 +25,13 @@ export default {
 
     if (urlsList.urlList[route.path]) {
       store.state.slug = '_category_alias/index.vue'
+      await store.dispatch('fetchProductList', [{}, redirect])
       let res = []
       res = await Promise.all([
         store.dispatch('fetchBreadcrumbs', route.path.slice(1, route.path.length)),
         store.dispatch('getMeta', route.fullPath),
         store.dispatch('setCatId', route.path.slice(1, route.path.length)),
-        store.dispatch('fetchFilters'),
-        store.dispatch('fetchProductList')
+        store.dispatch('fetchFilters')
       ])
       // seo module
       if (res[1] && res[1].locale) {
@@ -64,7 +64,7 @@ export default {
       await store.dispatch('fetchContentPage')
     } else {
       store.state.slug = 'ProductItemPage/ProductItemPage.vue'
-      await store.dispatch('fetchProduct', route.path)
+      await store.dispatch('fetchProduct', [route.path, redirect])
     }
   }
 }

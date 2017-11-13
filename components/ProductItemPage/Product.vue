@@ -118,11 +118,11 @@
                     :product="product"
                     >
                     </characteristics>
-                  <reviews
+                    <reviews
                     :reviews="product.comments"
                     :locale="product.locale ? product.locale.locale : ''"
                   ></reviews>
-                  <packing></packing>
+                   <packing></packing>
                 </div>
               </div>
             </div>
@@ -231,13 +231,13 @@ export default {
       window.$('.product-tab-cont.content' + ` ${id}`).show()
     },
     breadcrumbsWay () {
-      if (!this.cat_id && this.product.categories && this.product.categories.length) {
-        let catId = this.product.categories[0].alias
-        this.setCatId(catId)
-        this.fetchBreadcrumbs()
-      } else {
-        this.fetchBreadcrumbs()
-      }
+      this.fetchBreadcrumbs().then(res => {
+        if (!res && this.product.categories && this.product.categories.length) {
+          let catId = this.product.categories[0].alias
+          this.setCatId(catId)
+          this.fetchBreadcrumbs()
+        }
+      })
     },
     addGrav () {
       window.$('.modal').modal('close')
@@ -245,19 +245,6 @@ export default {
         text: this.inputGravText,
         style_id: this.style_id || 1
       }
-      console.log(this.grave)
-    },
-    initZoom () {
-      /* window.$('.productImages .product-big-images img').elevateZoom({
-        gallery: 'gal-product',
-        cursor: 'pointer',
-        galleryActiveClass: 'active',
-        zoomType: 'lens',
-        lensShape: 'round',
-        lensSize: 255,
-        imageCrossfade: true
-      }) */
-      this.initZoomJQuery('productImages', 'gal-product')
     },
     gravChangeTextStyle (e, str, id) {
       window.$('.grav-change span').removeClass('active')
@@ -267,7 +254,7 @@ export default {
       this.style_id = id
     },
     productFunction () {
-      this.initZoom()
+      this.initZoomJQuery('productImages', 'gal-product')
       this.letterin()
       window.$('.materialboxed').materialbox()
       window.$('.tab-box .product-char .product-char-row:gt(8)').hide()
@@ -360,6 +347,7 @@ export default {
     }
   },
   mounted () {
+    this.productFunction()
     window.$('#modal-grav, #addedToCart, #addedToCredit, #modal-video').modal({
       opacity: 1,
       ready: function (el) {
@@ -377,7 +365,6 @@ export default {
     window.$('.change-size.product_w:nth-of-type(1)').find('span').addClass('active')
     window.$('.change-size.product_s').find('span').removeClass('active').end().find('span:nth-of-type(1)').addClass('active')
     window.$('.productImages .zoomImg').data('zoom-image', this.currImg())
-    this.productFunction()
   },
   beforeDestroy () {
     window.$('.zoomContainer').remove()

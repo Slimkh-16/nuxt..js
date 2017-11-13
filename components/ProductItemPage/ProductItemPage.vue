@@ -1,8 +1,8 @@
 <template>
   <div>
-    <product :product="this.product"></product>
+     <product :product="this.product"></product>
 
-    <how-buy></how-buy>
+     <how-buy></how-buy>
 
     <related-products v-if="product.hasOwnProperty('id')" :product="product"></related-products>
 
@@ -52,8 +52,8 @@
     computed: {
       ...mapGetters(['product'])
     },
-    async asyncData ({store, route}) {
-      let res = await store.dispatch('fetchProduct', route.path)
+    async asyncData ({store, route, redirect}) {
+      let res = await store.dispatch('fetchProduct', [route.path, redirect])
       return {res}
     },
     head () {
