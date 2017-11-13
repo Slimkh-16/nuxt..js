@@ -26,10 +26,10 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import Breadcrumbs from '../../components/Breadcrumbs'
-import StoneCategoriesHelper from '../../helpers/StoneCategoriesHelper'
-import ImageHelper from '../../helpers/ImageHelper'
-import SeoHelper from '../../helpers/SeoHelper'
+import Breadcrumbs from '../../../components/Breadcrumbs'
+import StoneCategoriesHelper from '../../../helpers/StoneCategoriesHelper'
+import ImageHelper from '../../../helpers/ImageHelper'
+import SeoHelper from '../../../helpers/SeoHelper'
 
 export default {
   components: {
