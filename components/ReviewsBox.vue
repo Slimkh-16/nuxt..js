@@ -7,7 +7,10 @@
         <router-link v-if="isMain && review.formatted_body.length > 200" :to="{ name: 'Reviews' }" class="all-testi">
           Читать отзыв полностью
         </router-link>
-        <div class="testi-author">— {{review.name}}<span>{{filterData(review.created_at)}}</span></div>
+        <div class="testi-author">
+          — {{review.name}}
+          <span>{{filterData(review.created_at)}}</span>
+        </div>
       </div>
     </div>
   </div>

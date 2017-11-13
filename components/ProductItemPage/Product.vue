@@ -36,7 +36,8 @@
                     <div class="product-char-col"><span> Размеры:</span></div>
                     <div class="product-char-col">
                       <div class="change-size product_s">
-                        <span v-for="k in sortedSizes" @click="selectSize($event, sizes[k])">{{k}}</span>
+                        <span v-if="k != '0'" v-for="k in sortedSizes" @click="selectSize($event, sizes[k])">{{k}}</span>
+                        <span v-else>	&#8212;</span>
                       </div>
                     </div>
                   </div>
@@ -111,9 +112,9 @@
                 </div>
                 <div class="product-tab-cont content">
                   <all-tab :product="product"></all-tab>
-                  <!-- <photo-video
+                  <photo-video
                     :product="product">
-                  </photo-video> -->
+                  </photo-video>
                   <characteristics
                     :product="product"
                     >
@@ -283,7 +284,6 @@ export default {
       window.$(e.target).addClass('active')
       this.selectedSize = v.sort((p, n) => +p.weight - +n.weight)
       this.currentWeight = v[0]
-      console.log(this.selectedSize[0].price)
     },
     selectWeight (e, w) {
       window.$(e.target).closest('.product-char-col').find('span').removeClass('active')
@@ -339,7 +339,7 @@ export default {
       return Object.keys(this.sizes).sort((p, n) => +p - +n)
     },
     dynamicProductPrice () {
-      return this.selectedSize[0] ? this.selectedSize[0].price : null
+      return (this.selectedSize[0] && !this.selectedSize[0].size === '0') ? this.selectedSize[0].price : this.currentWeight.price
     },
     pageCredit () {
       const pageCredit = this.contentPages.length && this.contentPages.filter((obj) => obj.alias === pageCreditUrl)[0]

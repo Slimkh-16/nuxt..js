@@ -17,7 +17,7 @@
       <div class="header-middle clearfix">
         <div class="container">
           <div data-activates="slide-out" class="menu-button-general"><span></span><span></span><span></span></div>
-          <div class="header-search">          
+          <div class="header-search">
             <form @submit.prevent="searchFunction()">
               <button type="submit"><span class="icon-search"></span></button>
               <input type="text" value="" v-model="subString" placeholder="Что вы ищете?" @focus="searchFocus()" @input="inputSearch()">
@@ -38,8 +38,8 @@
                 </li>
               </ul>
               <div v-if="searchProductList && searchProductList.length" class="all-results" @click.prevent="searchFunction()">Все результаты</div>
-              <div v-if="isProgressing" class="empty-result">Прелоадер</div>
-              <div v-if="!isProgressing && !searchProductList && !searchProductList.length" class="empty-result">Ничего не найдено</div>
+              <preload-content v-if="isProgressing"></preload-content>
+              <div v-if="!isProgressing && !searchProductList.length" class="empty-result">Ничего не найдено</div>
             </div>
           </div>
           <div class="header-logo">
@@ -139,6 +139,7 @@
 import { mapActions, mapGetters } from 'vuex'
 import SocialHelper from '../helpers/SocialHelper'
 import ImageHelper from '../helpers/ImageHelper'
+import Preload from '../components/Preload.vue'
 
 export default {
   name: 'app-header',
@@ -149,6 +150,9 @@ export default {
     }
   },
   props: ['menu', 'count'],
+  components: {
+    'preload-content': Preload
+  },
   mixins: [SocialHelper, ImageHelper],
   computed: {
     ...mapGetters(['settings', 'searchProductList', 'contentPages', 'isProgressing'])

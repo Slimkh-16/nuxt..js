@@ -15,51 +15,6 @@
       :title="'Оставьте отзыв о данном товаре'"
       :subTitle="'Мы хотели бы узнать Ваше мнение.'"
     ></review-form>
-    <!-- <div class="add-testimonials contact-form-sect">
-      <div class="head-contact">Оставьте отзыв о данном товаре<span>Мы хотели бы узнать Ваше мнение.</span></div>
-      <form class="js_validate align-center" @submit.prevent="sendProductReview()">
-        <div class="row">
-          <div class="col l12 s12">
-            <div :data-error="errorMsg" :data-recheck="recheckMsg" class="input-field required-field"><span class="label-field"> ФИО*</span>
-              <input type="text" v-model="name" required data-validate="text">
-            </div>
-          </div>
-          <div class="col l12 s12">
-            <div :data-error="errorMsg" :data-recheck="recheckMsg" class="input-field required-field"><span class="label-field"> Email*</span>
-              <input type="email" v-model="email" required data-validate="email">
-            </div>
-          </div>
-          <div class="col l12 s12">
-            <div :data-error="errorMsg" :data-recheck="recheckMsg" class="input-field required-field"><span class="label-field"> Ваш отзыв*</span>
-              <textarea v-model="message" required class="materialize-textarea" data-validate="text"></textarea>
-            </div>
-          </div>
-        </div>
-        <button type="submit" class="btn btn--brown waves-effect waves-light">Отправить</button>
-      </form>
-    </div>
-    <div id="modal-review" class="modal">
-      <div class="modal-content"><span class="modal-action modal-close modal-close--top icon-cancel"></span>
-        <div class="modal-body">
-          <h3 class="align-center">Ваш отзыв отправлен</h3>
-          
-        </div>
-        <div class="modal-foot clearfix">
-          <span class="btn waves-effect waves-light modal-close"><span class="icon-16-arrow-link"></span>Ок</span>
-        </div>
-      </div>
-    </div>
-    <div id="modal-review-error" class="modal">
-      <div class="modal-content"><span class="modal-action modal-close modal-close--top icon-cancel"></span>
-        <div class="modal-body">
-          <h3 class="align-center">Сервер не отвечает, попробуйте позже</h3>
-          
-        </div>
-        <div class="modal-foot clearfix">
-          <span class="btn waves-effect waves-light modal-close"><span class="icon-16-arrow-link"></span>Закрыть</span>
-        </div>
-      </div>
-    </div> -->
   </div>
 </template>
 

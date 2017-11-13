@@ -1786,6 +1786,7 @@ h5,
   margin-top: 25px;
   line-height: 16px;
   text-align: right;
+  font-size: 14px;
 }
 
 .testi-author span {
@@ -3098,8 +3099,13 @@ h5,
   position: relative;
   overflow: hidden;
   height: 550px;
+  text-align: center;
+  line-height: 550px;
 }
-
+.product-big-images .zoomWrapper {
+  display: inline-block;
+  vertical-align: middle;
+}
 .product-big-images img {
   left: 0;
   right: 0;
@@ -6649,4 +6655,26 @@ body:not(.inner-page) .grid-item.news-item {
 
 #cartIsEmptyIndex .modal-foot .modal-close {
   padding: 0 30px;
+}
+.preload-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: #fff;
+  z-index: 777;
+}
+.spinner-green, .spinner-green-only{
+  border-color: #502e17;
+}
+.preload-content .preload-cont-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform:translate(-50%,-50%)  scale(0.7);
+  -moz-transform: translate(-50%,-50%) scale(0.7);
+  -ms-transform: translate(-50%,-50%) scale(0.7);
+  -o-transform: translate(-50%,-50%) scale(0.7);
+  transform: translate(-50%,-50%) scale(0.7);
 }
