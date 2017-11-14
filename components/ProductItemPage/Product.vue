@@ -84,7 +84,7 @@
                 </div>
                 <a v-if="product.is_engravable" href="#modal-grav" class="product-free-grav modal-trigger">Добавить бесплатную гравировку</a>
                 <div class="product-buy">
-                  <div class="product-buy-phone">Заказ по телефону<b>{{getObjectByKey('phone_for_order') && getObjectByKey('phone_for_order').value}}</b><span class="tt-upp">БЕСПЛАТНЫЙ НОМЕР</span>
+                  <div class="product-buy-phone">Заказ по телефону<a v-if="getObjectByKey('phone_for_order')" :href="`tel:${getObjectByKey('phone_for_order').value}`">{{getObjectByKey('phone_for_order').value}}</a><span class="tt-upp">БЕСПЛАТНЫЙ НОМЕР</span>
                   </div>
                   <a v-if="product.available && product.total_price || dynamicProductPrice" href="#" class="btn waves-effect waves-light" @click.prevent="addToCart()">Купить</a>
                   <br>

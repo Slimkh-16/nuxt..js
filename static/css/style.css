@@ -3388,10 +3388,11 @@ h5,
   color: #9c9ea8;
 }
 
-.product-buy-phone b {
+.product-buy-phone a{
   display: block;
   font-size: 20px;
   line-height: 24px;
+  font-weight: bold;
 }
 
 .product-button .product-item__button {
@@ -4645,6 +4646,7 @@ textarea.materialize-textarea {
   padding: 100px 0;
 }
 .found-page  .header-search {
+  z-index: 5;
   display: block;
   width: auto;
   max-width: 100%;

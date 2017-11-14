@@ -53,7 +53,7 @@
         </div>
         <div class="row foot-bottom">
           <div class="col l9 m6 s12">
-            <p>Служба поддержки: {{getObjectByKey('support_phone') && getObjectByKey('support_phone').value}} ({{getObjectByKey('support_time') && getObjectByKey('support_time').value}})</p>
+            <p>Служба поддержки: <a v-if="getObjectByKey('support_phone')" :href="`tel:${getObjectByKey('support_phone').value}`">{{getObjectByKey('support_phone').value}}</a> ({{getObjectByKey('support_time') && getObjectByKey('support_time').value}})</p>
             <p>© 2013-<span class="yearN">2017</span> Все права защищены. Право на использование торговой марки EUROGOLD принадлежит ИП "Коровин Е.Н."</p>
             <p>Все материалы, представленные на сайте, являются собственностью ИМ "Коровин Е.Н." Любое использование этих материалов на других сайтах, в социальных сетях, в электронном или печатном виде запрещено законодательством Российской Федерации.</p>
           </div>
