@@ -7,7 +7,9 @@
             <div data-swiper-parallax="-100" class="general-slider-caption">
               <div class="caption-head" :style="`color:${getStylesByKey('title_colour', slide)}`">{{slide && slide.locale && slide.locale.title}}</div>
               <span v-html="slide && slide.locale && slide.locale.description" :style="`color:${getStylesByKey('description_colour', slide)}`"></span>
-              <router-link v-if="slide.alias" :to="slide.alias" class="btn waves-effect waves-light">{{slide.locale.button_text ? slide.locale.button_text : 'Смотреть каталог'}}</router-link>
+              <div class="clearfix">
+                <router-link v-if="slide.alias" :to="slide.alias" class="btn waves-effect waves-light">{{slide.locale.button_text ? slide.locale.button_text : 'Смотреть каталог'}}</router-link>
+              </div>
             </div>
             <img :src="getStylesByKey('image', slide, true)" alt="" data-swiper-parallax="-300" class="general-slide-img">
           </div>
@@ -65,6 +67,20 @@ export default {
         this.initSlider()
       })
     }
+  },
+  mounted () {
+    if (window.$(window).width() < 599) {
+      window.$('.caption-head').liTextLength({
+        length: 40,
+        afterLength: '...',
+        fullText: false
+      })
+      window.$('.general-slider-caption span').liTextLength({
+        length: 100,
+        afterLength: '...',
+        fullText: false
+      })
+    }
   }
 }
 </script>
@@ -75,14 +91,14 @@ export default {
     max-width: 50%;
   }
 
-  .general-slider .swiper-slide {
-    height: 530px;
-  }
+  /*.general-slider .swiper-slide {*/
+    /*height: 530px;*/
+  /*}*/
 
   @media only screen and (max-width: 599px) {
-    .general-slider .swiper-slide {
-      height: 335px;
-    }
+    /*.general-slider .swiper-slide {*/
+      /*height: 335px;*/
+    /*}*/
     .wrapper {
       padding-top: 64px;
     }

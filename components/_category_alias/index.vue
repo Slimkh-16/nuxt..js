@@ -392,6 +392,7 @@ export default {
         this.productFilters.page = 1
         this.filterObserver()
         window.$('.catalog-filter').removeClass('visible')
+        window.$('body').removeClass('noscroll')
       })
     },
     sliderRange () {

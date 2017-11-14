@@ -164,9 +164,9 @@ export default {
       window.addEventListener('scroll', function () {
         scrollTopPosition = window.pageYOffset ? window.pageYOffset : (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)
         if (scrollTopPosition > 50) {
-          document.querySelector('.header').classList.add('fix')
+          window.$('.header').addClass('fix')
         } else {
-          document.querySelector('.header').classList.remove('fix')
+          window.$('.header').removeClass('fix')
         }
       })
     },
