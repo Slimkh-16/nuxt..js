@@ -62,10 +62,10 @@ export default {
         fullText: false
       })
     })
-  },
-  beforeDestroy () {
-    window.$('.grid').masonry('destroy')
   }
+  //  beforeDestroy () {
+  //    window.$('.grid').masonry('destroy')
+  //  }
 }
 </script>
 

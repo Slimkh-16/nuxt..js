@@ -14,6 +14,7 @@
     <!-- footer -->
     <app-footer :menu="menu"></app-footer>
     <empty-cart></empty-cart>
+    <div class="go-top" @click="scrollTo"></div>
   </div>
 </template>
 
@@ -32,6 +33,14 @@ export default {
     ...mapActions(['fetchMenu', 'fetchBreadcrumbs', 'fetchSettings', 'fetchContentPage', 'getStone', 'fetchRedirects']),
     redirectToMainPage () {
       this.$route.fullPath === '/checkout' && this.$router.push('/')
+    },
+    scrollTo () {
+      let scrollStep = -window.scrollY / (200 / 15)
+      let scrollInterval = setInterval(function () {
+        if (window.scrollY !== 0) {
+          window.scrollBy(0, scrollStep)
+        } else clearInterval(scrollInterval)
+      }, 15)
     }
   },
   mixins: [Cart],
@@ -62,6 +71,15 @@ export default {
       },
       complete: function () {
         window.$('.overlay').fadeOut(500)
+      }
+    })
+    var scrollTopPosition
+    window.addEventListener('scroll', function () {
+      scrollTopPosition = window.pageYOffset ? window.pageYOffset : (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop)
+      if (scrollTopPosition > 50) {
+        window.$('.go-top').addClass('visible')
+      } else {
+        window.$('.go-top').removeClass('visible')
       }
     })
   }

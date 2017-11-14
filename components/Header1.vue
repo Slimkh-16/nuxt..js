@@ -31,7 +31,7 @@
                     </span>
                     <span class="fast-search__body">
                         {{fastSearch.locale.name}} <br>
-                      <span class="old-price">{{fastSearch.price_old}} грн</span>
+                      <!--<span class="old-price">{{fastSearch.price_old}} грн</span>-->
                       <b class="price">{{fastSearch.price}} грн</b>
                     </span>
                   </router-link>
@@ -88,6 +88,10 @@
           <img src="../assets/images/Euro-Gold-Logo-WH.svg" alt="">
         </router-link>
       </div>
+      <a href="#" class="cart-button js_cart" @click.prevent="checkCart()">
+        <span class="icon-cart"></span>
+        <span v-if="count" class="count-cart">{{count}}</span>
+      </a>
     </header>
     <!-- menu for mobile -->
     <div id="slide-out" class="left-fixed-nav side-nav">

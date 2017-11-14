@@ -1,13 +1,14 @@
 <template>
   <div class="pagination-section" v-if="totalItems > itemsPerPage">
-    <a @click.prevent="pageChanged(1)" :class="[{disabled: this.currentPage == 1}, 'prev-page']">< пред.</a>
+    <a @click.prevent="pageChanged(prevPage)" :class="[{disabled: this.currentPage == 1}, 'prev-page']">< пред.</a>
     <ul>
-      <li v-if="paginationRange.indexOf(1) === -1" :class="[activePage(1), 'page-number']"><a @click.prevent="pageChanged(1)">{{ 1 }}</a></li>
+      <li v-if="paginationRange.indexOf(1) === -1 && this.currentPage > 4" :class="[activePage(1), 'page-number']"><a @click.prevent="pageChanged(1)">{{ 1 }}</a></li>
+      <li v-if="this.currentPage > 4" class="sep-pagination">...</li>
       <li v-for="(n, i) in paginationRange" :class="[activePage(n), 'page-number']" :key="i">
         <a @click.prevent="pageChanged(n)">{{ n }}</a>
       </li>
     </ul>
-    <a @click.prevent="pageChanged(lastPage)" :class="[{disabled: this.currentPage == this.lastPage}, 'next-page']">след. ></a>
+    <a @click.prevent="pageChanged(nextPage)" :class="[{disabled: this.currentPage == this.lastPage}, 'next-page']">след. ></a>
   </div>
 </template>
 <script>
@@ -44,6 +45,12 @@
           ? this.totalItems / this.itemsPerPage
           : Math.floor(this.totalItems / this.itemsPerPage) + 1
       },
+      prevPage () {
+        return this.currentPage !== 1 ? this.currentPage - 1 : 1
+      },
+      nextPage () {
+        return this.currentPage + 1
+      },
       paginationRange () {
         let start = this.currentPage - this.visiblePages / 2 <= 0
           ? 1 : this.currentPage + this.visiblePages / 2 > this.lastPage
@@ -74,6 +81,11 @@
 <style>
   .page-number, .prev-page, .next-page {
     cursor: pointer;
+  }
+  .sep-pagination {
+    text-align: center;
+    font-size: 15px;
+    color: #282627;
   }
   a.disabled {
     opacity: 0;
