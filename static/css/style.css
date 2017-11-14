@@ -4638,9 +4638,22 @@ textarea.materialize-textarea {
 .found-page {
   background: url(../images/bg-found.jpg) 50% 50% no-repeat;
   background-size: cover;
-  padding: 170px 0;
+  padding: 100px 0;
 }
-
+.found-page  .header-search {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  padding:30px 0;
+  text-align: center;
+}
+.found-page .header-search form {
+  margin-top: 30px;
+}
+.found-page .header-search form input {
+  background: #fff;
+  padding: 0 40px;
+}
 .found-container {
   width: 570px;
   max-width: 100%;

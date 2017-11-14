@@ -3,7 +3,6 @@
   <section class="stones-page">
     <div class="container">
       <breadcrumbs :breadcrumbs="{way: [{name: currentStone && `Украшения с камнем ${currentStone.locale.name.toLowerCase()}`}]}"></breadcrumbs>
-      <breadcrumbs :breadcrumbs="{way: [{name: 'Новости', template: 'news'}, {name: `${post.locale.title}`}]}"></breadcrumbs>
       <div class="big-heading">{{currentStone && `Украшения с камнем ${currentStone.locale.name.toLowerCase()}`}}</div>
       <br>
       <br>
@@ -52,26 +51,56 @@ export default {
     },
     getImgSrc (post) {
       let cover = this.coverImg(post)
-      return cover ? this.imgUrl(post.id, cover.name) : ''
+      return cover
     }
   },
   mounted () {
     this.getCategoriesByStone()
-    this.getMeta(this.$route.fullPath)
-      .then((r) => {
-        console.warn('dfsfsdf', r)
-        if (r) {
-          this.setMetaIntoPage({
-            title: r.locale.title,
-            keywords: r.locale.keywords,
-            description: r.locale.description,
-            canonical: r.locale.canonical,
-            robots: r.locale.robots
-          })
-        } else {
-          this.setMetaIntoPage({})
+    //    this.getMeta(this.$route.fullPath)
+    //      .then((r) => {
+    //        console.warn('dfsfsdf', r)
+    //        if (r) {
+    //          this.setMetaIntoPage({
+    //            title: r.locale.title,
+    //            keywords: r.locale.keywords,
+    //            description: r.locale.description,
+    //            canonical: r.locale.canonical,
+    //            robots: r.locale.robots
+    //          })
+    //        } else {
+    //          this.setMetaIntoPage({})
+    //        }
+    //      })
+  },
+  async asyncData ({store, route}) {
+    return {
+      postsMeta: await store.dispatch('getMeta', route.fullPath)
+    }
+  },
+  head () {
+    return {
+      title: this.postsMeta ? this.postsMeta.locale.title : 'Euroglasdkf;s',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: this.postsMeta ? this.postsMeta.locale.description : ''
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: this.postsMeta ? this.postsMeta.locale.keywords : ''
+        },
+        {
+          hid: 'robots',
+          name: 'robots',
+          content: this.postsMeta ? this.postsMeta.locale.robots : 'index, follow'
         }
-      })
+      ],
+      link: [
+        { rel: 'canonical', href: this.postsMeta ? this.postsMeta.locale.canonical : '' }
+      ]
+    }
   }
 }
 </script>

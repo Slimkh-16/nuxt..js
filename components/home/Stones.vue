@@ -1,7 +1,7 @@
 <template>
   <div v-if="stone" class="catalog-tab-cont">
     <div class="small-heading">Украшения с камнями</div>
-    <router-link :to="{ name: 'StonePage', params: { alias: stoneOne.alias }}" :key="stoneOne.id" v-for="stoneOne in stone" class="catalog-item">
+    <router-link :to="{ name: 'stones-alias', params: { alias: stoneOne.alias }}" :key="stoneOne.id" v-for="stoneOne in stone" class="catalog-item">
       <span  class="catalog-item__img">
         <img :src="stoneOne.image_url" :alt="stoneOne.locale.name">
       </span>
