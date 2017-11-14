@@ -36,12 +36,12 @@ export default {
       this.$nextTick(() => {
         setTimeout(() => {
           window.$('.over-txt').liTextLength({
-            length: 140,
+            length: 55,
             afterLength: '...',
             fullText: false
           })
           window.$('.news-item__title').liTextLength({
-            length: 100,
+            length: 40,
             afterLength: '...',
             fullText: false
           })
@@ -52,12 +52,12 @@ export default {
   mounted () {
     this.$nextTick(() => {
       window.$('.over-txt').liTextLength({
-        length: 140,
+        length: 55,
         afterLength: '...',
         fullText: false
       })
       window.$('.news-item__title').liTextLength({
-        length: 100,
+        length: 40,
         afterLength: '...',
         fullText: false
       })
