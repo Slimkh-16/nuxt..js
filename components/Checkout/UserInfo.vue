@@ -108,7 +108,7 @@ export default {
     }
   },
   mounted () {
-    window.$('.user-info .input-field input').on('blur', this.checkRequiredField)
+    window.$('.user-info .input-field input').on('keyup', this.checkRequiredField)
     window.$('input[data-validate="phone"]').mask('+380(99)999 99 99')
   },
   beforeDestroy () {

@@ -14,7 +14,7 @@
                   <td>
                     <ul>
                       <li><router-link :to="`/${c.alias}`">{{c.locale.name}}</router-link></li>
-                      <li v-if="c.size">Размер: {{c.size}}</li>
+                      <li v-if="c.size && c.size != '0'">Размер: {{c.size}}</li>
                       <li v-if="c.weight">Вес: {{c.weight}}</li>
                       <li v-if="c.npp.length">Артикул: {{c.npp}}</li>
                       <li v-if="c.grave.text">Гравировка: {{c.grave.text}}</li>
